@@ -29,7 +29,7 @@ contract YieldRouterTest is Test {
 
     uint256 internal constant INITIAL_SUPPLY = 10_000_000e6; // 10M USDC
     uint256 internal constant DEPOSIT_AMOUNT = 50_000e6; // 50k USDC
-    uint256 internal constant CYCLE_DURATION = 30; // 30 days
+    uint256 internal constant CYCLE_DURATION = 30 days; // 30 days
     uint256 internal constant STABLE_APY_BPS = 800; // 8%
     uint256 internal constant VOLATILE_APY_BPS = 1_500; // 15%
     uint256 internal constant INITIAL_TVL = 1_000_000e6; // 1M USDC
@@ -255,14 +255,14 @@ contract YieldRouterTest is Test {
         assertEq(cycle.cycleId, 1);
         assertEq(cycle.totalDeposited, DEPOSIT_AMOUNT);
         assertEq(cycle.cycleStartTime, startTime);
-        assertEq(cycle.payDay, startTime + (CYCLE_DURATION * 1 days));
+        assertEq(cycle.payDay, startTime + (CYCLE_DURATION));
         assertEq(cycle.currentAllocation, 0);
         assertEq(cycle.yieldEarned, 0);
         assertTrue(cycle.isActive);
     }
 
     function test_startCycle_emitsCycleStarted() public {
-        uint256 expectedPayday = block.timestamp + (CYCLE_DURATION * 1 days);
+        uint256 expectedPayday = block.timestamp + (CYCLE_DURATION);
 
         vm.expectEmit(true, true, false, true);
         emit YieldRouter.CycleStarted(
@@ -275,7 +275,7 @@ contract YieldRouterTest is Test {
         _startCycle();
     }
 
-     // ─── Multiple concurrent cycles ──────────────────────────────────────────
+    // ─── Multiple concurrent cycles ──────────────────────────────────────────
 
     function test_startCycle_incrementsCycleIdPerEmployer() public {
         _startCycle();
@@ -307,9 +307,9 @@ contract YieldRouterTest is Test {
         vm.stopPrank();
 
         // Each employer has exactly one cycle, independently
-        assertEq(router.getCycleCount(employer),  1);
+        assertEq(router.getCycleCount(employer), 1);
         assertEq(router.getCycleCount(employerB), 1);
-        assertEq(router.getCycle(employer,  1).totalDeposited, DEPOSIT_AMOUNT);
+        assertEq(router.getCycle(employer, 1).totalDeposited, DEPOSIT_AMOUNT);
         assertEq(router.getCycle(employerB, 1).totalDeposited, DEPOSIT_AMOUNT);
     }
 
@@ -321,7 +321,7 @@ contract YieldRouterTest is Test {
         assertEq(usdc.balanceOf(address(router)), DEPOSIT_AMOUNT * 2);
     }
 
-        // ─── Cycle getters ───────────────────────────────────────────────────────
+    // ─── Cycle getters ───────────────────────────────────────────────────────
 
     function test_getCycle_revertsOnInvalidCycleId() public {
         vm.expectRevert(YieldRouter.YieldRouter__CycleNotFound.selector);
@@ -335,7 +335,9 @@ contract YieldRouterTest is Test {
         _startCycle();
         _startCycle();
 
-        YieldRouter.PayrollCycle[] memory history = router.getCycleHistory(employer);
+        YieldRouter.PayrollCycle[] memory history = router.getCycleHistory(
+            employer
+        );
         assertEq(history.length, 2);
     }
 
@@ -343,7 +345,9 @@ contract YieldRouterTest is Test {
         _startCycle();
         _startCycle();
 
-        YieldRouter.PayrollCycle[] memory active = router.getActiveCycles(employer);
+        YieldRouter.PayrollCycle[] memory active = router.getActiveCycles(
+            employer
+        );
         assertEq(active.length, 2);
         assertTrue(active[0].isActive);
         assertTrue(active[1].isActive);
@@ -374,6 +378,12 @@ contract YieldRouterTest is Test {
         assertTrue(p.isStablePair);
         assertTrue(p.isActive);
     }
+
+    // =========================================================================
+    // BUFFER CALCULATION
+    // =========================================================================
+
+
 
     // =========================================================================
     // INTERNAL HELPERS
