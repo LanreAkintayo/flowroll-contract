@@ -170,6 +170,47 @@ contract YieldRouterTest is Test {
         vm.stopPrank();
     }
 
+       // ─── Admin setters ───────────────────────────────────────────────────────
+
+    function test_setAgentOperator_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.setAgentOperator(stranger);
+    }
+
+    function test_setAgentOperator_revertsOnZeroAddress() public {
+        vm.prank(owner);
+        vm.expectRevert(YieldRouter.YieldRouter__ZeroAddress.selector);
+        router.setAgentOperator(address(0));
+    }
+
+    function test_setTreasury_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.setTreasury(stranger);
+    }
+
+    function test_setPayrollDispatcher_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.setPayrollDispatcher(stranger);
+    }
+
+    function test_pause_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.pause();
+    }
+
+    function test_startCycle_revertsWhenPaused() public {
+        vm.prank(owner);
+        router.pause();
+
+        vm.prank(treasury);
+        vm.expectRevert();
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+    }
+
 
 
     // =========================================================================
