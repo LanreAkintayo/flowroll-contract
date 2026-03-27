@@ -24,7 +24,7 @@ contract MockPool is ERC4626, Ownable {
     string public poolName;
 
     /// @notice Indicates if the pool is a stablecoin pair.
-    bool public immutable stablePair;
+    bool public immutable STABLE_PAIR;
 
     /// @notice Reported APY in basis points.
     uint256 public apyBps;
@@ -51,7 +51,7 @@ contract MockPool is ERC4626, Ownable {
     {
         poolName = _poolName;
         apyBps = _apyBps;
-        stablePair = _stablePair;
+        STABLE_PAIR = _stablePair;
     }
 
     /**
@@ -88,7 +88,7 @@ contract MockPool is ERC4626, Ownable {
 
     /// @notice Returns whether the pool is a stable pair.
     function isStablePair() external view returns (bool) {
-        return stablePair;
+        return STABLE_PAIR;
     }
 
     /**

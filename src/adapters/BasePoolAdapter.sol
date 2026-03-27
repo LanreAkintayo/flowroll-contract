@@ -25,7 +25,7 @@ abstract contract BasePoolAdapter is Ownable, IPoolAdapter {
     event Withdrawn(uint256 sharesReturned, uint256 usdcReceived);
 
     /// @notice USDC token address.
-    address public immutable usdc;
+    address public immutable USDC;
 
     /// @notice Underlying pool address.
     address public pool;
@@ -37,7 +37,7 @@ abstract contract BasePoolAdapter is Ownable, IPoolAdapter {
     constructor(address _usdc, address _pool) Ownable(msg.sender) {
         if (_usdc == address(0)) revert Adapter__ZeroAddress();
         if (_pool == address(0)) revert Adapter__ZeroAddress();
-        usdc = _usdc;
+        USDC = _usdc;
         pool = _pool;
     }
 
@@ -77,7 +77,7 @@ abstract contract BasePoolAdapter is Ownable, IPoolAdapter {
      * @param amount Amount to approve.
      */
     function _approvePool(uint256 amount) internal {
-        IERC20(usdc).forceApprove(pool, amount);
+        IERC20(USDC).forceApprove(pool, amount);
     }
 
     /**
@@ -86,7 +86,7 @@ abstract contract BasePoolAdapter is Ownable, IPoolAdapter {
      */
     function _pullUsdc(uint256 amount) internal {
         if (amount == 0) revert Adapter__ZeroAmount();
-        IERC20(usdc).safeTransferFrom(msg.sender, address(this), amount);
+        IERC20(USDC).safeTransferFrom(msg.sender, address(this), amount);
     }
 
     /**
@@ -95,6 +95,6 @@ abstract contract BasePoolAdapter is Ownable, IPoolAdapter {
      */
     function _pushUsdc(uint256 amount) internal {
         if (amount == 0) revert Adapter__ZeroAmount();
-        IERC20(usdc).safeTransfer(msg.sender, amount);
+        IERC20(USDC).safeTransfer(msg.sender, amount);
     }
 }
