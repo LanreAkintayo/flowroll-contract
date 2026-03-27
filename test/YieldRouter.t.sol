@@ -148,6 +148,28 @@ contract YieldRouterTest is Test {
         vm.stopPrank();
     }
 
+     // ─── Pool management ─────────────────────────────────────────────────────
+
+    function test_addPool_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.addPool(address(stableAdapter), address(stablePool), true, 500);
+    }
+
+    function test_deactivatePool_revertsIfNotOwner() public {
+        vm.prank(stranger);
+        vm.expectRevert();
+        router.deactivatePool(0);
+    }
+
+    function test_deactivatePool_revertsIfAlreadyInactive() public {
+        vm.startPrank(owner);
+        router.deactivatePool(0);
+        vm.expectRevert(YieldRouter.YieldRouter__PoolAlreadyInactive.selector);
+        router.deactivatePool(0);
+        vm.stopPrank();
+    }
+
 
 
     // =========================================================================
