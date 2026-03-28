@@ -5,6 +5,8 @@ import {SharedBase} from "./SharedBase.t.sol";
 import {YieldRouter} from "../../src/YieldRouter.sol";
 import {MockPool} from "../../src/mocks/MockPool.sol";
 import {MockPoolAdapter} from "../../src/adapters/MockPoolAdapter.sol";
+
+import {MockPayrollDispatcher} from "../../src/mocks/MockPayrollDispatcher.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 abstract contract YieldRouterBase is SharedBase {
@@ -16,6 +18,7 @@ abstract contract YieldRouterBase is SharedBase {
     MockPool           internal volatilePool;
     MockPoolAdapter    internal stableAdapter;
     MockPoolAdapter    internal volatileAdapter;
+    MockPayrollDispatcher     internal mockDispatcher;
 
     // ─── Pool Constants ───────────────────────────────────────────────────────
 
@@ -83,8 +86,12 @@ abstract contract YieldRouterBase is SharedBase {
         // Deploy router
         router = new YieldRouter(agentOperator, address(usdc));
 
+        // Deploy and wire dispatcher
+        mockDispatcher = new MockPayrollDispatcher();
+
         // Wire up
         router.setTreasury(treasury);
+        router.setPayrollDispatcher(address(mockDispatcher));
         router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
         router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
 
@@ -141,5 +148,12 @@ abstract contract YieldRouterBase is SharedBase {
     function _rebalance(address _employer, uint256 cycleId) internal {
         vm.prank(agentOperator);
         router.agentRebalance(_employer, cycleId);
+    }
+
+     /// @dev Returns snapshotted risk thresholds from cycle 1
+    function _riskThresholds(uint256 cycleId) internal view returns (uint256 high, uint256 med) {
+        YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, cycleId);
+        high = cycle.highRiskThreshold;
+        med  = cycle.medRiskThreshold;
     }
 }
