@@ -113,6 +113,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     error YieldRouter__DispatcherNotSet();
     error YieldRouter__InvalidBufferConfig();
     error YieldRouter__InvalidRiskConfig();
+    error YieldRouter__CycleNotCancellable();
 
     // ─── Constants ───────────────────────────────────────────────────────────
 
@@ -182,6 +183,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 scoreAfter
     );
     event RiskConfigUpdated(uint256 indexed highPct, uint256 indexed medPct);
+    event CycleCancelled(
+        address indexed caller,
+        uint256 indexed cycleId,
+        uint256 amountReturned
+    );
 
     // ─── Modifiers ───────────────────────────────────────────────────────────
 
@@ -383,7 +389,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         address employer,
         uint256 totalDeposited,
         uint256 cycleDuration
-    ) external onlyAuthorizedCaller whenNotPaused {
+    ) external onlyAuthorizedCaller whenNotPaused returns (uint256 cycleId) {
         if (totalDeposited == 0) revert YieldRouter__ZeroDeposit();
         if (cycleDuration == 0) revert YieldRouter__ZeroDuration();
 
@@ -432,6 +438,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             })
         );
 
+        cycleId = newCycleId;
+
         emit CycleStarted(employer, newCycleId, totalDeposited, payday);
         emit AgentAction(
             employer,
@@ -444,6 +452,30 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             0,
             0
         );
+    }
+
+    function cancelCycle(
+        address employer,
+        uint256 cycleId
+    )
+        external
+        onlyAuthorizedCaller
+        nonReentrant
+        cycleIsActive(employer, cycleId)
+        returns (uint256 amountReturned)
+    {
+        PayrollCycle storage cycle = cycles[employer][cycleId - 1];
+
+        // Only cancellable if agent has never rebalanced — no funds in pools
+        if (cycle.currentAllocation > 0)
+            revert YieldRouter__CycleNotCancellable();
+
+        amountReturned = cycle.totalDeposited;
+        cycle.isActive = false;
+
+        IERC20(usdc).safeTransfer(msg.sender, amountReturned);
+
+        emit CycleCancelled(employer, cycleId, amountReturned);
     }
 
     // ─── Cycle Getters ───────────────────────────────────────────────────────
@@ -575,7 +607,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 ilFactor = pool.isStablePair
             ? IL_RISK_STABLE
             : IL_RISK_VOLATILE;
-        uint256 riskMult = _getRiskMultiplier(timeLeft, highRiskThreshold, medRiskThreshold);
+        uint256 riskMult = _getRiskMultiplier(
+            timeLeft,
+            highRiskThreshold,
+            medRiskThreshold
+        );
 
         score =
             (((((apyBps * liqFactor) / SCALE) * riskMult) / SCALE) * ilFactor) /
@@ -591,7 +627,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         bestIdx = NO_POOL;
         bestScore = 0;
         for (uint256 i = 0; i < pools.length; i++) {
-            uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
+            uint256 s = scorePool(
+                i,
+                idleAmount,
+                timeLeft,
+                highRiskThreshold,
+                medRiskThreshold
+            );
             if (s > bestScore) {
                 bestScore = s;
                 bestIdx = i;
@@ -611,7 +653,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         worstScore = type(uint256).max;
         for (uint256 i = 0; i < pools.length; i++) {
             if (poolAllocations[caller][cycleId][i] == 0) continue;
-            uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
+            uint256 s = scorePool(
+                i,
+                idleAmount,
+                timeLeft,
+                highRiskThreshold,
+                medRiskThreshold
+            );
             if (s < worstScore) {
                 worstScore = s;
                 worstIdx = i;
@@ -727,7 +775,12 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         // ── APY floor check ───────────────────────────────────────────────────
         uint256 bestIdx;
         uint256 bestScore;
-        (bestIdx, bestScore) = findBestPool(idleAmount, timeLeft, cycle.highRiskThreshold, cycle.medRiskThreshold);
+        (bestIdx, bestScore) = findBestPool(
+            idleAmount,
+            timeLeft,
+            cycle.highRiskThreshold,
+            cycle.medRiskThreshold
+        );
 
         if (bestIdx == NO_POOL || bestScore == 0) {
             emit AgentAction(
@@ -821,7 +874,6 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                     timeLeft,
                     highRiskThreshold,
                     medRiskThreshold
-
                 );
                 if (worstIdx != NO_POOL && worstIdx != bestIdx) {
                     uint256 shares = poolAllocations[caller][cycleId][worstIdx];
@@ -911,7 +963,6 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 timeLeft,
         uint256 highRiskThreshold,
         uint256 medRiskThreshold
-
     ) internal returns (uint256 totalWithdrawn) {
         uint256 remaining = needed;
 
@@ -998,7 +1049,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         for (uint256 i = 0; i < pools.length; i++) {
             if (!pools[i].isActive) continue;
             if (poolAllocations[caller][cycleId][i] > 0) {
-                uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
+                uint256 s = scorePool(
+                    i,
+                    idleAmount,
+                    timeLeft,
+                    highRiskThreshold,
+                    medRiskThreshold
+                );
                 if (s > best) best = s;
             }
         }
