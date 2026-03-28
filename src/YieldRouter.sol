@@ -138,7 +138,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     RiskConfig riskConfig;
 
     mapping(address => PayrollCycle[]) public cycles;
-    mapping(address => mapping(uint256 => mapping(uint256 => uint256)))
+    mapping(address caller => mapping(uint256 cycleId => mapping(uint256 poolIndex => uint256)))
         public poolAllocations;
 
     // ─── Events ──────────────────────────────────────────────────────────────

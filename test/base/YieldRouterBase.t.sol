@@ -34,7 +34,7 @@ abstract contract YieldRouterBase is SharedBase {
     uint256 internal constant TIER_0_TIME_LEFT = 21 days; // > 70% = 21 days
     uint256 internal constant TIER_1_TIME_LEFT = 15 days; // > 50% = 15 days
     uint256 internal constant TIER_2_TIME_LEFT = 9 days; // > 30% = 9 days
-    uint256 internal constant TIER_3_TIME_LEFT = 7.5 days;  // > 25% = 7.5 days
+    uint256 internal constant TIER_3_TIME_LEFT = 7 days + 12 hours;  // > 25% = 7.5 days
     uint256 internal constant TIER_4_TIME_LEFT = 3 days;  // > 10% = 3 days
     uint256 internal constant TIER_5_TIME_LEFT = 0 days;  // catch-all
 
