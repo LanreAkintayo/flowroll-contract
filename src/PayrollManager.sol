@@ -88,6 +88,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     address public feeRecipient;
     uint256 public feeBps;
 
+    mapping(address => mapping(uint256 cycleId => uint256 groupId)) public cycleToGroup;
     mapping(address => EmployerProfile) private employers;
     mapping(address => mapping(uint256 => PayrollGroup)) private groups;
     mapping(address => mapping(uint256 => address[])) private groupEmployees;
@@ -545,6 +546,8 @@ function updateSalaries(
 
         // Store cycleId — links this group to its YieldRouter cycle
         groups[msg.sender][groupId].activeCycleId = cycleId;
+
+        cycleToGroup[msg.sender][cycleId] = groupId;
 
         emit PayrollDeposited(
             msg.sender,

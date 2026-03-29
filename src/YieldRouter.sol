@@ -702,7 +702,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
             _withdrawAllFromPools(caller, cycleId);
 
-            uint256 disbursed = cycle.totalDeposited;
+            uint256 disbursed = cycle.totalDeposited + cycle.yieldEarned;
             uint256 earned = cycle.yieldEarned;
             cycle.isActive = false;
 

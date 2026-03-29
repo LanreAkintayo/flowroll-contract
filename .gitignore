@@ -17,3 +17,7 @@ docs/
 agent/node_modules/
 agent/dist/
 EOF
+
+scripts/node_modules/
+scripts/.env
+scripts/dist/
