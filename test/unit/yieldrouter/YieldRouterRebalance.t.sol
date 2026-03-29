@@ -70,7 +70,7 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         usdc.approve(address(freshRouter), type(uint256).max);
 
         vm.prank(treasury);
-        freshRouter.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        freshRouter.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(0));
 
         uint256 payday = freshRouter.getCycle(employer, 1).payDay;
         vm.warp(payday);

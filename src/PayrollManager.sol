@@ -85,6 +85,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
 
     address public immutable usdc;
     address public yieldRouter;
+    address public payrollDispatcher;
     address public feeRecipient;
     uint256 public feeBps;
 
@@ -142,6 +143,8 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     );
     event FeeBpsUpdated(uint256 previous, uint256 updated);
     event YieldRouterSet(address indexed router);
+    event PayrollDispatcherSet(address indexed _dispatcher);
+
 
     // ─── Modifiers ───────────────────────────────────────────────────────────
 
@@ -191,6 +194,13 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         yieldRouter = _router;
         emit YieldRouterSet(_router);
     }
+
+     function setPayrollDispatcher(address _dispatcher) external onlyOwner {
+        if (_dispatcher == address(0)) revert PayrollManager__ZeroAddress();
+        payrollDispatcher = _dispatcher;
+        emit PayrollDispatcherSet(_dispatcher);
+    }
+
 
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
         if (_feeRecipient == address(0)) revert PayrollManager__ZeroAddress();
@@ -541,7 +551,8 @@ function updateSalaries(
         uint256 cycleId = IYieldRouter(yieldRouter).startCycle(
             msg.sender,
             totalPayroll,
-            cycleDuration
+            cycleDuration,
+            payrollDispatcher
         );
 
         // Store cycleId — links this group to its YieldRouter cycle

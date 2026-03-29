@@ -72,8 +72,9 @@ abstract contract PayrollManagerBase is SharedBase {
 
         // Wire up
         router.setTreasury(address(manager));
-        router.setPayrollDispatcher(address(dispatcher));
+        // router.setPayrollDispatcher(address(dispatcher));
         manager.setYieldRouter(address(router));
+        manager.setPayrollDispatcher(address(dispatcher));
 
         vm.stopPrank();
 

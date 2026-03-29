@@ -91,7 +91,7 @@ abstract contract YieldRouterBase is SharedBase {
 
         // Wire up
         router.setTreasury(treasury);
-        router.setPayrollDispatcher(address(mockDispatcher));
+        // router.setPayrollDispatcher(address(mockDispatcher));
         router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
         router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
 
@@ -107,19 +107,19 @@ abstract contract YieldRouterBase is SharedBase {
     /// @dev Start a single cycle from treasury on behalf of employer
     function _startCycle() internal {
         vm.prank(treasury);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }
 
     /// @dev Start a cycle with a custom deposit amount
     function _startCycleWithAmount(uint256 amount) internal {
         vm.prank(treasury);
-        router.startCycle(employer, amount, CYCLE_DURATION);
+        router.startCycle(employer, amount, CYCLE_DURATION, address(mockDispatcher));
     }
 
     /// @dev Start a cycle with a custom duration
     function _startCycleWithDuration(uint256 duration) internal {
         vm.prank(treasury);
-        router.startCycle(employer, DEPOSIT_AMOUNT, duration);
+        router.startCycle(employer, DEPOSIT_AMOUNT, duration, address(mockDispatcher));
     }
 
     /// @dev Warp so that exactly `timeLeft` seconds remain before payday

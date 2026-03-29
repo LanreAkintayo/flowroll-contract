@@ -96,6 +96,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 currentAllocation;
         uint256 yieldEarned;
         bool isActive;
+        address dispatcher;
     }
 
     // ─── Custom Errors ───────────────────────────────────────────────────────
@@ -131,8 +132,9 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
     address public immutable usdc;
     address public agentOperator;
-    address public payrollDispatcher;
+    // address public payrollDispatcher;
     address public treasury;
+    address public payVault;
 
     PoolEntry[] public pools;
     BufferConfig bufferConfig;
@@ -150,6 +152,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     );
     event PayrollDispatcherSet(address indexed dispatcher);
     event TreasurySet(address indexed treasury);
+    event PayVaultSet(address indexed vault);
     event BufferConfigUpdated();
     event PoolAdded(
         uint256 indexed poolIndex,
@@ -199,7 +202,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
     /// @dev Treasury and owner only. Employers go through Treasury — never call directly.
     modifier onlyAuthorizedCaller() {
-        if (msg.sender != treasury && msg.sender != owner())
+        if (msg.sender != treasury && msg.sender != owner() && msg.sender != payVault)
             revert YieldRouter__NotAuthorizedCaller();
         _;
     }
@@ -269,16 +272,23 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         agentOperator = _agent;
     }
 
-    function setPayrollDispatcher(address _dispatcher) external onlyOwner {
-        if (_dispatcher == address(0)) revert YieldRouter__ZeroAddress();
-        payrollDispatcher = _dispatcher;
-        emit PayrollDispatcherSet(_dispatcher);
-    }
+    // function setPayrollDispatcher(address _dispatcher) external onlyOwner {
+    //     if (_dispatcher == address(0)) revert YieldRouter__ZeroAddress();
+    //     payrollDispatcher = _dispatcher;
+    //     emit PayrollDispatcherSet(_dispatcher);
+    // }
 
     function setTreasury(address _treasury) external onlyOwner {
         if (_treasury == address(0)) revert YieldRouter__ZeroAddress();
         treasury = _treasury;
         emit TreasurySet(_treasury);
+    }
+    
+    
+    function setPayVault(address _payVault) external onlyOwner {
+        if (_payVault == address(0)) revert YieldRouter__ZeroAddress();
+        treasury = _payVault;
+        emit PayVaultSet(_payVault);
     }
 
     /**
@@ -388,7 +398,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     function startCycle(
         address employer,
         uint256 totalDeposited,
-        uint256 cycleDuration
+        uint256 cycleDuration,
+        address dispatcher
     ) external onlyAuthorizedCaller whenNotPaused returns (uint256 cycleId) {
         if (totalDeposited == 0) revert YieldRouter__ZeroDeposit();
         if (cycleDuration == 0) revert YieldRouter__ZeroDuration();
@@ -434,7 +445,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 snapshotTierBps: snapshotTierBps,
                 currentAllocation: 0,
                 yieldEarned: 0,
-                isActive: true
+                isActive: true,
+                dispatcher: dispatcher
             })
         );
 
@@ -697,7 +709,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         // ── Payday ───────────────────────────────────────────────────────────
         if (timeLeft == 0) {
-            if (payrollDispatcher == address(0))
+            if (cycle.dispatcher == address(0))
                 revert YieldRouter__DispatcherNotSet();
 
             _withdrawAllFromPools(caller, cycleId);
@@ -706,8 +718,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             uint256 earned = cycle.yieldEarned;
             cycle.isActive = false;
 
-            IERC20(usdc).safeTransfer(payrollDispatcher, disbursed);
-            IPayrollDispatcher(payrollDispatcher).disburse(
+            IERC20(usdc).safeTransfer(cycle.dispatcher, disbursed);
+            IPayrollDispatcher(cycle.dispatcher).disburse(
                 caller,
                 cycleId,
                 disbursed

@@ -19,13 +19,13 @@ contract YieldRouterCycle is YieldRouterBase {
     function test_startCycle_revertsOnZeroDeposit() public {
         vm.prank(treasury);
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDeposit.selector);
-        router.startCycle(employer, 0, CYCLE_DURATION);
+        router.startCycle(employer, 0, CYCLE_DURATION, address(mockDispatcher));
     }
 
     function test_startCycle_revertsOnZeroDuration() public {
         vm.prank(treasury);
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDuration.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, 0);
+        router.startCycle(employer, DEPOSIT_AMOUNT, 0, address(mockDispatcher));
     }
 
     // ─── startCycle: state correctness ───────────────────────────────────────
@@ -96,7 +96,7 @@ contract YieldRouterCycle is YieldRouterBase {
         vm.startPrank(owner);
         usdc.mint(owner, DEPOSIT_AMOUNT);
         usdc.approve(address(router), DEPOSIT_AMOUNT);
-        router.startCycle(employerB, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employerB, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
         vm.stopPrank();
 
         // Each employer has exactly one cycle, independently

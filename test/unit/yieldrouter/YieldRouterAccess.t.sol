@@ -43,19 +43,19 @@ contract YieldRouterAccess is YieldRouterBase {
     function test_startCycle_revertsIfNotAuthorizedCaller() public {
         vm.prank(stranger);
         vm.expectRevert(YieldRouter.YieldRouter__NotAuthorizedCaller.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }
 
     function test_startCycle_revertsIfCalledByEmployerDirectly() public {
         // Employers must go through Treasury — direct calls blocked
         vm.prank(employer);
         vm.expectRevert(YieldRouter.YieldRouter__NotAuthorizedCaller.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }
 
     function test_startCycle_treasuryCanCall() public {
         vm.prank(treasury);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
         // no revert = pass
     }
 
@@ -64,7 +64,7 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.startPrank(owner);
         usdc.mint(owner, DEPOSIT_AMOUNT);
         usdc.approve(address(router), DEPOSIT_AMOUNT);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
         vm.stopPrank();
     }
 
@@ -110,12 +110,6 @@ contract YieldRouterAccess is YieldRouterBase {
         router.setTreasury(stranger);
     }
 
-    function test_setPayrollDispatcher_revertsIfNotOwner() public {
-        vm.prank(stranger);
-        vm.expectRevert();
-        router.setPayrollDispatcher(stranger);
-    }
-
     function test_pause_revertsIfNotOwner() public {
         vm.prank(stranger);
         vm.expectRevert();
@@ -128,7 +122,7 @@ contract YieldRouterAccess is YieldRouterBase {
 
         vm.prank(treasury);
         vm.expectRevert();
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION);
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }
 
 }

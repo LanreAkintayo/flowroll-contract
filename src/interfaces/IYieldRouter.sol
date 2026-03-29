@@ -150,7 +150,8 @@ interface IYieldRouter {
     function startCycle(
         address employer,
         uint256 totalDeposited,
-        uint256 cycleDuration
+        uint256 cycleDuration,
+        address dispatcher
     ) external returns (uint256 cycleId);
 
     function cancelCycle(
