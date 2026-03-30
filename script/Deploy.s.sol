@@ -1,150 +1,173 @@
-// // SPDX-License-Identifier: MIT
-// pragma solidity ^0.8.20;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-// import "forge-std/Script.sol";
-// import "../src/YieldRouter.sol";
-// import {MockPool} from "../src/mocks/MockPool.sol";
+import {Script, console2} from "forge-std/Script.sol";
+import {YieldRouter}         from "../src/YieldRouter.sol";
+import {PayrollManager}      from "../src/PayrollManager.sol";
+import {PayrollDispatcher}   from "../src/PayrollDispatcher.sol";
+import {PayVault}            from "../src/PayVault.sol";
+import {MockUSDC}            from "../src/mocks/MockUSDC.sol";
+import {MockPool}            from "../src/mocks/MockPool.sol";
+import {MockPoolAdapter}     from "../src/adapters/MockPoolAdapter.sol";
 
-// /**
-//  * @title Deploy
-//  * @notice Deploys YieldRouter + MockPools to any EVM environment
-//  *
-//  * @dev Environment switching is purely via addresses — same script for all envs:
-//  *
-//  *   Local (Anvil):
-//  *     forge script script/Deploy.s.sol --rpc-url http://127.0.0.1:8545 --broadcast
-//  *
-//  *   Initia Testnet (MockPools):
-//  *     forge script script/Deploy.s.sol \
-//  *       --rpc-url $INITIA_RPC_URL \
-//  *       --broadcast \
-//  *       --private-key $DEPLOYER_KEY
-//  *
-//  *   Initia Testnet (real InitiaDEX pools):
-//  *     Set STABLE_POOL_ADDRESS, WEIGHTED_POOL_ADDRESS, RESERVE_POOL_ADDRESS in .env
-//  *     Then run with --sig "runWithRealPools()"
-//  *
-//  * Required .env variables:
-//  *   DEPLOYER_KEY            — deployer private key
-//  *   AGENT_OPERATOR_ADDRESS  — agent backend wallet address
-//  *   USDC_ADDRESS            — USDC token address for this environment
-//  *
-//  * Optional (for runWithRealPools):
-//  *   STABLE_POOL_ADDRESS     — real InitiaDEX iUSD-USDC pool
-//  *   WEIGHTED_POOL_ADDRESS   — real InitiaDEX INIT-iUSD pool
-//  *   RESERVE_POOL_ADDRESS    — real InitiaDEX reserve pool
-//  */
-// contract Deploy is Script {
+contract Deploy is Script {
 
-//     // ─── Run with MockPools (local / early testnet) ───────────────────────────
+    // ─── Config ──────────────────────────────────────────────────────────────
 
-//     function run() external {
-//         uint256 deployerKey   = vm.envUint("DEPLOYER_KEY");
-//         address agentOperator = vm.envAddress("AGENT_OPERATOR_ADDRESS");
-//         address usdcAddress   = vm.envAddress("USDC_ADDRESS");
+    uint256 constant INITIAL_SUPPLY   = 10_000_000e6;  // 10M USDC
+    uint256 constant INITIAL_TVL      = 1_000_000e6;   // 1M USDC per pool
+    uint256 constant STABLE_APY_BPS   = 800;           // 8%
+    uint256 constant VOLATILE_APY_BPS = 1_500;         // 15%
+    uint256 constant FEE_BPS          = 1_000;         // 10% of yield
+    uint256 constant EMPLOYER_FUNDS   = 100_000e6;     // 100k USDC
+    uint256 constant SALARY_1         = 5_000e6;       // 5k USDC
+    uint256 constant SALARY_2         = 3_000e6;       // 3k USDC
+    uint256 constant SALARY_3         = 2_000e6;       // 2k USDC
+    uint256 constant CYCLE_DURATION   = 10 minutes;    // short for local testing
 
-//         vm.startBroadcast(deployerKey);
+    function run() external {
+        uint256 deployerKey  = vm.envUint("PRIVATE_KEY");
+        address deployer     = vm.addr(deployerKey);
+        address agentOp      = vm.envOr("AGENT_OPERATOR", deployer);
+        address feeRecipient = vm.envOr("FEE_RECIPIENT",  deployer);
 
-//         // 1. Deploy MockPools
-//         MockPool stablePool = new MockPool(
-//             "USDC-iUSD Stable",
-//             800,                // 8% APY
-//             500_000 * 1e6,      // $500k initial TVL
-//             true                // stable pair, no IL risk
-//         );
+        vm.startBroadcast(deployerKey);
 
-//         MockPool weightedPool = new MockPool(
-//             "USDC-INIT Weighted",
-//             1200,               // 12% APY
-//             300_000 * 1e6,      // $300k initial TVL
-//             false               // volatile pair, IL risk present
-//         );
+        // ── 1. Deploy MockUSDC ────────────────────────────────────────────────
+        MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
+        console2.log("MockUSDC:          ", address(usdc));
 
-//         MockPool reservePool = new MockPool(
-//             "Super Safe Reserve",
-//             400,                // 4% APY
-//             1_000_000 * 1e6,    // $1M initial TVL
-//             true                // stable pair, no IL risk
-//         );
+        // ── 2. Deploy Pools ───────────────────────────────────────────────────
+        MockPool stablePool = new MockPool(
+            address(usdc),
+            "USDC/iUSD Stable Pool",
+            STABLE_APY_BPS,
+            true,
+            "Flowroll Stable Shares",
+            "frUSDC-S"
+        );
+        console2.log("StablePool:        ", address(stablePool));
 
-//         // 2. Deploy YieldRouter
-//         YieldRouter router = new YieldRouter(agentOperator, usdcAddress);
+        MockPool volatilePool = new MockPool(
+            address(usdc),
+            "USDC/INIT Volatile Pool",
+            VOLATILE_APY_BPS,
+            false,
+            "Flowroll Volatile Shares",
+            "frUSDC-V"
+        );
+        console2.log("VolatilePool:      ", address(volatilePool));
 
-//         // 3. Register MockPools in whitelist
-//         router.addPool(address(stablePool),   "USDC-iUSD Stable",   true,  200);
-//         router.addPool(address(weightedPool), "USDC-INIT Weighted", false, 200);
-//         router.addPool(address(reservePool),  "Super Safe Reserve", true,  200);
+        // ── 3. Seed pools with initial TVL ────────────────────────────────────
+        usdc.approve(address(stablePool),   INITIAL_TVL);
+        usdc.approve(address(volatilePool), INITIAL_TVL);
+        stablePool.deposit(INITIAL_TVL,   deployer);
+        volatilePool.deposit(INITIAL_TVL, deployer);
+        console2.log("Pools seeded with initial TVL");
 
-//         vm.stopBroadcast();
+        // ── 4. Deploy Adapters ────────────────────────────────────────────────
+        MockPoolAdapter stableAdapter = new MockPoolAdapter(
+            address(usdc),
+            address(stablePool)
+        );
+        console2.log("StableAdapter:     ", address(stableAdapter));
 
-//         _printDeployment(
-//             address(router),
-//             address(stablePool),
-//             address(weightedPool),
-//             address(reservePool),
-//             usdcAddress,
-//             agentOperator,
-//             true
-//         );
-//     }
+        MockPoolAdapter volatileAdapter = new MockPoolAdapter(
+            address(usdc),
+            address(volatilePool)
+        );
+        console2.log("VolatileAdapter:   ", address(volatileAdapter));
 
-//     // ─── Run with real InitiaDEX pools (testnet / mainnet) ───────────────────
+        // ── 5. Deploy YieldRouter ─────────────────────────────────────────────
+        YieldRouter router = new YieldRouter(agentOp, address(usdc));
+        console2.log("YieldRouter:       ", address(router));
 
-//     function runWithRealPools() external {
-//         uint256 deployerKey      = vm.envUint("DEPLOYER_KEY");
-//         address agentOperator    = vm.envAddress("AGENT_OPERATOR_ADDRESS");
-//         address usdcAddress      = vm.envAddress("USDC_ADDRESS");
-//         address stablePoolAddr   = vm.envAddress("STABLE_POOL_ADDRESS");
-//         address weightedPoolAddr = vm.envAddress("WEIGHTED_POOL_ADDRESS");
-//         address reservePoolAddr  = vm.envAddress("RESERVE_POOL_ADDRESS");
+        // ── 6. Deploy PayrollDispatcher ───────────────────────────────────────
+        PayrollDispatcher dispatcher = new PayrollDispatcher(
+            address(usdc),
+            feeRecipient,
+            FEE_BPS
+        );
+        console2.log("PayrollDispatcher: ", address(dispatcher));
 
-//         vm.startBroadcast(deployerKey);
+        // ── 7. Deploy PayVault ────────────────────────────────────────────────
+        PayVault vault = new PayVault(
+            address(usdc),
+            feeRecipient,
+            FEE_BPS
+        );
+        console2.log("PayVault:          ", address(vault));
 
-//         // Deploy YieldRouter only — pools already exist on-chain
-//         YieldRouter router = new YieldRouter(agentOperator, usdcAddress);
+        // ── 8. Deploy PayrollManager ──────────────────────────────────────────
+        PayrollManager manager = new PayrollManager(
+            address(usdc),
+            feeRecipient,
+            FEE_BPS
+        );
+        console2.log("PayrollManager:    ", address(manager));
 
-//         // Register real InitiaDEX pool addresses
-//         router.addPool(stablePoolAddr,   "USDC-iUSD Stable",   true,  200);
-//         router.addPool(weightedPoolAddr, "USDC-INIT Weighted", false, 200);
-//         router.addPool(reservePoolAddr,  "Super Safe Reserve", true,  200);
+        // ── 9. Wire everything up ─────────────────────────────────────────────
+        // YieldRouter
+        router.setPayrollManager(address(manager));
+        router.addPool(address(stableAdapter),   address(stablePool),   true,  500);
+        router.addPool(address(volatileAdapter), address(volatilePool), false, 500);
 
-//         vm.stopBroadcast();
+        // PayrollManager
+        manager.setYieldRouter(address(router));
+        manager.setPayrollDispatcher(address(dispatcher));
 
-//         _printDeployment(
-//             address(router),
-//             stablePoolAddr,
-//             weightedPoolAddr,
-//             reservePoolAddr,
-//             usdcAddress,
-//             agentOperator,
-//             false
-//         );
-//     }
+        // PayrollDispatcher
+        dispatcher.setYieldRouter(address(router));
+        dispatcher.setPayrollManager(address(manager));
+        dispatcher.setPayVault(address(vault));
 
-//     // ─── Helper ──────────────────────────────────────────────────────────────
+        // PayVault
+        vault.setDispatcher(address(dispatcher));
+        vault.setYieldRouter(address(router));
 
-//     function _printDeployment(
-//         address router,
-//         address stablePool,
-//         address weightedPool,
-//         address reservePool,
-//         address usdc,
-//         address agentOperator,
-//         bool isMock
-//     ) internal pure {
-//         console.log("\n=== Flowroll YieldRouter Deployment ===");
-//         console.log("Pool mode:          ", isMock ? "MockPools" : "Real InitiaDEX");
-//         console.log("YieldRouter:        ", router);
-//         console.log("USDC:               ", usdc);
-//         console.log("Agent Operator:     ", agentOperator);
-//         console.log("Pool[0] Stable:     ", stablePool);
-//         console.log("Pool[1] Weighted:   ", weightedPool);
-//         console.log("Pool[2] Reserve:    ", reservePool);
-//         console.log("\n--- Copy to your .env ---");
-//         console.log("YIELD_ROUTER_ADDRESS=", router);
-//         console.log("STABLE_POOL_ADDRESS=",  stablePool);
-//         console.log("WEIGHTED_POOL_ADDRESS=", weightedPool);
-//         console.log("RESERVE_POOL_ADDRESS=",  reservePool);
-//         console.log("=====================================\n");
-//     }
-// }
+        console2.log("All contracts wired up");
+
+        // ── 10. Seed test employer + cycle ────────────────────────────────────
+        // Fund employer
+        address employer  = deployer; // use deployer as employer for local test
+        address employee1 = makeAddress("employee1");
+        address employee2 = makeAddress("employee2");
+        address employee3 = makeAddress("employee3");
+
+        usdc.mint(employer, EMPLOYER_FUNDS);
+
+        // Register employer
+        manager.registerEmployer();
+
+        // Create group
+        manager.createGroup("Engineering", CYCLE_DURATION);
+
+        // Add employees
+        manager.addEmployee(1, employee1, SALARY_1);
+        manager.addEmployee(1, employee2, SALARY_2);
+        manager.addEmployee(1, employee3, SALARY_3);
+
+        // Approve and deposit payroll
+        usdc.approve(address(manager), type(uint256).max);
+        manager.depositPayroll(1);
+
+        console2.log("Test employer setup complete");
+        console2.log("Employee1:         ", employee1);
+        console2.log("Employee2:         ", employee2);
+        console2.log("Employee3:         ", employee3);
+        console2.log("Cycle duration:     10 minutes");
+
+        vm.stopBroadcast();
+
+        // ── 11. Print .env values ─────────────────────────────────────────────
+        console2.log("\n--- COPY TO scripts/agent/.env ---");
+        console2.log("YIELD_ROUTER_ADDRESS=", address(router));
+        console2.log("MOCK_USDC_ADDRESS=",    address(usdc));
+        console2.log("DEPLOYMENT_BLOCK=0");
+        console2.log("----------------------------------\n");
+    }
+
+    function makeAddress(string memory name) internal pure returns (address) {
+        return address(uint160(uint256(keccak256(abi.encodePacked(name)))));
+    }
+}

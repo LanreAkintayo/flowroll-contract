@@ -21,3 +21,9 @@ EOF
 scripts/node_modules/
 scripts/.env
 scripts/dist/
+
+
+scripts/agent/node_modules/
+scripts/agent/.env
+scripts/agent/state.json
+scripts/agent/dist/

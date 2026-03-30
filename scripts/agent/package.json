@@ -1,0 +1,20 @@
+{
+  "name": "flowroll-agent",
+  "version": "1.0.0",
+  "description": "Flowroll autonomous yield farming agent",
+  "main": "index.ts",
+  "scripts": {
+    "start": "npx ts-node index.ts",
+    "dev": "npx ts-node --watch index.ts"
+  },
+  "dependencies": {
+    "ethers": "^6.0.0",
+    "dotenv": "^16.0.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

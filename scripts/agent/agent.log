@@ -1,0 +1,808 @@
+[2026-03-30 11:02:48] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:02:48] INFO:   Flowroll Agent Starting
+[2026-03-30 11:02:48] INFO:   RPC:      http://localhost:8545
+[2026-03-30 11:02:48] INFO:   Router:   0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+[2026-03-30 11:02:48] INFO:   Operator: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 11:02:48] INFO:   Interval: 30s
+[2026-03-30 11:02:48] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:02:48] INFO: Connected to chain ID: 31337
+[2026-03-30 11:02:48] INFO: Agent balance: 9999.98724343535412249 INIT
+[2026-03-30 11:02:48] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:02:48] INFO: TICK #1 started
+[2026-03-30 11:02:48] INFO: No state file found — starting from deployment block
+[2026-03-30 11:02:48] INFO: Scanning blocks 0 → 8 for new cycles
+[2026-03-30 11:02:48] INFO: New employer discovered: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 11:02:48] INFO: Found 1 CycleStarted events — 1 new employers
+[2026-03-30 11:02:48] INFO: Discovered 1 new employer(s)
+[2026-03-30 11:02:48] INFO: Known employers: 1
+[2026-03-30 11:02:48] INFO: Active cycles to process: 1
+[2026-03-30 11:02:48] INFO: Rebalancing — employer: 0xf39Fd6... cycleId: 1
+[2026-03-30 11:02:48] INFO: Transaction sent: 0x3dce5fde22ba7e13274433eafc9380b720d9d1f02eac60e0073ca6e7f573ed10 — employer: 0xf39Fd6... cycleId: 1
+[2026-03-30 11:02:48] INFO: ✅ PaydayTriggered — employer: 0xf39Fd6... cycleId: 1 — tx: 0x3dce5fde22ba7e13274433eafc9380b720d9d1f02eac60e0073ca6e7f573ed10 — gas: 477123
+[2026-03-30 11:02:48] INFO: 🎉 PAYDAY SETTLED — employer: 0xf39Fd6... cycleId: 1
+[2026-03-30 11:02:49] INFO: TICK #1 complete in 1.2s
+[2026-03-30 11:02:49] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 11:02:49] INFO: 🎉 Paydays settled: 1
+[2026-03-30 11:02:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:02:49] INFO: Agent running — ticking every 30s
+[2026-03-30 11:03:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:03:19] INFO: TICK #2 started
+[2026-03-30 11:03:19] INFO: State loaded — last block: 8, employers: 1
+[2026-03-30 11:03:19] INFO: Scanning blocks 8 → 9 for new cycles
+[2026-03-30 11:03:19] INFO: Known employers: 1
+[2026-03-30 11:03:19] INFO: Active cycles to process: 0
+[2026-03-30 11:03:19] INFO: TICK #2 complete in 0.1s
+[2026-03-30 11:03:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:03:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:03:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:03:49] INFO: TICK #3 started
+[2026-03-30 11:03:49] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:03:49] INFO: Known employers: 1
+[2026-03-30 11:03:49] INFO: Active cycles to process: 0
+[2026-03-30 11:03:49] INFO: TICK #3 complete in 0.0s
+[2026-03-30 11:03:49] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:03:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:04:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:04:19] INFO: TICK #4 started
+[2026-03-30 11:04:19] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:04:19] INFO: Known employers: 1
+[2026-03-30 11:04:19] INFO: Active cycles to process: 0
+[2026-03-30 11:04:19] INFO: TICK #4 complete in 0.0s
+[2026-03-30 11:04:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:04:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:04:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:04:49] INFO: TICK #5 started
+[2026-03-30 11:04:49] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:04:49] INFO: Known employers: 1
+[2026-03-30 11:04:49] INFO: Active cycles to process: 0
+[2026-03-30 11:04:49] INFO: TICK #5 complete in 0.0s
+[2026-03-30 11:04:49] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:04:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:05:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:05:19] INFO: TICK #6 started
+[2026-03-30 11:05:19] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:05:19] INFO: Known employers: 1
+[2026-03-30 11:05:19] INFO: Active cycles to process: 0
+[2026-03-30 11:05:19] INFO: TICK #6 complete in 0.0s
+[2026-03-30 11:05:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:05:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:05:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:05:49] INFO: TICK #7 started
+[2026-03-30 11:05:49] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:05:49] INFO: Known employers: 1
+[2026-03-30 11:05:49] INFO: Active cycles to process: 0
+[2026-03-30 11:05:49] INFO: TICK #7 complete in 0.0s
+[2026-03-30 11:05:49] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:05:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:06:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:06:19] INFO: TICK #8 started
+[2026-03-30 11:06:19] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:06:19] INFO: Known employers: 1
+[2026-03-30 11:06:19] INFO: Active cycles to process: 0
+[2026-03-30 11:06:19] INFO: TICK #8 complete in 0.0s
+[2026-03-30 11:06:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:06:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:06:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:06:49] INFO: TICK #9 started
+[2026-03-30 11:06:49] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:06:49] INFO: Known employers: 1
+[2026-03-30 11:06:49] INFO: Active cycles to process: 0
+[2026-03-30 11:06:49] INFO: TICK #9 complete in 0.0s
+[2026-03-30 11:06:49] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:06:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:07:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:07:19] INFO: TICK #10 started
+[2026-03-30 11:07:19] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:07:19] INFO: Known employers: 1
+[2026-03-30 11:07:19] INFO: Active cycles to process: 0
+[2026-03-30 11:07:19] INFO: TICK #10 complete in 0.0s
+[2026-03-30 11:07:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:07:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:07:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:07:49] INFO: TICK #11 started
+[2026-03-30 11:07:49] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:07:49] INFO: Known employers: 1
+[2026-03-30 11:07:49] INFO: Active cycles to process: 0
+[2026-03-30 11:07:49] INFO: TICK #11 complete in 0.0s
+[2026-03-30 11:07:49] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:07:49] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:08:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:08:19] INFO: TICK #12 started
+[2026-03-30 11:08:19] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 11:08:19] INFO: Known employers: 1
+[2026-03-30 11:08:19] INFO: Active cycles to process: 0
+[2026-03-30 11:08:19] INFO: TICK #12 complete in 0.0s
+[2026-03-30 11:08:19] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 11:08:19] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 11:08:45] INFO: Shutting down agent gracefully...
+[2026-03-30 13:13:46] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:13:46] INFO:   Flowroll Agent Starting
+[2026-03-30 13:13:46] INFO:   RPC:      http://localhost:8545
+[2026-03-30 13:13:46] INFO:   Router:   0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+[2026-03-30 13:13:46] INFO:   Operator: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 13:13:46] INFO:   Interval: 30s
+[2026-03-30 13:13:46] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:13:46] INFO: Connected to chain ID: 31337
+[2026-03-30 13:14:04] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:14:04] INFO:   Flowroll Agent Starting
+[2026-03-30 13:14:04] INFO:   RPC:      http://localhost:8545
+[2026-03-30 13:14:04] INFO:   Router:   0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+[2026-03-30 13:14:04] INFO:   Operator: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 13:14:04] INFO:   Interval: 30s
+[2026-03-30 13:14:04] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:14:04] INFO: Connected to chain ID: 31337
+[2026-03-30 13:17:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:12] INFO:   Flowroll Agent Starting
+[2026-03-30 13:17:12] INFO:   RPC:      http://localhost:8545
+[2026-03-30 13:17:12] INFO:   Router:   0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+[2026-03-30 13:17:12] INFO:   Operator: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 13:17:12] INFO:   Interval: 30s
+[2026-03-30 13:17:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:12] INFO: Connected to chain ID: 31337
+[2026-03-30 13:17:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:42] INFO:   Flowroll Agent Starting
+[2026-03-30 13:17:42] INFO:   RPC:      http://localhost:8545
+[2026-03-30 13:17:42] INFO:   Router:   0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+[2026-03-30 13:17:42] INFO:   Operator: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 13:17:42] INFO:   Interval: 30s
+[2026-03-30 13:17:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:42] INFO: Connected to chain ID: 31337
+[2026-03-30 13:17:42] INFO: Agent balance: 9999.986575674066821763 INIT
+[2026-03-30 13:17:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:42] INFO: TICK #1 started
+[2026-03-30 13:17:42] INFO: No state file found — starting from deployment block
+[2026-03-30 13:17:42] INFO: Scanning blocks 0 → 9 for new cycles
+[2026-03-30 13:17:42] INFO: New employer discovered: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+[2026-03-30 13:17:42] INFO: Found 1 CycleStarted events — 1 new employers
+[2026-03-30 13:17:42] INFO: Discovered 1 new employer(s)
+[2026-03-30 13:17:42] INFO: Known employers: 1
+[2026-03-30 13:17:42] INFO: Active cycles to process: 0
+[2026-03-30 13:17:42] INFO: TICK #1 complete in 0.1s
+[2026-03-30 13:17:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:17:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:17:42] INFO: Agent running — ticking every 30s
+[2026-03-30 13:18:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:18:12] INFO: TICK #2 started
+[2026-03-30 13:18:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:18:12] INFO: Known employers: 1
+[2026-03-30 13:18:12] INFO: Active cycles to process: 0
+[2026-03-30 13:18:12] INFO: TICK #2 complete in 0.1s
+[2026-03-30 13:18:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:18:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:18:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:18:42] INFO: TICK #3 started
+[2026-03-30 13:18:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:18:42] INFO: Known employers: 1
+[2026-03-30 13:18:42] INFO: Active cycles to process: 0
+[2026-03-30 13:18:42] INFO: TICK #3 complete in 0.1s
+[2026-03-30 13:18:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:18:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:19:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:19:12] INFO: TICK #4 started
+[2026-03-30 13:19:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:19:12] INFO: Known employers: 1
+[2026-03-30 13:19:12] INFO: Active cycles to process: 0
+[2026-03-30 13:19:12] INFO: TICK #4 complete in 0.1s
+[2026-03-30 13:19:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:19:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:19:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:19:42] INFO: TICK #5 started
+[2026-03-30 13:19:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:19:42] INFO: Known employers: 1
+[2026-03-30 13:19:42] INFO: Active cycles to process: 0
+[2026-03-30 13:19:42] INFO: TICK #5 complete in 0.0s
+[2026-03-30 13:19:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:19:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:20:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:20:12] INFO: TICK #6 started
+[2026-03-30 13:20:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:20:12] INFO: Known employers: 1
+[2026-03-30 13:20:12] INFO: Active cycles to process: 0
+[2026-03-30 13:20:12] INFO: TICK #6 complete in 0.1s
+[2026-03-30 13:20:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:20:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:20:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:20:42] INFO: TICK #7 started
+[2026-03-30 13:20:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:20:42] INFO: Known employers: 1
+[2026-03-30 13:20:42] INFO: Active cycles to process: 0
+[2026-03-30 13:20:42] INFO: TICK #7 complete in 0.0s
+[2026-03-30 13:20:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:20:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:21:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:21:12] INFO: TICK #8 started
+[2026-03-30 13:21:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:21:12] INFO: Known employers: 1
+[2026-03-30 13:21:12] INFO: Active cycles to process: 0
+[2026-03-30 13:21:12] INFO: TICK #8 complete in 0.1s
+[2026-03-30 13:21:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:21:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:21:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:21:42] INFO: TICK #9 started
+[2026-03-30 13:21:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:21:42] INFO: Known employers: 1
+[2026-03-30 13:21:42] INFO: Active cycles to process: 0
+[2026-03-30 13:21:42] INFO: TICK #9 complete in 0.0s
+[2026-03-30 13:21:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:21:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:22:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:22:12] INFO: TICK #10 started
+[2026-03-30 13:22:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:22:12] INFO: Known employers: 1
+[2026-03-30 13:22:12] INFO: Active cycles to process: 0
+[2026-03-30 13:22:12] INFO: TICK #10 complete in 0.0s
+[2026-03-30 13:22:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:22:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:22:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:22:42] INFO: TICK #11 started
+[2026-03-30 13:22:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:22:42] INFO: Known employers: 1
+[2026-03-30 13:22:42] INFO: Active cycles to process: 0
+[2026-03-30 13:22:42] INFO: TICK #11 complete in 0.1s
+[2026-03-30 13:22:42] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:22:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:23:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:23:12] INFO: TICK #12 started
+[2026-03-30 13:23:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:23:12] INFO: Known employers: 1
+[2026-03-30 13:23:12] INFO: Active cycles to process: 0
+[2026-03-30 13:23:12] INFO: TICK #12 complete in 0.1s
+[2026-03-30 13:23:12] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:23:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:23:42] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:23:42] INFO: TICK #13 started
+[2026-03-30 13:23:42] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:23:42] INFO: Known employers: 1
+[2026-03-30 13:23:43] INFO: Active cycles to process: 0
+[2026-03-30 13:23:43] INFO: TICK #13 complete in 0.1s
+[2026-03-30 13:23:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:23:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:24:12] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:24:12] INFO: TICK #14 started
+[2026-03-30 13:24:12] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:24:13] INFO: Known employers: 1
+[2026-03-30 13:24:13] INFO: Active cycles to process: 0
+[2026-03-30 13:24:13] INFO: TICK #14 complete in 0.1s
+[2026-03-30 13:24:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:24:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:24:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:24:43] INFO: TICK #15 started
+[2026-03-30 13:24:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:24:43] INFO: Known employers: 1
+[2026-03-30 13:24:43] INFO: Active cycles to process: 0
+[2026-03-30 13:24:43] INFO: TICK #15 complete in 0.0s
+[2026-03-30 13:24:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:24:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:25:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:25:13] INFO: TICK #16 started
+[2026-03-30 13:25:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:25:13] INFO: Known employers: 1
+[2026-03-30 13:25:13] INFO: Active cycles to process: 0
+[2026-03-30 13:25:13] INFO: TICK #16 complete in 0.1s
+[2026-03-30 13:25:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:25:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:25:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:25:43] INFO: TICK #17 started
+[2026-03-30 13:25:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:25:43] INFO: Known employers: 1
+[2026-03-30 13:25:43] INFO: Active cycles to process: 0
+[2026-03-30 13:25:43] INFO: TICK #17 complete in 0.0s
+[2026-03-30 13:25:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:25:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:26:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:26:13] INFO: TICK #18 started
+[2026-03-30 13:26:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:26:13] INFO: Known employers: 1
+[2026-03-30 13:26:13] INFO: Active cycles to process: 0
+[2026-03-30 13:26:13] INFO: TICK #18 complete in 0.1s
+[2026-03-30 13:26:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:26:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:26:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:26:43] INFO: TICK #19 started
+[2026-03-30 13:26:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:26:43] INFO: Known employers: 1
+[2026-03-30 13:26:43] INFO: Active cycles to process: 0
+[2026-03-30 13:26:43] INFO: TICK #19 complete in 0.0s
+[2026-03-30 13:26:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:26:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:27:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:27:13] INFO: TICK #20 started
+[2026-03-30 13:27:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:27:13] INFO: Known employers: 1
+[2026-03-30 13:27:13] INFO: Active cycles to process: 0
+[2026-03-30 13:27:13] INFO: TICK #20 complete in 0.0s
+[2026-03-30 13:27:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:27:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:27:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:27:43] INFO: TICK #21 started
+[2026-03-30 13:27:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:27:43] INFO: Known employers: 1
+[2026-03-30 13:27:43] INFO: Active cycles to process: 0
+[2026-03-30 13:27:43] INFO: TICK #21 complete in 0.1s
+[2026-03-30 13:27:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:27:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:28:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:28:13] INFO: TICK #22 started
+[2026-03-30 13:28:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:28:13] INFO: Known employers: 1
+[2026-03-30 13:28:13] INFO: Active cycles to process: 0
+[2026-03-30 13:28:13] INFO: TICK #22 complete in 0.1s
+[2026-03-30 13:28:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:28:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:28:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:28:43] INFO: TICK #23 started
+[2026-03-30 13:28:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:28:43] INFO: Known employers: 1
+[2026-03-30 13:28:43] INFO: Active cycles to process: 0
+[2026-03-30 13:28:43] INFO: TICK #23 complete in 0.1s
+[2026-03-30 13:28:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:28:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:29:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:29:13] INFO: TICK #24 started
+[2026-03-30 13:29:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:29:13] INFO: Known employers: 1
+[2026-03-30 13:29:13] INFO: Active cycles to process: 0
+[2026-03-30 13:29:13] INFO: TICK #24 complete in 0.1s
+[2026-03-30 13:29:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:29:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:29:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:29:43] INFO: TICK #25 started
+[2026-03-30 13:29:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:29:43] INFO: Known employers: 1
+[2026-03-30 13:29:43] INFO: Active cycles to process: 0
+[2026-03-30 13:29:43] INFO: TICK #25 complete in 0.0s
+[2026-03-30 13:29:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:29:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:30:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:30:13] INFO: TICK #26 started
+[2026-03-30 13:30:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:30:13] INFO: Known employers: 1
+[2026-03-30 13:30:13] INFO: Active cycles to process: 0
+[2026-03-30 13:30:13] INFO: TICK #26 complete in 0.0s
+[2026-03-30 13:30:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:30:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:30:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:30:43] INFO: TICK #27 started
+[2026-03-30 13:30:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:30:43] INFO: Known employers: 1
+[2026-03-30 13:30:43] INFO: Active cycles to process: 0
+[2026-03-30 13:30:43] INFO: TICK #27 complete in 0.0s
+[2026-03-30 13:30:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:30:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:31:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:31:13] INFO: TICK #28 started
+[2026-03-30 13:31:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:31:13] INFO: Known employers: 1
+[2026-03-30 13:31:13] INFO: Active cycles to process: 0
+[2026-03-30 13:31:13] INFO: TICK #28 complete in 0.0s
+[2026-03-30 13:31:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:31:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:31:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:31:43] INFO: TICK #29 started
+[2026-03-30 13:31:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:31:43] INFO: Known employers: 1
+[2026-03-30 13:31:43] INFO: Active cycles to process: 0
+[2026-03-30 13:31:43] INFO: TICK #29 complete in 0.0s
+[2026-03-30 13:31:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:31:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:32:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:32:13] INFO: TICK #30 started
+[2026-03-30 13:32:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:32:13] INFO: Known employers: 1
+[2026-03-30 13:32:13] INFO: Active cycles to process: 0
+[2026-03-30 13:32:13] INFO: TICK #30 complete in 0.1s
+[2026-03-30 13:32:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:32:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:32:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:32:43] INFO: TICK #31 started
+[2026-03-30 13:32:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:32:43] INFO: Known employers: 1
+[2026-03-30 13:32:43] INFO: Active cycles to process: 0
+[2026-03-30 13:32:43] INFO: TICK #31 complete in 0.0s
+[2026-03-30 13:32:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:32:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:33:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:33:13] INFO: TICK #32 started
+[2026-03-30 13:33:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:33:13] INFO: Known employers: 1
+[2026-03-30 13:33:13] INFO: Active cycles to process: 0
+[2026-03-30 13:33:13] INFO: TICK #32 complete in 0.0s
+[2026-03-30 13:33:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:33:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:33:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:33:43] INFO: TICK #33 started
+[2026-03-30 13:33:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:33:43] INFO: Known employers: 1
+[2026-03-30 13:33:43] INFO: Active cycles to process: 0
+[2026-03-30 13:33:43] INFO: TICK #33 complete in 0.0s
+[2026-03-30 13:33:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:33:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:34:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:34:13] INFO: TICK #34 started
+[2026-03-30 13:34:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:34:13] INFO: Known employers: 1
+[2026-03-30 13:34:13] INFO: Active cycles to process: 0
+[2026-03-30 13:34:13] INFO: TICK #34 complete in 0.1s
+[2026-03-30 13:34:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:34:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:34:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:34:43] INFO: TICK #35 started
+[2026-03-30 13:34:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:34:43] INFO: Known employers: 1
+[2026-03-30 13:34:43] INFO: Active cycles to process: 0
+[2026-03-30 13:34:43] INFO: TICK #35 complete in 0.0s
+[2026-03-30 13:34:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:34:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:35:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:35:13] INFO: TICK #36 started
+[2026-03-30 13:35:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:35:13] INFO: Known employers: 1
+[2026-03-30 13:35:13] INFO: Active cycles to process: 0
+[2026-03-30 13:35:13] INFO: TICK #36 complete in 0.0s
+[2026-03-30 13:35:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:35:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:35:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:35:43] INFO: TICK #37 started
+[2026-03-30 13:35:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:35:43] INFO: Known employers: 1
+[2026-03-30 13:35:43] INFO: Active cycles to process: 0
+[2026-03-30 13:35:43] INFO: TICK #37 complete in 0.0s
+[2026-03-30 13:35:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:35:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:36:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:36:13] INFO: TICK #38 started
+[2026-03-30 13:36:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:36:13] INFO: Known employers: 1
+[2026-03-30 13:36:13] INFO: Active cycles to process: 0
+[2026-03-30 13:36:13] INFO: TICK #38 complete in 0.0s
+[2026-03-30 13:36:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:36:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:36:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:36:43] INFO: TICK #39 started
+[2026-03-30 13:36:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:36:43] INFO: Known employers: 1
+[2026-03-30 13:36:43] INFO: Active cycles to process: 0
+[2026-03-30 13:36:43] INFO: TICK #39 complete in 0.0s
+[2026-03-30 13:36:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:36:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:37:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:37:13] INFO: TICK #40 started
+[2026-03-30 13:37:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:37:13] INFO: Known employers: 1
+[2026-03-30 13:37:13] INFO: Active cycles to process: 0
+[2026-03-30 13:37:13] INFO: TICK #40 complete in 0.0s
+[2026-03-30 13:37:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:37:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:37:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:37:43] INFO: TICK #41 started
+[2026-03-30 13:37:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:37:43] INFO: Known employers: 1
+[2026-03-30 13:37:43] INFO: Active cycles to process: 0
+[2026-03-30 13:37:43] INFO: TICK #41 complete in 0.0s
+[2026-03-30 13:37:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:37:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:38:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:38:13] INFO: TICK #42 started
+[2026-03-30 13:38:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:38:13] INFO: Known employers: 1
+[2026-03-30 13:38:13] INFO: Active cycles to process: 0
+[2026-03-30 13:38:13] INFO: TICK #42 complete in 0.0s
+[2026-03-30 13:38:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:38:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:38:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:38:43] INFO: TICK #43 started
+[2026-03-30 13:38:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:38:43] INFO: Known employers: 1
+[2026-03-30 13:38:43] INFO: Active cycles to process: 0
+[2026-03-30 13:38:43] INFO: TICK #43 complete in 0.0s
+[2026-03-30 13:38:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:38:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:39:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:39:13] INFO: TICK #44 started
+[2026-03-30 13:39:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:39:13] INFO: Known employers: 1
+[2026-03-30 13:39:13] INFO: Active cycles to process: 0
+[2026-03-30 13:39:13] INFO: TICK #44 complete in 0.0s
+[2026-03-30 13:39:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:39:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:39:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:39:43] INFO: TICK #45 started
+[2026-03-30 13:39:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:39:43] INFO: Known employers: 1
+[2026-03-30 13:39:43] INFO: Active cycles to process: 0
+[2026-03-30 13:39:43] INFO: TICK #45 complete in 0.1s
+[2026-03-30 13:39:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:39:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:40:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:40:13] INFO: TICK #46 started
+[2026-03-30 13:40:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:40:13] INFO: Known employers: 1
+[2026-03-30 13:40:13] INFO: Active cycles to process: 0
+[2026-03-30 13:40:13] INFO: TICK #46 complete in 0.1s
+[2026-03-30 13:40:13] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:40:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:40:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:40:43] INFO: TICK #47 started
+[2026-03-30 13:40:43] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:40:43] INFO: Known employers: 1
+[2026-03-30 13:40:43] INFO: Active cycles to process: 0
+[2026-03-30 13:40:43] INFO: TICK #47 complete in 0.0s
+[2026-03-30 13:40:43] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:40:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:41:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:41:13] INFO: TICK #48 started
+[2026-03-30 13:41:13] INFO: State loaded — last block: 9, employers: 1
+[2026-03-30 13:41:13] INFO: Scanning blocks 9 → 16 for new cycles
+[2026-03-30 13:41:13] INFO: New employer discovered: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+[2026-03-30 13:41:13] INFO: Found 1 CycleStarted events — 1 new employers
+[2026-03-30 13:41:13] INFO: Discovered 1 new employer(s)
+[2026-03-30 13:41:13] INFO: Known employers: 2
+[2026-03-30 13:41:13] INFO: Active cycles to process: 1
+[2026-03-30 13:41:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:41:13] INFO: Transaction sent: 0x8dccc187cd561fc036361852b7f3646ac31a3bdd817c8e027002ad83df17966d — employer: 0x709979... cycleId: 1
+[2026-03-30 13:41:13] INFO: ✅ Rebalanced — employer: 0x709979... cycleId: 1 — tx: 0x8dccc187cd561fc036361852b7f3646ac31a3bdd817c8e027002ad83df17966d — gas: 256639
+[2026-03-30 13:41:14] INFO: TICK #48 complete in 1.3s
+[2026-03-30 13:41:14] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:41:14] INFO: ♻️  Rebalances: 1
+[2026-03-30 13:41:14] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:41:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:41:43] INFO: TICK #49 started
+[2026-03-30 13:41:43] INFO: State loaded — last block: 16, employers: 2
+[2026-03-30 13:41:43] INFO: Scanning blocks 16 → 17 for new cycles
+[2026-03-30 13:41:43] INFO: Found 1 CycleStarted events — 0 new employers
+[2026-03-30 13:41:43] INFO: Known employers: 2
+[2026-03-30 13:41:43] INFO: Active cycles to process: 1
+[2026-03-30 13:41:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:41:43] INFO: Transaction sent: 0x183b08fc529362a6f9f84c2e805c2a4459f237dde7da60c4ad7188a3f3afb777 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:41:43] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x183b08fc529362a6f9f84c2e805c2a4459f237dde7da60c4ad7188a3f3afb777 — gas: 153506
+[2026-03-30 13:41:44] INFO: TICK #49 complete in 1.2s
+[2026-03-30 13:41:44] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:41:44] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:42:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:42:13] INFO: TICK #50 started
+[2026-03-30 13:42:13] INFO: State loaded — last block: 17, employers: 2
+[2026-03-30 13:42:13] INFO: Scanning blocks 17 → 18 for new cycles
+[2026-03-30 13:42:13] INFO: Known employers: 2
+[2026-03-30 13:42:13] INFO: Active cycles to process: 1
+[2026-03-30 13:42:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:42:13] INFO: Transaction sent: 0x307456e5ccf1323628eea7688a9caf10c3518a34fc54fd295e83e9a621e517f3 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:42:13] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x307456e5ccf1323628eea7688a9caf10c3518a34fc54fd295e83e9a621e517f3 — gas: 153506
+[2026-03-30 13:42:14] INFO: TICK #50 complete in 1.3s
+[2026-03-30 13:42:14] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:42:14] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:42:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:42:43] INFO: TICK #51 started
+[2026-03-30 13:42:43] INFO: State loaded — last block: 18, employers: 2
+[2026-03-30 13:42:43] INFO: Scanning blocks 18 → 19 for new cycles
+[2026-03-30 13:42:43] INFO: Known employers: 2
+[2026-03-30 13:42:43] INFO: Active cycles to process: 1
+[2026-03-30 13:42:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:42:43] INFO: Transaction sent: 0xa355e6d963872990c88cbbc6f85c12c37b937a8857ddf3df7bbdfeefdb9b6c2e — employer: 0x709979... cycleId: 1
+[2026-03-30 13:42:43] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0xa355e6d963872990c88cbbc6f85c12c37b937a8857ddf3df7bbdfeefdb9b6c2e — gas: 153506
+[2026-03-30 13:42:44] INFO: TICK #51 complete in 1.3s
+[2026-03-30 13:42:44] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:42:44] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:43:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:43:13] INFO: TICK #52 started
+[2026-03-30 13:43:13] INFO: State loaded — last block: 19, employers: 2
+[2026-03-30 13:43:13] INFO: Scanning blocks 19 → 20 for new cycles
+[2026-03-30 13:43:13] INFO: Known employers: 2
+[2026-03-30 13:43:13] INFO: Active cycles to process: 1
+[2026-03-30 13:43:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:43:13] INFO: Transaction sent: 0x02ffd56128f3e821346ddc3981953392d29a6571d08aadb3829e29567f7b24e4 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:43:14] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x02ffd56128f3e821346ddc3981953392d29a6571d08aadb3829e29567f7b24e4 — gas: 153506
+[2026-03-30 13:43:15] INFO: TICK #52 complete in 1.3s
+[2026-03-30 13:43:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:43:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:43:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:43:43] INFO: TICK #53 started
+[2026-03-30 13:43:43] INFO: State loaded — last block: 20, employers: 2
+[2026-03-30 13:43:43] INFO: Scanning blocks 20 → 21 for new cycles
+[2026-03-30 13:43:43] INFO: Known employers: 2
+[2026-03-30 13:43:43] INFO: Active cycles to process: 1
+[2026-03-30 13:43:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:43:43] INFO: Transaction sent: 0xf106cac13d62e81550b3168e749771301e34e759f7dd954e137d96f9d04ab31f — employer: 0x709979... cycleId: 1
+[2026-03-30 13:43:44] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0xf106cac13d62e81550b3168e749771301e34e759f7dd954e137d96f9d04ab31f — gas: 153506
+[2026-03-30 13:43:45] INFO: TICK #53 complete in 1.3s
+[2026-03-30 13:43:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:43:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:44:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:44:13] INFO: TICK #54 started
+[2026-03-30 13:44:13] INFO: State loaded — last block: 21, employers: 2
+[2026-03-30 13:44:13] INFO: Scanning blocks 21 → 22 for new cycles
+[2026-03-30 13:44:13] INFO: Known employers: 2
+[2026-03-30 13:44:13] INFO: Active cycles to process: 1
+[2026-03-30 13:44:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:44:14] INFO: Transaction sent: 0x17342b75812c1aea660f873e1f516769b2539cf738043ebcbb551469932c825a — employer: 0x709979... cycleId: 1
+[2026-03-30 13:44:14] INFO: ✅ BufferAdjusted — employer: 0x709979... cycleId: 1 — tx: 0x17342b75812c1aea660f873e1f516769b2539cf738043ebcbb551469932c825a — gas: 233583
+[2026-03-30 13:44:15] INFO: TICK #54 complete in 1.3s
+[2026-03-30 13:44:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:44:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:44:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:44:43] INFO: TICK #55 started
+[2026-03-30 13:44:43] INFO: State loaded — last block: 22, employers: 2
+[2026-03-30 13:44:43] INFO: Scanning blocks 22 → 23 for new cycles
+[2026-03-30 13:44:43] INFO: Known employers: 2
+[2026-03-30 13:44:43] INFO: Active cycles to process: 1
+[2026-03-30 13:44:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:44:44] INFO: Transaction sent: 0xfa6fdd03560594a3a9802eb9a6c86bdba21d74323dcb974c4a9f4e499f4b2410 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:44:44] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0xfa6fdd03560594a3a9802eb9a6c86bdba21d74323dcb974c4a9f4e499f4b2410 — gas: 153642
+[2026-03-30 13:44:45] INFO: TICK #55 complete in 1.3s
+[2026-03-30 13:44:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:44:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:45:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:45:13] INFO: TICK #56 started
+[2026-03-30 13:45:13] INFO: State loaded — last block: 23, employers: 2
+[2026-03-30 13:45:13] INFO: Scanning blocks 23 → 24 for new cycles
+[2026-03-30 13:45:13] INFO: Known employers: 2
+[2026-03-30 13:45:13] INFO: Active cycles to process: 1
+[2026-03-30 13:45:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:45:14] INFO: Transaction sent: 0x68c541779373b63d31a229227e290b170fe056e59a01003a106d0fd2d3855115 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:45:14] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x68c541779373b63d31a229227e290b170fe056e59a01003a106d0fd2d3855115 — gas: 153711
+[2026-03-30 13:45:15] INFO: TICK #56 complete in 1.2s
+[2026-03-30 13:45:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:45:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:45:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:45:43] INFO: TICK #57 started
+[2026-03-30 13:45:43] INFO: State loaded — last block: 24, employers: 2
+[2026-03-30 13:45:43] INFO: Scanning blocks 24 → 25 for new cycles
+[2026-03-30 13:45:43] INFO: Known employers: 2
+[2026-03-30 13:45:43] INFO: Active cycles to process: 1
+[2026-03-30 13:45:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:45:44] INFO: Transaction sent: 0xd2f4c43a466cf079aa81913f8bcf472a1c2afd0d76fdd9bba0e2890cc888ee0c — employer: 0x709979... cycleId: 1
+[2026-03-30 13:45:44] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0xd2f4c43a466cf079aa81913f8bcf472a1c2afd0d76fdd9bba0e2890cc888ee0c — gas: 153711
+[2026-03-30 13:45:45] INFO: TICK #57 complete in 1.3s
+[2026-03-30 13:45:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:45:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:46:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:46:13] INFO: TICK #58 started
+[2026-03-30 13:46:13] INFO: State loaded — last block: 25, employers: 2
+[2026-03-30 13:46:13] INFO: Scanning blocks 25 → 26 for new cycles
+[2026-03-30 13:46:13] INFO: Known employers: 2
+[2026-03-30 13:46:13] INFO: Active cycles to process: 1
+[2026-03-30 13:46:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:46:14] INFO: Transaction sent: 0xb2eba5754c79276c734d2d6d5d4856cac3f87cb286a85b32d4aed26a0993825d — employer: 0x709979... cycleId: 1
+[2026-03-30 13:46:14] INFO: ✅ BufferAdjusted — employer: 0x709979... cycleId: 1 — tx: 0xb2eba5754c79276c734d2d6d5d4856cac3f87cb286a85b32d4aed26a0993825d — gas: 213911
+[2026-03-30 13:46:15] INFO: TICK #58 complete in 1.3s
+[2026-03-30 13:46:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:46:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:46:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:46:43] INFO: TICK #59 started
+[2026-03-30 13:46:43] INFO: State loaded — last block: 26, employers: 2
+[2026-03-30 13:46:43] INFO: Scanning blocks 26 → 27 for new cycles
+[2026-03-30 13:46:43] INFO: Known employers: 2
+[2026-03-30 13:46:43] INFO: Active cycles to process: 1
+[2026-03-30 13:46:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:46:44] INFO: Transaction sent: 0x2567ca9dbe3593d9c61304e255443f8a8c52128a873dfae12348253b7c923f1c — employer: 0x709979... cycleId: 1
+[2026-03-30 13:46:44] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x2567ca9dbe3593d9c61304e255443f8a8c52128a873dfae12348253b7c923f1c — gas: 153847
+[2026-03-30 13:46:45] INFO: TICK #59 complete in 1.2s
+[2026-03-30 13:46:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:46:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:47:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:47:13] INFO: TICK #60 started
+[2026-03-30 13:47:13] INFO: State loaded — last block: 27, employers: 2
+[2026-03-30 13:47:13] INFO: Scanning blocks 27 → 28 for new cycles
+[2026-03-30 13:47:13] INFO: Known employers: 2
+[2026-03-30 13:47:13] INFO: Active cycles to process: 1
+[2026-03-30 13:47:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:47:14] INFO: Transaction sent: 0x6dca46adefcc285d21fcc2c3e8bb1956ff967e1da15d1c1428c267248e247d89 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:47:14] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0x6dca46adefcc285d21fcc2c3e8bb1956ff967e1da15d1c1428c267248e247d89 — gas: 153847
+[2026-03-30 13:47:15] INFO: TICK #60 complete in 1.3s
+[2026-03-30 13:47:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:47:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:47:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:47:43] INFO: TICK #61 started
+[2026-03-30 13:47:43] INFO: State loaded — last block: 28, employers: 2
+[2026-03-30 13:47:43] INFO: Scanning blocks 28 → 29 for new cycles
+[2026-03-30 13:47:43] INFO: Known employers: 2
+[2026-03-30 13:47:43] INFO: Active cycles to process: 1
+[2026-03-30 13:47:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:47:44] INFO: Transaction sent: 0xad95aece6be32df7a45a6036f4034c8491a3f3a0c55be5392a0829399b62c273 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:47:44] INFO: ✅ NoActionNeeded — employer: 0x709979... cycleId: 1 — tx: 0xad95aece6be32df7a45a6036f4034c8491a3f3a0c55be5392a0829399b62c273 — gas: 153847
+[2026-03-30 13:47:45] INFO: TICK #61 complete in 1.3s
+[2026-03-30 13:47:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:47:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:48:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:48:13] INFO: TICK #62 started
+[2026-03-30 13:48:13] INFO: State loaded — last block: 29, employers: 2
+[2026-03-30 13:48:13] INFO: Scanning blocks 29 → 30 for new cycles
+[2026-03-30 13:48:13] INFO: Known employers: 2
+[2026-03-30 13:48:13] INFO: Active cycles to process: 1
+[2026-03-30 13:48:13] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:48:14] INFO: Transaction sent: 0x79a73717ef14052e1eaa6e3e090cf0b4e240409fb8c4d218f2d64559de97a7db — employer: 0x709979... cycleId: 1
+[2026-03-30 13:48:14] INFO: ✅ BufferAdjusted — employer: 0x709979... cycleId: 1 — tx: 0x79a73717ef14052e1eaa6e3e090cf0b4e240409fb8c4d218f2d64559de97a7db — gas: 216807
+[2026-03-30 13:48:15] INFO: TICK #62 complete in 1.3s
+[2026-03-30 13:48:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:48:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:48:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:48:43] INFO: TICK #63 started
+[2026-03-30 13:48:43] INFO: State loaded — last block: 30, employers: 2
+[2026-03-30 13:48:43] INFO: Scanning blocks 30 → 31 for new cycles
+[2026-03-30 13:48:43] INFO: Known employers: 2
+[2026-03-30 13:48:43] INFO: Active cycles to process: 1
+[2026-03-30 13:48:43] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:48:44] INFO: Transaction sent: 0x9c1cdf14525f50127a37057a8ed63e240b56bfa9d531e9522159946ee242b4a3 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:48:44] INFO: ✅ BufferAdjusted — employer: 0x709979... cycleId: 1 — tx: 0x9c1cdf14525f50127a37057a8ed63e240b56bfa9d531e9522159946ee242b4a3 — gas: 165410
+[2026-03-30 13:48:45] INFO: TICK #63 complete in 1.2s
+[2026-03-30 13:48:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:48:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:49:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:49:13] INFO: TICK #64 started
+[2026-03-30 13:49:13] INFO: State loaded — last block: 31, employers: 2
+[2026-03-30 13:49:13] INFO: Scanning blocks 31 → 32 for new cycles
+[2026-03-30 13:49:13] INFO: Known employers: 2
+[2026-03-30 13:49:14] INFO: Active cycles to process: 1
+[2026-03-30 13:49:14] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:49:14] INFO: Transaction sent: 0x9c564f48e570005d68d9350a96b8f7355b9349e69c7952ecae47bfc5c4a25baa — employer: 0x709979... cycleId: 1
+[2026-03-30 13:49:14] INFO: ✅ MovedToReserve — employer: 0x709979... cycleId: 1 — tx: 0x9c564f48e570005d68d9350a96b8f7355b9349e69c7952ecae47bfc5c4a25baa — gas: 97635
+[2026-03-30 13:49:15] INFO: TICK #64 complete in 1.3s
+[2026-03-30 13:49:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:49:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:49:43] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:49:43] INFO: TICK #65 started
+[2026-03-30 13:49:43] INFO: State loaded — last block: 32, employers: 2
+[2026-03-30 13:49:43] INFO: Scanning blocks 32 → 33 for new cycles
+[2026-03-30 13:49:44] INFO: Known employers: 2
+[2026-03-30 13:49:44] INFO: Active cycles to process: 1
+[2026-03-30 13:49:44] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:49:44] INFO: Transaction sent: 0xb0a40d4af61520072f6dc6736363600514e31e12a93ffb3c44deb8ea690a70a5 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:49:44] INFO: ✅ MovedToReserve — employer: 0x709979... cycleId: 1 — tx: 0xb0a40d4af61520072f6dc6736363600514e31e12a93ffb3c44deb8ea690a70a5 — gas: 97635
+[2026-03-30 13:49:45] INFO: TICK #65 complete in 1.3s
+[2026-03-30 13:49:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:49:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:50:13] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:50:13] INFO: TICK #66 started
+[2026-03-30 13:50:13] INFO: State loaded — last block: 33, employers: 2
+[2026-03-30 13:50:14] INFO: Scanning blocks 33 → 34 for new cycles
+[2026-03-30 13:50:14] INFO: Known employers: 2
+[2026-03-30 13:50:14] INFO: Active cycles to process: 1
+[2026-03-30 13:50:14] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:50:14] INFO: Transaction sent: 0x88dedf7951331e2989180d8078f84f5cf1bb4002dd6bf6d0a2a7075332d048a8 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:50:14] INFO: ✅ MovedToReserve — employer: 0x709979... cycleId: 1 — tx: 0x88dedf7951331e2989180d8078f84f5cf1bb4002dd6bf6d0a2a7075332d048a8 — gas: 97788
+[2026-03-30 13:50:15] INFO: TICK #66 complete in 1.2s
+[2026-03-30 13:50:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:50:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:50:44] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:50:44] INFO: TICK #67 started
+[2026-03-30 13:50:44] INFO: State loaded — last block: 34, employers: 2
+[2026-03-30 13:50:44] INFO: Scanning blocks 34 → 35 for new cycles
+[2026-03-30 13:50:44] INFO: Known employers: 2
+[2026-03-30 13:50:44] INFO: Active cycles to process: 1
+[2026-03-30 13:50:44] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:50:44] INFO: Transaction sent: 0xcffab666616f88b7a514f13592af585d49bc78c7f6d38fdb8045813bbe870735 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:50:44] INFO: ✅ MovedToReserve — employer: 0x709979... cycleId: 1 — tx: 0xcffab666616f88b7a514f13592af585d49bc78c7f6d38fdb8045813bbe870735 — gas: 97788
+[2026-03-30 13:50:45] INFO: TICK #67 complete in 1.3s
+[2026-03-30 13:50:45] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:50:45] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:51:14] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:51:14] INFO: TICK #68 started
+[2026-03-30 13:51:14] INFO: State loaded — last block: 35, employers: 2
+[2026-03-30 13:51:14] INFO: Scanning blocks 35 → 36 for new cycles
+[2026-03-30 13:51:14] INFO: Known employers: 2
+[2026-03-30 13:51:14] INFO: Active cycles to process: 1
+[2026-03-30 13:51:14] INFO: Rebalancing — employer: 0x709979... cycleId: 1
+[2026-03-30 13:51:14] INFO: Transaction sent: 0x08b2c9cc7cc9190fda8217165e0e311a4f9d9eae5909272624c82339eb1b28b6 — employer: 0x709979... cycleId: 1
+[2026-03-30 13:51:14] INFO: ✅ PaydayTriggered — employer: 0x709979... cycleId: 1 — tx: 0x08b2c9cc7cc9190fda8217165e0e311a4f9d9eae5909272624c82339eb1b28b6 — gas: 403539
+[2026-03-30 13:51:14] INFO: 🎉 PAYDAY SETTLED — employer: 0x709979... cycleId: 1
+[2026-03-30 13:51:15] INFO: TICK #68 complete in 1.3s
+[2026-03-30 13:51:15] INFO: Cycles: 1 total | 1 success | 0 failed
+[2026-03-30 13:51:15] INFO: 🎉 Paydays settled: 1
+[2026-03-30 13:51:15] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:51:44] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:51:44] INFO: TICK #69 started
+[2026-03-30 13:51:44] INFO: State loaded — last block: 36, employers: 2
+[2026-03-30 13:51:44] INFO: Scanning blocks 36 → 37 for new cycles
+[2026-03-30 13:51:44] INFO: Known employers: 2
+[2026-03-30 13:51:44] INFO: Active cycles to process: 0
+[2026-03-30 13:51:44] INFO: TICK #69 complete in 0.1s
+[2026-03-30 13:51:44] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:51:44] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:52:14] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:52:14] INFO: TICK #70 started
+[2026-03-30 13:52:14] INFO: State loaded — last block: 37, employers: 2
+[2026-03-30 13:52:14] INFO: Known employers: 2
+[2026-03-30 13:52:14] INFO: Active cycles to process: 0
+[2026-03-30 13:52:14] INFO: TICK #70 complete in 0.1s
+[2026-03-30 13:52:14] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-30 13:52:14] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-30 13:52:19] INFO: Shutting down agent gracefully...
