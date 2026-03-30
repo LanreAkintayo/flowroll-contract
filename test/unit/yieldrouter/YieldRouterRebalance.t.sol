@@ -51,7 +51,7 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         // Deploy a fresh router with no dispatcher wired
         vm.startPrank(owner);
         YieldRouter freshRouter = new YieldRouter(agentOperator, address(usdc));
-        freshRouter.setTreasury(treasury);
+        freshRouter.setPayrollManager(address(payrollManager));
         freshRouter.addPool(
             address(stableAdapter),
             address(stablePool),
@@ -66,10 +66,10 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         );
         vm.stopPrank();
 
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         usdc.approve(address(freshRouter), type(uint256).max);
 
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         freshRouter.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(0));
 
         uint256 payday = freshRouter.getCycle(employer, 1).payDay;

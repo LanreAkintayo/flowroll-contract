@@ -3,7 +3,8 @@ pragma solidity ^0.8.24;
 
 import {PayVaultBase} from "../../base/PayVaultBase.t.sol";
 import {PayVault} from "../../../src/PayVault.sol";
-import {YieldRouter} from "../../../src/YieldRouter.sol";  // ← this one
+import {YieldRouter} from "../../../src/YieldRouter.sol";  // 
+import {console} from "forge-std/console.sol";
 
 contract PayVaultTest is PayVaultBase {
 
@@ -304,6 +305,11 @@ contract PayVaultTest is PayVaultBase {
     }
 
     function test_disburse_revertsIfCycleNotFound() public {
+        // Deposit some funds into payvault
+        vm.startPrank(owner);
+        usdc.mint(address(payVault), CREDIT_AMOUNT + 1);
+        vm.stopPrank();
+
         vm.prank(address(router));
         vm.expectRevert(PayVault.PayVault__CycleNotFound.selector);
         payVault.disburse(employee, 999, CREDIT_AMOUNT);
@@ -324,12 +330,15 @@ contract PayVaultTest is PayVaultBase {
         uint256 savedAmount = (CREDIT_AMOUNT * SAVE_PCT) / SCALE;
         uint256 yieldAmount = 100e6;
 
+        assertEq(payVault.getBalance(employee), 0);
+
         // Simulate yield before payday
         _simulateYield(yieldAmount);
 
         _settleAutoSave(employee, cycleId);
 
         PayVault.AutoSaveCycle memory cycle = payVault.getAutoSaveCycle(employee, 0);
+
         uint256 totalReceived = savedAmount; // approximate — exact depends on pool math
 
         // Balance should be greater than savedAmount due to yield

@@ -107,8 +107,8 @@ abstract contract PayVaultBase is SharedBase {
         );
 
         // ── Wire YieldRouter ──────────────────────────────────────────────────
-        router.setTreasury(address(payrollManager));
         router.setPayVault(address(payVault));
+        router.setPayrollManager(address(payrollManager));
         router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
         router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
 
@@ -196,6 +196,9 @@ abstract contract PayVaultBase is SharedBase {
 
         vm.prank(emp);
         payVault.claimAndSave(creditAmount, savePct, duration);
+
+        vm.prank(agentOperator);
+        router.agentRebalance(emp, cyclesBefore + 1);
 
         // cycleId is cyclesBefore + 1
         cycleId = cyclesBefore + 1;

@@ -54,7 +54,7 @@ contract YieldRouterAccess is YieldRouterBase {
     }
 
     function test_startCycle_treasuryCanCall() public {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
         // no revert = pass
     }
@@ -104,10 +104,10 @@ contract YieldRouterAccess is YieldRouterBase {
         router.setAgentOperator(address(0));
     }
 
-    function test_setTreasury_revertsIfNotOwner() public {
+    function test_setPayrollManager_revertsIfNotOwner() public {
         vm.prank(stranger);
         vm.expectRevert();
-        router.setTreasury(stranger);
+        router.setPayrollManager(stranger);
     }
 
     function test_pause_revertsIfNotOwner() public {
@@ -120,7 +120,7 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.prank(owner);
         router.pause();
 
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         vm.expectRevert();
         router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }

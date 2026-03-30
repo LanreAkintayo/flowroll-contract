@@ -133,8 +133,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     address public immutable usdc;
     address public agentOperator;
     // address public payrollDispatcher;
-    address public treasury;
     address public payVault;
+    address public payrollManager;
 
     PoolEntry[] public pools;
     BufferConfig bufferConfig;
@@ -153,6 +153,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     event PayrollDispatcherSet(address indexed dispatcher);
     event TreasurySet(address indexed treasury);
     event PayVaultSet(address indexed vault);
+    event PayrollManagerSet(address indexed payrollManager);
     event BufferConfigUpdated();
     event PoolAdded(
         uint256 indexed poolIndex,
@@ -202,7 +203,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
     /// @dev Treasury and owner only. Employers go through Treasury — never call directly.
     modifier onlyAuthorizedCaller() {
-        if (msg.sender != treasury && msg.sender != owner() && msg.sender != payVault)
+        if (msg.sender != owner() && msg.sender != payVault && msg.sender != payrollManager)
             revert YieldRouter__NotAuthorizedCaller();
         _;
     }
@@ -277,18 +278,18 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     //     payrollDispatcher = _dispatcher;
     //     emit PayrollDispatcherSet(_dispatcher);
     // }
-
-    function setTreasury(address _treasury) external onlyOwner {
-        if (_treasury == address(0)) revert YieldRouter__ZeroAddress();
-        treasury = _treasury;
-        emit TreasurySet(_treasury);
-    }
     
     
     function setPayVault(address _payVault) external onlyOwner {
         if (_payVault == address(0)) revert YieldRouter__ZeroAddress();
-        treasury = _payVault;
+        payVault = _payVault;
         emit PayVaultSet(_payVault);
+    }
+    
+    function setPayrollManager(address _payrollManager) external onlyOwner {
+        if (_payrollManager == address(0)) revert YieldRouter__ZeroAddress();
+        payrollManager = _payrollManager;
+        emit PayrollManagerSet(_payrollManager);
     }
 
     /**
@@ -696,6 +697,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         nonReentrant
         cycleIsActive(caller, cycleId)
     {
+
+
         PayrollCycle storage cycle = cycles[caller][cycleId - 1];
         uint256 timeIntoCycle = block.timestamp - cycle.cycleStartTime;
 
@@ -716,6 +719,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
             uint256 disbursed = cycle.totalDeposited + cycle.yieldEarned;
             uint256 earned = cycle.yieldEarned;
+
             cycle.isActive = false;
 
             IERC20(usdc).safeTransfer(cycle.dispatcher, disbursed);
@@ -836,6 +840,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 highRiskThreshold,
         uint256 medRiskThreshold
     ) internal {
+
         uint256 currentScore = _getCurrentAllocationScore(
             caller,
             cycleId,

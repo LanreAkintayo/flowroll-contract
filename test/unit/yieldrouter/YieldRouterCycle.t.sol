@@ -17,13 +17,13 @@ contract YieldRouterCycle is YieldRouterBase {
     // ─── startCycle: input validation ────────────────────────────────────────
 
     function test_startCycle_revertsOnZeroDeposit() public {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDeposit.selector);
         router.startCycle(employer, 0, CYCLE_DURATION, address(mockDispatcher));
     }
 
     function test_startCycle_revertsOnZeroDuration() public {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDuration.selector);
         router.startCycle(employer, DEPOSIT_AMOUNT, 0, address(mockDispatcher));
     }
@@ -31,11 +31,11 @@ contract YieldRouterCycle is YieldRouterBase {
     // ─── startCycle: state correctness ───────────────────────────────────────
 
     function test_startCycle_pullsUSDCFromCaller() public {
-        uint256 balanceBefore = usdc.balanceOf(treasury);
+        uint256 balanceBefore = usdc.balanceOf(address(payrollManager));
 
         _startCycle();
 
-        assertEq(usdc.balanceOf(treasury), balanceBefore - DEPOSIT_AMOUNT);
+        assertEq(usdc.balanceOf(address(payrollManager)), balanceBefore - DEPOSIT_AMOUNT);
         assertEq(usdc.balanceOf(address(router)), DEPOSIT_AMOUNT);
     }
 

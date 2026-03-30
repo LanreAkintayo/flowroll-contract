@@ -103,7 +103,8 @@ abstract contract PayrollDispatcherBase is SharedBase {
         );
 
         // ── Wire everything up ────────────────────────────────────────────────
-        router.setTreasury(address(payrollManager));
+        // router.setTreasury(address(payrollManager));
+        router.setPayrollManager(address(payrollManager));
         // router.setPayrollDispatcher(address(dispatcher));
         router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
         router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);

@@ -5,9 +5,10 @@ import {SharedBase} from "./SharedBase.t.sol";
 import {YieldRouter} from "../../src/YieldRouter.sol";
 import {MockPool} from "../../src/mocks/MockPool.sol";
 import {MockPoolAdapter} from "../../src/adapters/MockPoolAdapter.sol";
-
 import {MockPayrollDispatcher} from "../../src/mocks/MockPayrollDispatcher.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
+import {PayrollManager} from "../../src/PayrollManager.sol";
 
 abstract contract YieldRouterBase is SharedBase {
 
@@ -19,6 +20,7 @@ abstract contract YieldRouterBase is SharedBase {
     MockPoolAdapter    internal stableAdapter;
     MockPoolAdapter    internal volatileAdapter;
     MockPayrollDispatcher     internal mockDispatcher;
+    PayrollManager internal payrollManager;
 
     // ─── Pool Constants ───────────────────────────────────────────────────────
 
@@ -45,6 +47,10 @@ abstract contract YieldRouterBase is SharedBase {
     uint256 internal constant TIER_3_BPS =  4_000;
     uint256 internal constant TIER_4_BPS = 10_000;
     uint256 internal constant TIER_5_BPS = 10_500;
+
+
+    uint256 internal constant FEE_BPS          = 200; // 2%
+address internal feeRecipient = makeAddr("feeRecipient");
 
     // ─── Setup ───────────────────────────────────────────────────────────────
 
@@ -74,6 +80,7 @@ abstract contract YieldRouterBase is SharedBase {
 
         // Seed pools with initial TVL so share math works from the start
         usdc.mint(owner, INITIAL_TVL * 2);
+
         usdc.approve(address(stablePool),   INITIAL_TVL);
         usdc.approve(address(volatilePool), INITIAL_TVL);
         stablePool.deposit(INITIAL_TVL,   owner);
@@ -89,8 +96,13 @@ abstract contract YieldRouterBase is SharedBase {
         // Deploy and wire dispatcher
         mockDispatcher = new MockPayrollDispatcher();
 
+         payrollManager = new PayrollManager(address(usdc), feeRecipient, FEE_BPS);
+        usdc.mint(address(payrollManager),  DEPOSIT_AMOUNT * 10);
+
+
         // Wire up
-        router.setTreasury(treasury);
+        // router.setTreasury(treasury);
+        router.setPayrollManager(address(payrollManager));
         // router.setPayrollDispatcher(address(mockDispatcher));
         router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
         router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
@@ -98,7 +110,7 @@ abstract contract YieldRouterBase is SharedBase {
         vm.stopPrank();
 
         // Treasury approves router once — covers all cycle deposits
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         usdc.approve(address(router), type(uint256).max);
     }
 
@@ -106,19 +118,19 @@ abstract contract YieldRouterBase is SharedBase {
 
     /// @dev Start a single cycle from treasury on behalf of employer
     function _startCycle() internal {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
     }
 
     /// @dev Start a cycle with a custom deposit amount
     function _startCycleWithAmount(uint256 amount) internal {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         router.startCycle(employer, amount, CYCLE_DURATION, address(mockDispatcher));
     }
 
     /// @dev Start a cycle with a custom duration
     function _startCycleWithDuration(uint256 duration) internal {
-        vm.prank(treasury);
+        vm.prank(address(payrollManager));
         router.startCycle(employer, DEPOSIT_AMOUNT, duration, address(mockDispatcher));
     }
 

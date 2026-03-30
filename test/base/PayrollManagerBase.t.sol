@@ -71,7 +71,9 @@ abstract contract PayrollManagerBase is SharedBase {
         dispatcher = new MockPayrollDispatcher();
 
         // Wire up
-        router.setTreasury(address(manager));
+        // router.setTreasury(address(manager));
+        router.setPayrollManager(address(manager));
+
         // router.setPayrollDispatcher(address(dispatcher));
         manager.setYieldRouter(address(router));
         manager.setPayrollDispatcher(address(dispatcher));
