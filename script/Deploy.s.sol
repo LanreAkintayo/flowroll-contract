@@ -23,7 +23,7 @@ contract Deploy is Script {
     uint256 constant SALARY_1         = 5_000e6;       // 5k USDC
     uint256 constant SALARY_2         = 3_000e6;       // 3k USDC
     uint256 constant SALARY_3         = 2_000e6;       // 2k USDC
-    uint256 constant CYCLE_DURATION   = 10 minutes;    // short for local testing
+    uint256 constant CYCLE_DURATION   = 2 minutes;    // short for local testing
 
     function run() external {
         uint256 deployerKey  = vm.envUint("PRIVATE_KEY");
