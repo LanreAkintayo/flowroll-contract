@@ -5722,3 +5722,13 @@
 [2026-03-31 11:55:29] INFO: TICK #16 complete in 0.1s
 [2026-03-31 11:55:29] INFO: Cycles: 0 total | 0 success | 0 failed
 [2026-03-31 11:55:29] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-31 11:55:59] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-31 11:55:59] INFO: TICK #17 started
+[2026-03-31 11:55:59] INFO: State loaded — last block: 37, employers: 3
+[2026-03-31 11:55:59] INFO: Known employers: 3
+[2026-03-31 11:55:59] INFO: Active cycles to process: 0
+[2026-03-31 11:55:59] INFO: TICK #17 complete in 0.1s
+[2026-03-31 11:55:59] INFO: Cycles: 0 total | 0 success | 0 failed
+[2026-03-31 11:55:59] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-03-31 11:56:15] INFO: Shutting down agent gracefully...
+[2026-03-31 11:56:20] WARN: Webhook notification failed: TypeError: fetch failed

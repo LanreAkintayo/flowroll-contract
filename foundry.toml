@@ -14,9 +14,11 @@ remappings = ["@openzeppelin/=lib/openzeppelin-contracts/"]
 [profile.ci]
 fuzz = { runs = 1000 }
 
+
 [rpc_endpoints]
-localhost      = "http://127.0.0.1:8545"
-initia_testnet = "${INITIA_RPC_URL}"
+localhost  = "http://127.0.0.1:8545"
+flowroll   = "http://127.0.0.1:8545"
+testnet    = "https://jsonrpc-evm-1.anvil.asia-southeast.initia.xyz"
 
 [fmt]
 line_length = 100

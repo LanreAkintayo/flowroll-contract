@@ -25,7 +25,25 @@ contract Deploy is Script {
 
     // Cycle duration differs per network
     uint256 constant ANVIL_CYCLE = 2 minutes;
-    uint256 constant TESTNET_CYCLE = 10 minutes; // short enough to demo, long enough to observe
+    uint256 constant TESTNET_CYCLE = 4 days; // short enough to demo, long enough to observe
+
+
+     MockUSDC       internal usdc;
+    YieldRouter    internal router;
+    PayrollManager internal manager;
+    PayVault       internal vault;
+    MockPool       internal stable;
+    MockPool       internal volatile;
+    uint256        internal deployerKey;
+    address        internal deployer;
+    address        internal agentOp;
+    address        internal feeRecipient;
+    MockPool       internal stablePool;
+    MockPool       internal volatilePool;
+    MockPoolAdapter internal stableAdapter;
+    MockPoolAdapter internal volatileAdapter;
+    PayrollDispatcher internal dispatcher;
+
 
     function run() external {
         // ── Detect network ────────────────────────────────────────────────────
@@ -33,90 +51,39 @@ contract Deploy is Script {
         bool isTestnet = keccak256(bytes(network)) ==
             keccak256(bytes("testnet"));
 
-        uint256 deployerKey;
+        usdc        = MockUSDC(vm.envAddress("MOCK_USDC_ADDRESS"));
+        router      = YieldRouter(vm.envAddress("YIELD_ROUTER_ADDRESS"));
+        manager     = PayrollManager(vm.envAddress("PAYROLL_MANAGER_ADDRESS"));
+        stablePool      = MockPool(vm.envAddress("STABLE_POOL_ADDRESS"));
+        volatilePool    = MockPool(vm.envAddress("VOLATILE_POOL_ADDRESS"));
+        vault    = PayVault(vm.envAddress("PAY_VAULT_ADDRESS"));
+        stableAdapter = MockPoolAdapter(vm.envAddress("STABLE_ADAPTER_ADDRESS"));
+        volatileAdapter = MockPoolAdapter(vm.envAddress("VOLATILE_ADAPTER_ADDRESS"));
+        dispatcher = PayrollDispatcher(vm.envAddress("PAYROLL_DISPATCHER_ADDRESS"));
+
         if (isTestnet) {
             deployerKey = vm.envUint("TESTNET_PRIVATE_KEY");
         } else {
             deployerKey = vm.envUint("ANVIL_PRIVATE_KEY");
         }
 
-        address deployer = vm.addr(deployerKey);
-        address agentOp = vm.envOr("AGENT_OPERATOR", deployer);
-        address feeRecipient = vm.envOr("FEE_RECIPIENT", deployer);
+        deployer = vm.addr(deployerKey);
+        agentOp = vm.envOr("AGENT_OPERATOR", deployer);
+        feeRecipient = vm.envOr("FEE_RECIPIENT", deployer);
         uint256 cycleDuration = isTestnet ? TESTNET_CYCLE : ANVIL_CYCLE;
 
-        console2.log("=== Flowroll Deploy ===");
-        console2.log("Network:    ", isTestnet ? "Initia Testnet" : "Anvil");
-        console2.log("Deployer:   ", deployer);
-        console2.log("AgentOp:    ", agentOp);
-        console2.log("Fee Recip:  ", feeRecipient);
-        console2.log("Cycle:      ", cycleDuration, "seconds");
-        console2.log("");
-
+        console2.log("=== Wiring Contract ===");
         vm.startBroadcast(deployerKey);
 
-        // ── 1. MockUSDC ───────────────────────────────────────────────────────
-        MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
-        console2.log("MockUSDC:          ", address(usdc));
 
-        // ── 2. Pools ──────────────────────────────────────────────────────────
-        MockPool stablePool = new MockPool(
-            address(usdc),
-            "Flowroll Stable Yield Vault",
-            STABLE_APY_BPS,
-            true,
-            "Flowroll Stable Shares",
-            "frUSDC-S"
-        );
-
-        MockPool volatilePool = new MockPool(
-            address(usdc),
-            "Flowroll INIT-Linked Vault",
-            VOLATILE_APY_BPS,
-            false,
-            "Flowroll Volatile Shares",
-            "frUSDC-V"
-        );
-
-        console2.log("StablePool:        ", address(stablePool));
-        console2.log("VolatilePool:      ", address(volatilePool));
-
-        // ── 3. Seed pools ─────────────────────────────────────────────────────
+        // ── Seed pools ─────────────────────────────────────────────────────
         usdc.approve(address(stablePool), INITIAL_TVL);
         usdc.approve(address(volatilePool), INITIAL_TVL);
         stablePool.deposit(INITIAL_TVL, deployer);
         volatilePool.deposit(INITIAL_TVL, deployer);
 
-        // ── 4. Adapters ───────────────────────────────────────────────────────
-        MockPoolAdapter stableAdapter = new MockPoolAdapter(
-            address(usdc),
-            address(stablePool)
-        );
-        MockPoolAdapter volatileAdapter = new MockPoolAdapter(
-            address(usdc),
-            address(volatilePool)
-        );
-        console2.log("StableAdapter:     ", address(stableAdapter));
-        console2.log("VolatileAdapter:   ", address(volatileAdapter));
+        console2.log("Pools seeded with initial TVL");
 
-        // ── 5. Core contracts ─────────────────────────────────────────────────
-        YieldRouter router = new YieldRouter(agentOp, address(usdc));
-        PayrollDispatcher dispatcher = new PayrollDispatcher(
-            address(usdc),
-            feeRecipient,
-            FEE_BPS
-        );
-        PayVault vault = new PayVault(address(usdc), feeRecipient, FEE_BPS);
-        PayrollManager manager = new PayrollManager(
-            address(usdc),
-            feeRecipient,
-            FEE_BPS
-        );
-
-        console2.log("YieldRouter:       ", address(router));
-        console2.log("PayrollDispatcher: ", address(dispatcher));
-        console2.log("PayVault:          ", address(vault));
-        console2.log("PayrollManager:    ", address(manager));
 
         // ── 6. Wire up ────────────────────────────────────────────────────────
         router.setPayrollManager(address(manager));
@@ -129,38 +96,8 @@ contract Deploy is Script {
             500
         );
 
-        manager.setYieldRouter(address(router));
-        manager.setPayrollDispatcher(address(dispatcher));
+        console2.log("router set up");
 
-        dispatcher.setYieldRouter(address(router));
-        dispatcher.setPayrollManager(address(manager));
-        dispatcher.setPayVault(address(vault));
-
-        vault.setDispatcher(address(dispatcher));
-        vault.setYieldRouter(address(router));
-
-        console2.log("Contracts wired");
-
-        // ── 7. Seed test scenario ─────────────────────────────────────────────
-        // address employee1 = makeAddress("employee1");
-        // address employee2 = makeAddress("employee2");
-        // address employee3 = makeAddress("employee3");
-
-        // usdc.mint(deployer, EMPLOYER_FUNDS);
-        // manager.registerEmployer();
-        // manager.createGroup("Engineering", cycleDuration);
-        // manager.addEmployee(1, employee1, SALARY_1);
-        // manager.addEmployee(1, employee2, SALARY_2);
-        // manager.addEmployee(1, employee3, SALARY_3);
-        // usdc.approve(address(manager), type(uint256).max);
-        // manager.depositPayroll(1);
-
-        // console2.log("Test cycle started");
-        // console2.log("Employee1:         ", employee1);
-        // console2.log("Employee2:         ", employee2);
-        // console2.log("Employee3:         ", employee3);
-
-        vm.stopBroadcast();
 
         // ── 8. Print env block ────────────────────────────────────────────────
         // console2.log("\n--- COPY TO scripts/agent/.env ---");
