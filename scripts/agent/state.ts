@@ -4,7 +4,7 @@ import { AgentState } from "./types";
 import { logger }     from "./logger";
 import { config }     from "./config";
 
-const STATE_FILE = path.join(__dirname, "state.json");
+const STATE_FILE = path.join(__dirname, "agent-state.json");
 
 const DEFAULT_STATE: AgentState = {
     lastScannedBlock: config.deploymentBlock,

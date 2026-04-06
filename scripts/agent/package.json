@@ -8,8 +8,9 @@
     "dev": "npx ts-node --watch index.ts"
   },
   "dependencies": {
-    "ethers": "^6.0.0",
     "dotenv": "^16.0.0",
+    "ethers": "^6.0.0",
+    "socket.io": "^4.8.3",
     "winston": "^3.11.0"
   },
   "devDependencies": {

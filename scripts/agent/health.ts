@@ -1,6 +1,7 @@
 import * as http    from "http";
+import { Server as SocketIOServer } from "socket.io";
 import { config }   from "./config";
-import { logger }   from "./logger";
+import { logger, setSocketServer } from "./logger"; // Make sure setSocketServer is exported from logger.ts!
 import { AgentState } from "./types";
 
 // ─── Shared metrics — updated by index.ts each tick ──────────────────────────
@@ -33,14 +34,26 @@ export const metrics: AgentMetrics = {
     state:           null,
 };
 
-// ─── Health server ────────────────────────────────────────────────────────────
+// ─── Health server & WebSockets ─────────────────────────────────────────────────
 
 export function startHealthServer(): void {
     const server = http.createServer((req, res) => {
+        // --- 1. CORS Headers for REST API ---
+        // This allows your Next.js frontend to fetch /status without browser errors
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+        // Handle preflight requests instantly
+        if (req.method === "OPTIONS") {
+            res.writeHead(200);
+            res.end();
+            return;
+        }
+
         const url = req.url || "/";
 
         if (url === "/health") {
-            // Simple liveness check
             res.writeHead(200, { "Content-Type": "application/json" });
             res.end(JSON.stringify({
                 status:   "ok",
@@ -53,7 +66,6 @@ export function startHealthServer(): void {
         }
 
         if (url === "/status") {
-            // Full agent status
             const uptimeSeconds = Math.floor((Date.now() - metrics.startTime) / 1000);
             const successRate   = metrics.totalCycles > 0
                 ? ((metrics.totalSuccess / metrics.totalCycles) * 100).toFixed(1)
@@ -88,13 +100,33 @@ export function startHealthServer(): void {
             return;
         }
 
-        // 404 for everything else
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Not found" }));
     });
 
+    // --- 2. Attach Socket.io to the Native HTTP Server ---
+    const io = new SocketIOServer(server, {
+        cors: {
+            origin: "*", // Allow Next.js to connect
+            methods: ["GET", "POST"]
+        }
+    });
+
+    // Pass the active socket instance over to your Winston logger
+    setSocketServer(io);
+
+    // Connection events for debugging
+    io.on("connection", (socket) => {
+        logger.info(`Frontend Command Center connected! (ID: ${socket.id})`);
+        
+        socket.on("disconnect", () => {
+            console.log(`Frontend disconnected: ${socket.id}`);
+        });
+    });
+
+    // --- 3. Start Listening ---
     server.listen(config.healthPort, () => {
-        logger.info(`Health server running on http://localhost:${config.healthPort}`);
+        logger.info(`Health & Socket server running on http://localhost:${config.healthPort}`);
         logger.info(`  GET /health  — liveness check`);
         logger.info(`  GET /status  — full agent metrics`);
     });
