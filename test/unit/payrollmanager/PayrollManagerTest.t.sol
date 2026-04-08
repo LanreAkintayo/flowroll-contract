@@ -6,7 +6,6 @@ import {PayrollManager} from "../../../src/PayrollManager.sol";
 import {YieldRouter} from "../../../src/YieldRouter.sol";
 
 contract PayrollManagerTest is PayrollManagerBase {
-
     // =========================================================================
     // REGISTRATION
     // =========================================================================
@@ -20,7 +19,9 @@ contract PayrollManagerTest is PayrollManagerBase {
     function test_register_revertsIfAlreadyRegistered() public {
         vm.startPrank(employer);
         manager.registerEmployer();
-        vm.expectRevert(PayrollManager.PayrollManager__AlreadyRegistered.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__AlreadyRegistered.selector
+        );
         manager.registerEmployer();
         vm.stopPrank();
     }
@@ -41,14 +42,17 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = manager.createGroup("Engineering", CYCLE_DURATION);
         vm.stopPrank();
 
-        PayrollManager.PayrollGroup memory group = manager.getGroup(employer, groupId);
+        PayrollManager.PayrollGroup memory group = manager.getGroup(
+            employer,
+            groupId
+        );
 
-        assertEq(groupId,              1);
-        assertEq(group.groupId,        1);
-        assertEq(group.name,           "Engineering");
-        assertEq(group.totalPayroll,   0);
-        assertEq(group.activeCycleId,  0);
-        assertEq(group.cycleDuration,  CYCLE_DURATION);
+        assertEq(groupId, 1);
+        assertEq(group.groupId, 1);
+        assertEq(group.name, "Engineering");
+        assertEq(group.totalPayroll, 0);
+        assertEq(group.activeCycleId, 0);
+        assertEq(group.cycleDuration, CYCLE_DURATION);
         assertTrue(group.exists);
     }
 
@@ -56,8 +60,8 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.startPrank(employer);
         manager.registerEmployer();
         uint256 id1 = manager.createGroup("Engineering", CYCLE_DURATION);
-        uint256 id2 = manager.createGroup("Sales",       CYCLE_DURATION);
-        uint256 id3 = manager.createGroup("Marketing",   CYCLE_DURATION);
+        uint256 id2 = manager.createGroup("Sales", CYCLE_DURATION);
+        uint256 id3 = manager.createGroup("Marketing", CYCLE_DURATION);
         vm.stopPrank();
 
         assertEq(id1, 1);
@@ -78,12 +82,52 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 idA = manager.createGroup("Engineering", CYCLE_DURATION);
 
         vm.startPrank(employerB);
-        manager.createGroup("Sales",     CYCLE_DURATION);
+        manager.createGroup("Sales", CYCLE_DURATION);
         uint256 idB = manager.createGroup("Marketing", CYCLE_DURATION);
         vm.stopPrank();
 
         assertEq(idA, 1);
         assertEq(idB, 2); // employerB's second group
+    }
+
+    function test_setupPayroll() public {
+        address employerB = makeAddr("employerB");
+
+        address[] memory employees = new address[](2);
+        employees[0] = employee;
+        employees[1] = employee2;
+
+        uint256[] memory salaries = new uint256[](2);
+        salaries[0] = EMPLOYEE_SALARY;
+        salaries[1] = EMPLOYEE_SALARY2;
+
+        vm.startPrank(employer);
+        uint256 groupId = manager.createGroup("Engineering", CYCLE_DURATION);
+
+        // Then approve payrollmanager to spend your stuff on your behalf
+        usdc.approve(address(manager), type(uint256).max);
+
+        manager.setUpPayroll(groupId, employees, salaries);
+
+        vm.stopPrank();
+
+        vm.prank(agentOperator);
+        router.agentRebalance(employer, 1);
+
+        PayrollManager.PayrollGroup memory group = manager.getGroup(
+            employer,
+            groupId
+        );
+        YieldRouter.PayrollCycle memory cycle = router.getCycle(
+            employer,
+            group.activeCycleId
+        );
+
+        // console.log(cycle.);
+
+        // Then we call rebalance;
+
+        // Then call setuppayroll
     }
 
     // =========================================================================
@@ -120,7 +164,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroup();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__EmployeeAlreadyExists.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__EmployeeAlreadyExists.selector
+        );
         manager.addEmployee(groupId, employee, EMPLOYEE_SALARY);
     }
 
@@ -128,7 +174,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroupWithActiveCycle();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.addEmployee(groupId, employee2, EMPLOYEE_SALARY2);
     }
 
@@ -145,7 +193,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroup();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__EmployeeNotFound.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__EmployeeNotFound.selector
+        );
         manager.removeEmployee(groupId, employee2);
     }
 
@@ -153,7 +203,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroupWithActiveCycle();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.removeEmployee(groupId, employee);
     }
 
@@ -171,7 +223,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroupWithActiveCycle();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.updateSalary(groupId, employee, 8_000e6);
     }
 
@@ -193,7 +247,10 @@ contract PayrollManagerTest is PayrollManagerBase {
         manager.addEmployees(groupId, emps, salaries);
         vm.stopPrank();
 
-        assertEq(manager.getTotalPayroll(employer, groupId), EMPLOYEE_SALARY + EMPLOYEE_SALARY2);
+        assertEq(
+            manager.getTotalPayroll(employer, groupId),
+            EMPLOYEE_SALARY + EMPLOYEE_SALARY2
+        );
         assertEq(manager.getGroupEmployees(employer, groupId).length, 2);
     }
 
@@ -202,10 +259,12 @@ contract PayrollManagerTest is PayrollManagerBase {
         manager.registerEmployer();
         uint256 groupId = manager.createGroup("Engineering", CYCLE_DURATION);
 
-        address[] memory emps     = new address[](2);
+        address[] memory emps = new address[](2);
         uint256[] memory salaries = new uint256[](1);
 
-        vm.expectRevert(PayrollManager.PayrollManager__ArrayLengthMismatch.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__ArrayLengthMismatch.selector
+        );
         manager.addEmployees(groupId, emps, salaries);
         vm.stopPrank();
     }
@@ -254,7 +313,7 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.stopPrank();
 
         assertEq(manager.getTotalPayroll(employer, groupId), 11_000e6);
-        assertEq(manager.getSalary(employer, groupId, employee),  7_000e6);
+        assertEq(manager.getSalary(employer, groupId, employee), 7_000e6);
         assertEq(manager.getSalary(employer, groupId, employee2), 4_000e6);
     }
 
@@ -263,8 +322,8 @@ contract PayrollManagerTest is PayrollManagerBase {
     // =========================================================================
 
     function test_depositPayroll_pullsUSDCFromEmployer() public {
-        uint256 groupId     = _setupGroup();
-        uint256 balBefore   = usdc.balanceOf(employer);
+        uint256 groupId = _setupGroup();
+        uint256 balBefore = usdc.balanceOf(employer);
 
         vm.prank(employer);
         manager.depositPayroll(groupId);
@@ -287,15 +346,24 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.prank(employer);
         manager.depositPayroll(groupId);
 
-        PayrollManager.PayrollGroup memory group = manager.getGroup(employer, groupId);
+        PayrollManager.PayrollGroup memory group = manager.getGroup(
+            employer,
+            groupId
+        );
         assertEq(group.activeCycleId, 1);
     }
 
     function test_depositPayroll_cycleExistsInYieldRouter() public {
         uint256 groupId = _setupGroupWithActiveCycle();
 
-        PayrollManager.PayrollGroup memory group = manager.getGroup(employer, groupId);
-        YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, group.activeCycleId);
+        PayrollManager.PayrollGroup memory group = manager.getGroup(
+            employer,
+            groupId
+        );
+        YieldRouter.PayrollCycle memory cycle = router.getCycle(
+            employer,
+            group.activeCycleId
+        );
 
         assertEq(cycle.totalDeposited, EMPLOYEE_SALARY);
         assertTrue(cycle.isActive);
@@ -305,7 +373,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         uint256 groupId = _setupGroupWithActiveCycle();
 
         vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.depositPayroll(groupId);
     }
 
@@ -314,7 +384,9 @@ contract PayrollManagerTest is PayrollManagerBase {
         manager.registerEmployer();
         uint256 groupId = manager.createGroup("Engineering", CYCLE_DURATION);
 
-        vm.expectRevert(PayrollManager.PayrollManager__InsufficientPayroll.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__InsufficientPayroll.selector
+        );
         manager.depositPayroll(groupId);
         vm.stopPrank();
     }
@@ -322,11 +394,18 @@ contract PayrollManagerTest is PayrollManagerBase {
     function test_depositPayroll_revertsIfRouterNotSet() public {
         // Deploy fresh manager with no router wired
         vm.prank(owner);
-        PayrollManager freshManager = new PayrollManager(address(usdc), feeRecipient, FEE_BPS);
+        PayrollManager freshManager = new PayrollManager(
+            address(usdc),
+            feeRecipient,
+            FEE_BPS
+        );
 
         vm.startPrank(employer);
         freshManager.registerEmployer();
-        uint256 groupId = freshManager.createGroup("Engineering", CYCLE_DURATION);
+        uint256 groupId = freshManager.createGroup(
+            "Engineering",
+            CYCLE_DURATION
+        );
         freshManager.addEmployee(groupId, employee, EMPLOYEE_SALARY);
 
         usdc.approve(address(freshManager), type(uint256).max);
@@ -341,7 +420,7 @@ contract PayrollManagerTest is PayrollManagerBase {
     // =========================================================================
 
     function test_cancelCycle_returnsFullAmountToEmployer() public {
-        uint256 groupId   = _setupGroupWithActiveCycle();
+        uint256 groupId = _setupGroupWithActiveCycle();
         uint256 balBefore = usdc.balanceOf(employer);
 
         vm.prank(employer);
@@ -356,11 +435,16 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.prank(employer);
         manager.cancelCycle(groupId);
 
-        PayrollManager.PayrollGroup memory group = manager.getGroup(employer, groupId);
+        PayrollManager.PayrollGroup memory group = manager.getGroup(
+            employer,
+            groupId
+        );
         assertEq(group.activeCycleId, 0);
     }
 
-    function test_cancelCycle_groupAvailableForNewDepositAfterCancellation() public {
+    function test_cancelCycle_groupAvailableForNewDepositAfterCancellation()
+        public
+    {
         uint256 groupId = _setupGroupWithActiveCycle();
 
         vm.prank(employer);
@@ -400,13 +484,19 @@ contract PayrollManagerTest is PayrollManagerBase {
 
         vm.startPrank(employer);
 
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.addEmployee(groupId, employee2, EMPLOYEE_SALARY2);
 
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.removeEmployee(groupId, employee);
 
-        vm.expectRevert(PayrollManager.PayrollManager__GroupHasActiveCycle.selector);
+        vm.expectRevert(
+            PayrollManager.PayrollManager__GroupHasActiveCycle.selector
+        );
         manager.updateSalary(groupId, employee, 8_000e6);
 
         vm.stopPrank();
@@ -425,7 +515,10 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.prank(employer);
         manager.addEmployee(groupId, employee2, EMPLOYEE_SALARY2);
 
-        assertEq(manager.getSalary(employer, groupId, employee2), EMPLOYEE_SALARY2);
+        assertEq(
+            manager.getSalary(employer, groupId, employee2),
+            EMPLOYEE_SALARY2
+        );
         assertEq(manager.getGroup(employer, groupId).activeCycleId, 0);
     }
 

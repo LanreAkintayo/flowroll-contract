@@ -3,8 +3,12 @@ pragma solidity ^0.8.24;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {
+    ReentrancyGuard
+} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {
+    SafeERC20
+} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IYieldRouter} from "./interfaces/IYieldRouter.sol";
 
@@ -46,6 +50,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         uint256 groupCount;
         address employerAddress;
     }
+
 
     struct PayrollGroup {
         uint256 groupId;
@@ -89,7 +94,8 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     address public feeRecipient;
     uint256 public feeBps;
 
-    mapping(address => mapping(uint256 cycleId => uint256 groupId)) public cycleToGroup;
+    mapping(address => mapping(uint256 cycleId => uint256 groupId))
+        public cycleToGroup;
     mapping(address => EmployerProfile) private employers;
     mapping(address => mapping(uint256 => PayrollGroup)) private groups;
     mapping(address => mapping(uint256 => address[])) private groupEmployees;
@@ -145,6 +151,11 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     event YieldRouterSet(address indexed router);
     event PayrollDispatcherSet(address indexed _dispatcher);
 
+    event PayrollSetup(
+        address indexed employer,
+        uint256 indexed groupId,
+        uint256 indexed cycleId
+    );
 
     // ─── Modifiers ───────────────────────────────────────────────────────────
 
@@ -195,12 +206,11 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         emit YieldRouterSet(_router);
     }
 
-     function setPayrollDispatcher(address _dispatcher) external onlyOwner {
+    function setPayrollDispatcher(address _dispatcher) external onlyOwner {
         if (_dispatcher == address(0)) revert PayrollManager__ZeroAddress();
         payrollDispatcher = _dispatcher;
         emit PayrollDispatcherSet(_dispatcher);
     }
-
 
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
         if (_feeRecipient == address(0)) revert PayrollManager__ZeroAddress();
@@ -221,8 +231,6 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     function unpause() external onlyOwner {
         _unpause();
     }
-
-    // ─── Employer Registration ────────────────────────────────────────────────
 
     /**
      * @notice Register as an employer on Flowroll.
@@ -255,19 +263,8 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     function createGroup(
         string calldata name,
         uint256 cycleDuration
-    ) external onlyRegistered whenNotPaused returns (uint256 groupId) {
-        groupId = ++employers[msg.sender].groupCount;
-
-        groups[msg.sender][groupId] = PayrollGroup({
-            groupId: groupId,
-            name: name,
-            totalPayroll: 0,
-            activeCycleId: 0,
-            cycleDuration: cycleDuration,
-            exists: true
-        });
-
-        emit GroupCreated(msg.sender, groupId, name);
+    ) external whenNotPaused returns (uint256 groupId) {
+        groupId = _createGroup(name, cycleDuration);
     }
 
     // ─── Payroll Schedule ─────────────────────────────────────────────────────
@@ -329,22 +326,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
             revert PayrollManager__ArrayLengthMismatch();
         if (employees.length == 0) revert PayrollManager__EmptyArray();
 
-        for (uint256 i = 0; i < employees.length; i++) {
-            address employee = employees[i];
-            uint256 salary = salaries[i];
-
-            if (employee == address(0)) revert PayrollManager__ZeroAddress();
-            if (salary == 0) revert PayrollManager__ZeroSalary();
-            if (isGroupEmployee[msg.sender][groupId][employee])
-                revert PayrollManager__EmployeeAlreadyExists();
-
-            isGroupEmployee[msg.sender][groupId][employee] = true;
-            groupEmployees[msg.sender][groupId].push(employee);
-            groupSalaries[msg.sender][groupId][employee] = salary;
-            groups[msg.sender][groupId].totalPayroll += salary;
-
-            emit EmployeeAdded(msg.sender, groupId, employee, salary);
-        }
+        _addEmployees(groupId, employees, salaries);
     }
 
     /**
@@ -387,56 +369,53 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         emit EmployeeRemoved(msg.sender, groupId, employee);
     }
 
-
     /**
- * @notice Remove multiple employees from a payroll group in one transaction.
- * @dev Blocked if group has an active cycle.
- *
- * @param groupId   Target group
- * @param employees Array of employee wallet addresses to remove
- */
-function removeEmployees(
-    uint256 groupId,
-    address[] calldata employees
-)
-    external
-    onlyRegistered
-    groupExists(groupId)
-    noActiveCycle(groupId)
-    whenNotPaused
-{
-    if (employees.length == 0)
-        revert PayrollManager__EmptyArray();
+     * @notice Remove multiple employees from a payroll group in one transaction.
+     * @dev Blocked if group has an active cycle.
+     *
+     * @param groupId   Target group
+     * @param employees Array of employee wallet addresses to remove
+     */
+    function removeEmployees(
+        uint256 groupId,
+        address[] calldata employees
+    )
+        external
+        onlyRegistered
+        groupExists(groupId)
+        noActiveCycle(groupId)
+        whenNotPaused
+    {
+        if (employees.length == 0) revert PayrollManager__EmptyArray();
 
-    address[] storage groupEmps = groupEmployees[msg.sender][groupId];
+        address[] storage groupEmps = groupEmployees[msg.sender][groupId];
 
-    for (uint256 i = 0; i < employees.length; i++) {
-        address employee = employees[i];
+        for (uint256 i = 0; i < employees.length; i++) {
+            address employee = employees[i];
 
-        if (!isGroupEmployee[msg.sender][groupId][employee])
-            revert PayrollManager__EmployeeNotFound();
+            if (!isGroupEmployee[msg.sender][groupId][employee])
+                revert PayrollManager__EmployeeNotFound();
 
-        uint256 salary = groupSalaries[msg.sender][groupId][employee];
+            uint256 salary = groupSalaries[msg.sender][groupId][employee];
 
-        groups[msg.sender][groupId].totalPayroll      -= salary;
-        groupSalaries[msg.sender][groupId][employee]   = 0;
-        isGroupEmployee[msg.sender][groupId][employee] = false;
+            groups[msg.sender][groupId].totalPayroll -= salary;
+            groupSalaries[msg.sender][groupId][employee] = 0;
+            isGroupEmployee[msg.sender][groupId][employee] = false;
 
-        // Swap-and-pop
-        uint256 len = groupEmps.length;
-        for (uint256 j = 0; j < len; j++) {
-            if (groupEmps[j] == employee) {
-                groupEmps[j] = groupEmps[len - 1];
-                groupEmps.pop();
-                len--;
-                break;
+            // Swap-and-pop
+            uint256 len = groupEmps.length;
+            for (uint256 j = 0; j < len; j++) {
+                if (groupEmps[j] == employee) {
+                    groupEmps[j] = groupEmps[len - 1];
+                    groupEmps.pop();
+                    len--;
+                    break;
+                }
             }
+
+            emit EmployeeRemoved(msg.sender, groupId, employee);
         }
-
-        emit EmployeeRemoved(msg.sender, groupId, employee);
     }
-}
-
 
     /**
      * @notice Update an employee's salary.
@@ -467,50 +446,53 @@ function removeEmployees(
         emit SalaryUpdated(msg.sender, groupId, employee, oldSalary, newSalary);
     }
 
-
     /**
- * @notice Update salaries for multiple employees in one transaction.
- * @dev Blocked if group has an active cycle.
- *      employees and newSalaries arrays must be the same length.
- *
- * @param groupId     Target group
- * @param employees   Array of employee wallet addresses
- * @param newSalaries Array of new salaries, index-aligned with employees
- */
-function updateSalaries(
-    uint256 groupId,
-    address[] calldata employees,
-    uint256[] calldata newSalaries
-)
-    external
-    onlyRegistered
-    groupExists(groupId)
-    noActiveCycle(groupId)
-    whenNotPaused
-{
-    if (employees.length != newSalaries.length)
-        revert PayrollManager__ArrayLengthMismatch();
-    if (employees.length == 0)
-        revert PayrollManager__EmptyArray();
+     * @notice Update salaries for multiple employees in one transaction.
+     * @dev Blocked if group has an active cycle.
+     *      employees and newSalaries arrays must be the same length.
+     *
+     * @param groupId     Target group
+     * @param employees   Array of employee wallet addresses
+     * @param newSalaries Array of new salaries, index-aligned with employees
+     */
+    function updateSalaries(
+        uint256 groupId,
+        address[] calldata employees,
+        uint256[] calldata newSalaries
+    )
+        external
+        onlyRegistered
+        groupExists(groupId)
+        noActiveCycle(groupId)
+        whenNotPaused
+    {
+        if (employees.length != newSalaries.length)
+            revert PayrollManager__ArrayLengthMismatch();
+        if (employees.length == 0) revert PayrollManager__EmptyArray();
 
-    for (uint256 i = 0; i < employees.length; i++) {
-        address employee  = employees[i];
-        uint256 newSalary = newSalaries[i];
+        for (uint256 i = 0; i < employees.length; i++) {
+            address employee = employees[i];
+            uint256 newSalary = newSalaries[i];
 
-        if (!isGroupEmployee[msg.sender][groupId][employee])
-            revert PayrollManager__EmployeeNotFound();
-        if (newSalary == 0) revert PayrollManager__ZeroSalary();
+            if (!isGroupEmployee[msg.sender][groupId][employee])
+                revert PayrollManager__EmployeeNotFound();
+            if (newSalary == 0) revert PayrollManager__ZeroSalary();
 
-        uint256 oldSalary = groupSalaries[msg.sender][groupId][employee];
+            uint256 oldSalary = groupSalaries[msg.sender][groupId][employee];
 
-        groupSalaries[msg.sender][groupId][employee]  = newSalary;
-        groups[msg.sender][groupId].totalPayroll     -= oldSalary;
-        groups[msg.sender][groupId].totalPayroll     += newSalary;
+            groupSalaries[msg.sender][groupId][employee] = newSalary;
+            groups[msg.sender][groupId].totalPayroll -= oldSalary;
+            groups[msg.sender][groupId].totalPayroll += newSalary;
 
-        emit SalaryUpdated(msg.sender, groupId, employee, oldSalary, newSalary);
+            emit SalaryUpdated(
+                msg.sender,
+                groupId,
+                employee,
+                oldSalary,
+                newSalary
+            );
+        }
     }
-}
-
 
     // ─── Cycle Management ─────────────────────────────────────────────────────
 
@@ -533,40 +515,48 @@ function updateSalaries(
         whenNotPaused
         nonReentrant
     {
+        _depositPayroll(groupId);
+    }
+
+    /**
+     * @notice One-shot employer setup: create group, add employees, and start cycle.
+     * @dev Combines createGroup + addEmployees + depositPayroll into a single call.
+     *      Employer is auto-registered if not already registered.
+     *      USDC approval for totalPayroll must be granted to this contract before calling.
+     *
+     * @param groupId   The ID of the group to set up
+     * @param employees   Array of employee wallet addresses
+     * @param salaries    Array of salaries in USDC (6 decimals), index-aligned with employees
+     * @return cycleId    The cycle ID returned from YieldRouter
+     */
+    function setUpPayroll(
+        uint256 groupId,
+        address[] calldata employees,
+        uint256[] calldata salaries
+    )
+        external
+        whenNotPaused
+        nonReentrant
+        returns (uint256 cycleId)
+    {
         if (yieldRouter == address(0)) revert PayrollManager__RouterNotSet();
+        if (employees.length == 0) revert PayrollManager__EmptyArray();
+        if (employees.length != salaries.length)
+            revert PayrollManager__ArrayLengthMismatch();
 
-        uint256 cycleDuration = groups[msg.sender][groupId].cycleDuration;
-        if (cycleDuration == 0) revert PayrollManager__ZeroDuration();
+        // ── Add employees ─────────────────────────────────────────────
+        _addEmployees(groupId, employees, salaries);
 
-        uint256 totalPayroll = groups[msg.sender][groupId].totalPayroll;
-        if (totalPayroll == 0) revert PayrollManager__InsufficientPayroll();
+        // ── Deposit payroll and start cycle ───────────────────────────
+        _depositPayroll(groupId);
 
-        // Pull USDC from employer into PayrollManager
-        IERC20(usdc).safeTransferFrom(msg.sender, address(this), totalPayroll);
-
-        // Approve YieldRouter to pull from PayrollManager
-        IERC20(usdc).approve(yieldRouter, totalPayroll);
-
-        // Start cycle — YieldRouter pulls USDC and returns cycleId
-        uint256 cycleId = IYieldRouter(yieldRouter).startCycle(
-            msg.sender,
-            totalPayroll,
-            cycleDuration,
-            payrollDispatcher
-        );
-
-        // Store cycleId — links this group to its YieldRouter cycle
-        groups[msg.sender][groupId].activeCycleId = cycleId;
-
-        cycleToGroup[msg.sender][cycleId] = groupId;
-
-        emit PayrollDeposited(
+        emit PayrollSetup(
             msg.sender,
             groupId,
-            cycleId,
-            totalPayroll,
-            cycleDuration
+            groups[msg.sender][groupId].activeCycleId
         );
+
+        return (groups[msg.sender][groupId].activeCycleId);
     }
 
     /**
@@ -681,5 +671,92 @@ function updateSalaries(
         }
 
         return stillActive;
+    }
+
+    function _createGroup(
+        string calldata name,
+        uint256 cycleDuration
+    ) internal returns (uint256 groupId) {
+        if (!employers[msg.sender].isRegistered) {
+            employers[msg.sender] = EmployerProfile({
+                isRegistered: true,
+                groupCount: 0,
+                employerAddress: msg.sender
+            });
+            emit EmployerRegistered(msg.sender);
+        }
+
+        groupId = ++employers[msg.sender].groupCount;
+
+        groups[msg.sender][groupId] = PayrollGroup({
+            groupId: groupId,
+            name: name,
+            totalPayroll: 0,
+            activeCycleId: 0,
+            cycleDuration: cycleDuration,
+            exists: true
+        });
+
+        emit GroupCreated(msg.sender, groupId, name);
+    }
+
+    function _addEmployees(
+        uint256 groupId,
+        address[] calldata employees,
+        uint256[] calldata salaries
+    ) internal {
+        for (uint256 i = 0; i < employees.length; i++) {
+            address employee = employees[i];
+            uint256 salary = salaries[i];
+
+            if (employee == address(0)) revert PayrollManager__ZeroAddress();
+            if (salary == 0) revert PayrollManager__ZeroSalary();
+            if (isGroupEmployee[msg.sender][groupId][employee])
+                revert PayrollManager__EmployeeAlreadyExists();
+
+            isGroupEmployee[msg.sender][groupId][employee] = true;
+            groupEmployees[msg.sender][groupId].push(employee);
+            groupSalaries[msg.sender][groupId][employee] = salary;
+            groups[msg.sender][groupId].totalPayroll += salary;
+
+            emit EmployeeAdded(msg.sender, groupId, employee, salary);
+        }
+    }
+
+    function _depositPayroll(uint256 groupId) internal {
+        if (yieldRouter == address(0)) revert PayrollManager__RouterNotSet();
+
+        uint256 cycleDuration = groups[msg.sender][groupId].cycleDuration;
+        if (cycleDuration == 0) revert PayrollManager__ZeroDuration();
+
+        uint256 totalPayroll = groups[msg.sender][groupId].totalPayroll;
+        if (totalPayroll == 0) revert PayrollManager__InsufficientPayroll();
+
+        // Pull USDC from employer into PayrollManager
+        IERC20(usdc).safeTransferFrom(msg.sender, address(this), totalPayroll);
+
+        // Approve YieldRouter to pull from PayrollManager
+        IERC20(usdc).approve(yieldRouter, totalPayroll);
+
+        // Start cycle — YieldRouter pulls USDC and returns cycleId
+        uint256 cycleId = IYieldRouter(yieldRouter).startCycle(
+            msg.sender,
+            totalPayroll,
+            cycleDuration,
+            payrollDispatcher
+        );
+
+        // Store cycleId — links this group to its YieldRouter cycle
+        groups[msg.sender][groupId].activeCycleId = cycleId;
+
+        cycleToGroup[msg.sender][cycleId] = groupId;
+
+        emit PayrollDeposited(
+            msg.sender,
+            groupId,
+            cycleId,
+            totalPayroll,
+            cycleDuration
+        );
     }
 }

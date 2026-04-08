@@ -8,7 +8,6 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IPoolAdapter} from "./interfaces/IPoolAdapter.sol";
 import {IPayrollDispatcher} from "./interfaces/IPayrollDispatcher.sol";
-
 /**
  * @title YieldRouter
  * @notice Core yield agent contract for Flowroll.
@@ -115,7 +114,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     error YieldRouter__InvalidBufferConfig();
     error YieldRouter__InvalidRiskConfig();
     error YieldRouter__CycleNotCancellable();
-
+    error YieldRouter__PoolAlreadyExists();
+    
     // ─── Constants ───────────────────────────────────────────────────────────
 
     uint256 public constant SCALE = 10_000;
@@ -143,6 +143,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     mapping(address => PayrollCycle[]) public cycles;
     mapping(address caller => mapping(uint256 cycleId => mapping(uint256 poolIndex => uint256)))
         public poolAllocations;
+    mapping(address => bool) public poolExists;
 
     // ─── Events ──────────────────────────────────────────────────────────────
 
@@ -179,7 +180,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         address indexed caller,
         uint256 indexed cycleId,
         uint256 timeIntoCycle,
-        ActionType actionType,
+        ActionType indexed actionType,
         uint256 fromPoolIndex,
         uint256 toPoolIndex,
         uint256 amountMoved,
@@ -350,6 +351,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     ) external onlyOwner {
         if (adapterAddress == address(0)) revert YieldRouter__ZeroAddress();
         if (pool == address(0)) revert YieldRouter__ZeroAddress();
+        if (poolExists[pool]) revert YieldRouter__PoolAlreadyExists();
 
         uint256 idx = pools.length;
         pools.push(
@@ -361,6 +363,9 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 minApyBps: minApyBps
             })
         );
+
+        poolExists[pool] = true;
+
 
         emit PoolAdded(idx, adapterAddress, pool);
     }
@@ -945,6 +950,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         address adapter = pools[poolIndex].adapterAddress;
         IERC20(usdc).approve(adapter, amount);
         uint256 shares = IPoolAdapter(adapter).deposit(amount);
+
         poolAllocations[caller][cycleId][poolIndex] += shares;
         cycles[caller][cycleId - 1].currentAllocation += amount;
     }

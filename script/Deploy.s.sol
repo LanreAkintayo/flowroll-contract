@@ -56,7 +56,9 @@ contract Deploy is Script {
         vm.startBroadcast(deployerKey);
 
         // ── 1. MockUSDC ───────────────────────────────────────────────────────
-        MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
+        // MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
+        MockUSDC usdc = MockUSDC(vm.envAddress("MOCK_USDC_ADDRESS"));
+
         console2.log("MockUSDC:          ", address(usdc));
 
         // ── 2. Pools ──────────────────────────────────────────────────────────
@@ -82,10 +84,10 @@ contract Deploy is Script {
         console2.log("VolatilePool:      ", address(volatilePool));
 
         // ── 3. Seed pools ─────────────────────────────────────────────────────
-        usdc.approve(address(stablePool), INITIAL_TVL);
-        usdc.approve(address(volatilePool), INITIAL_TVL);
-        stablePool.deposit(INITIAL_TVL, deployer);
-        volatilePool.deposit(INITIAL_TVL, deployer);
+        // usdc.approve(address(stablePool), INITIAL_TVL);
+        // usdc.approve(address(volatilePool), INITIAL_TVL);
+        // stablePool.deposit(INITIAL_TVL, deployer);
+        // volatilePool.deposit(INITIAL_TVL, deployer);
 
         // ── 4. Adapters ───────────────────────────────────────────────────────
         MockPoolAdapter stableAdapter = new MockPoolAdapter(
@@ -119,25 +121,25 @@ contract Deploy is Script {
         console2.log("PayrollManager:    ", address(manager));
 
         // ── 6. Wire up ────────────────────────────────────────────────────────
-        router.setPayrollManager(address(manager));
-        router.setPayVault(address(vault));
-        router.addPool(address(stableAdapter), address(stablePool), true, 500);
-        router.addPool(
-            address(volatileAdapter),
-            address(volatilePool),
-            false,
-            500
-        );
+        // router.setPayrollManager(address(manager));
+        // router.setPayVault(address(vault));
+        // router.addPool(address(stableAdapter), address(stablePool), true, 500);
+        // router.addPool(
+        //     address(volatileAdapter),
+        //     address(volatilePool),
+        //     false,
+        //     500
+        // );
 
-        manager.setYieldRouter(address(router));
-        manager.setPayrollDispatcher(address(dispatcher));
+        // manager.setYieldRouter(address(router));
+        // manager.setPayrollDispatcher(address(dispatcher));
 
-        dispatcher.setYieldRouter(address(router));
-        dispatcher.setPayrollManager(address(manager));
-        dispatcher.setPayVault(address(vault));
+        // dispatcher.setYieldRouter(address(router));
+        // dispatcher.setPayrollManager(address(manager));
+        // dispatcher.setPayVault(address(vault));
 
-        vault.setDispatcher(address(dispatcher));
-        vault.setYieldRouter(address(router));
+        // vault.setDispatcher(address(dispatcher));
+        // vault.setYieldRouter(address(router));
 
         console2.log("Contracts wired");
 
@@ -162,20 +164,20 @@ contract Deploy is Script {
 
         vm.stopBroadcast();
 
-        // ── 8. Print env block ────────────────────────────────────────────────
-        // console2.log("\n--- COPY TO scripts/agent/.env ---");
-        // // console2.log("NETWORK=", network);
-        // console2.log("MOCK_USDC_ADDRESS=", address(usdc));
-        // console2.log("STABLE_POOL_ADDRESS=", address(stablePool));
-        // console2.log("VOLATILE_POOL_ADDRESS=", address(volatilePool));
-        // console2.log("STABLE_ADAPTER_ADDRESS=", address(stableAdapter));
-        // console2.log("VOLATILE_ADAPTER_ADDRESS=", address(volatileAdapter));
-        // console2.log("YIELD_ROUTER_ADDRESS=", address(router));
-        // console2.log("PAYROLL_MANAGER_ADDRESS=", address(manager));
-        // console2.log("PAYROLL_DISPATCHER_ADDRESS=", address(dispatcher));
-        // console2.log("PAY_VAULT_ADDRESS=", address(vault));
-        // console2.log("DEPLOYMENT_BLOCK=0");
-        // console2.log("----------------------------------\n");
+       // ── 8. Print env block ────────────────────────────────────────────────
+        console2.log("\n--- COPY TO scripts/agent/.env ---");
+        // console2.log("NETWORK=", network);
+        console2.log("MOCK_USDC_ADDRESS=", address(usdc));
+        console2.log("STABLE_POOL_ADDRESS=", address(stablePool));
+        console2.log("VOLATILE_POOL_ADDRESS=", address(volatilePool));
+        console2.log("STABLE_ADAPTER_ADDRESS=", address(stableAdapter));
+        console2.log("VOLATILE_ADAPTER_ADDRESS=", address(volatileAdapter));
+        console2.log("YIELD_ROUTER_ADDRESS=", address(router));
+        console2.log("PAYROLL_MANAGER_ADDRESS=", address(manager));
+        console2.log("PAYROLL_DISPATCHER_ADDRESS=", address(dispatcher));
+        console2.log("PAY_VAULT_ADDRESS=", address(vault));
+        console2.log("DEPLOYMENT_BLOCK=0");
+        console2.log("----------------------------------\n");
     }
 
     function makeAddress(string memory name) internal pure returns (address) {

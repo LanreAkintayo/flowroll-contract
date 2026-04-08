@@ -1,0 +1,153 @@
+No files changed, compilation skipped
+Traces:
+  [622558] WireContract::wire()
+    ├─ [0] VM::envAddress("MOCK_USDC_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("YIELD_ROUTER_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("PAYROLL_MANAGER_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("STABLE_POOL_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("VOLATILE_POOL_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("PAY_VAULT_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("STABLE_ADAPTER_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("VOLATILE_ADAPTER_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envAddress("PAYROLL_DISPATCHER_ADDRESS") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envUint("TESTNET_PRIVATE_KEY") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::addr(<pk>) [staticcall]
+    │   └─ ← [Return] 0x1176B45d7f15a742816a95211E73cD44119d9E89
+    ├─ [0] console::log("=== Step 1: Wiring contracts ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startBroadcast(<pk>)
+    │   └─ ← [Return]
+    ├─ [25916] ::setPayrollManager(: [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    │   ├─ emit PayrollManagerSet(manager: : [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    │   └─ ← [Stop]
+    ├─ [23872] ::setPayVault(: [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    │   ├─ emit PayVaultSet(vault: : [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    │   └─ ← [Stop]
+    ├─ [91388] ::addPool(0xfC870FAb6dF0A6D6BA73AC5436e5e418CC32d4EB, 0x76bD908bb82d46eF064100456C360B3D7e3c70cC, true, 500)
+    │   ├─ emit PoolAdded(poolIndex: 0, adapterAddress: 0xfC870FAb6dF0A6D6BA73AC5436e5e418CC32d4EB, poolAddress: 0x76bD908bb82d46eF064100456C360B3D7e3c70cC)
+    │   └─ ← [Stop]
+    ├─ [69488] ::addPool(0x4057260CA67A17C8cF4CE5D6E88D2d2B16B475bb, 0xF3aae1957Da74b67140CF0862BC5047aF75B1FFA, false, 500)
+    │   ├─ emit PoolAdded(poolIndex: 1, adapterAddress: 0x4057260CA67A17C8cF4CE5D6E88D2d2B16B475bb, poolAddress: 0xF3aae1957Da74b67140CF0862BC5047aF75B1FFA)
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Router configured") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [6010] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   └─ ← [Stop]
+    ├─ [23844] ::setPayrollDispatcher(: [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    │   ├─ emit PayrollDispatcherSet(_dispatcher: : [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Manager configured") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [25932] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   └─ ← [Stop]
+    ├─ [23888] ::setPayrollManager(: [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    │   ├─ emit PayrollManagerSet(manager: : [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    │   └─ ← [Stop]
+    ├─ [23866] ::setPayVault(: [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    │   ├─ emit PayVaultSet(vault: : [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Dispatcher configured") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [25895] ::setDispatcher(: [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    │   ├─ emit DispatcherSet(dispatcher: : [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    │   └─ ← [Stop]
+    ├─ [23894] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault configured") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::stopBroadcast()
+    │   └─ ← [Return]
+    ├─ [0] console::log("=== Step 1 complete. Wait for confirmations then run seedPools() ===") [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Stop]
+
+
+Script ran successfully.
+
+== Logs ==
+  === Step 1: Wiring contracts ===
+  Router configured
+  Manager configured
+  Dispatcher configured
+  Vault configured
+  === Step 1 complete. Wait for confirmations then run seedPools() ===
+
+## Setting up 1 EVM.
+==========================
+Simulated On-chain Traces:
+
+  [25916] ::setPayrollManager(: [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    ├─ emit PayrollManagerSet(manager: : [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    └─ ← [Stop]
+
+  [25872] ::setPayVault(: [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    ├─ emit PayVaultSet(vault: : [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    └─ ← [Stop]
+
+  [93388] ::addPool(0xfC870FAb6dF0A6D6BA73AC5436e5e418CC32d4EB, 0x76bD908bb82d46eF064100456C360B3D7e3c70cC, true, 500)
+    ├─ emit PoolAdded(poolIndex: 0, adapterAddress: 0xfC870FAb6dF0A6D6BA73AC5436e5e418CC32d4EB, poolAddress: 0x76bD908bb82d46eF064100456C360B3D7e3c70cC)
+    └─ ← [Stop]
+
+  [76288] ::addPool(0x4057260CA67A17C8cF4CE5D6E88D2d2B16B475bb, 0xF3aae1957Da74b67140CF0862BC5047aF75B1FFA, false, 500)
+    ├─ emit PoolAdded(poolIndex: 1, adapterAddress: 0x4057260CA67A17C8cF4CE5D6E88D2d2B16B475bb, poolAddress: 0xF3aae1957Da74b67140CF0862BC5047aF75B1FFA)
+    └─ ← [Stop]
+
+  [6010] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    └─ ← [Stop]
+
+  [25844] ::setPayrollDispatcher(: [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    ├─ emit PayrollDispatcherSet(_dispatcher: : [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    └─ ← [Stop]
+
+  [25932] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    └─ ← [Stop]
+
+  [25888] ::setPayrollManager(: [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    ├─ emit PayrollManagerSet(manager: : [0xb76aBB9729c20Cc19f72a62778d25Ee61Ed2b353])
+    └─ ← [Stop]
+
+  [25866] ::setPayVault(: [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    ├─ emit PayVaultSet(vault: : [0x4C151FDa5c33DC818c747C11A27e802422A2381f])
+    └─ ← [Stop]
+
+  [25895] ::setDispatcher(: [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    ├─ emit DispatcherSet(dispatcher: : [0x6991537fE03172d16CEB8d76C49703888b6B8B87])
+    └─ ← [Stop]
+
+  [25894] ::setYieldRouter(: [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    ├─ emit YieldRouterSet(router: : [0x795bc67F8bBE6cd785cE98BB05c4c0b74F1eE7bA])
+    └─ ← [Stop]
+
+
+==========================
+
+Chain 1166491382910980
+
+Estimated gas price: 0.000000001 gwei
+
+Estimated total gas used for script: 862218
+
+Estimated amount required: 0.000000000000862218 ETH
+
+==========================
+
+Transactions saved to: /home/larrymosh/blockchain-projects/flowroll/broadcast/WireContract.s.sol/1166491382910980/wire-latest.json
+
+Sensitive values saved to: /home/larrymosh/blockchain-projects/flowroll/cache/WireContract.s.sol/1166491382910980/wire-latest.json
+
+Error: Transaction Failure: 0x0d7d8f6f11f3cb28b4b9356f776935d58747d55b34a9dc0732bc42c348f97556
