@@ -3,11 +3,16 @@ pragma solidity ^0.8.24;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {
+    ReentrancyGuard
+} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {
+    SafeERC20
+} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IPoolAdapter} from "./interfaces/IPoolAdapter.sol";
 import {IPayrollDispatcher} from "./interfaces/IPayrollDispatcher.sol";
+import {console} from "forge-std/console.sol";
 /**
  * @title YieldRouter
  * @notice Core yield agent contract for Flowroll.
@@ -92,8 +97,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256[] snapshotTierBps; // buffer bps per tier, snapshotted
         uint256 highRiskThreshold; // snapshotted in seconds
         uint256 medRiskThreshold; // snapshotted in seconds
-        uint256 currentAllocation;
-        uint256 yieldEarned;
+        uint256 idleBalance;
         bool isActive;
         address dispatcher;
     }
@@ -115,7 +119,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     error YieldRouter__InvalidRiskConfig();
     error YieldRouter__CycleNotCancellable();
     error YieldRouter__PoolAlreadyExists();
-    
+
     // ─── Constants ───────────────────────────────────────────────────────────
 
     uint256 public constant SCALE = 10_000;
@@ -143,6 +147,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     mapping(address => PayrollCycle[]) public cycles;
     mapping(address caller => mapping(uint256 cycleId => mapping(uint256 poolIndex => uint256)))
         public poolAllocations;
+    // mapping(address caller => mapping(uint256 cycleId => uint256 amount)) public amountInReserve;
     mapping(address => bool) public poolExists;
 
     // ─── Events ──────────────────────────────────────────────────────────────
@@ -204,8 +209,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
     /// @dev Treasury and owner only. Employers go through Treasury — never call directly.
     modifier onlyAuthorizedCaller() {
-        if (msg.sender != owner() && msg.sender != payVault && msg.sender != payrollManager)
-            revert YieldRouter__NotAuthorizedCaller();
+        if (
+            msg.sender != owner() &&
+            msg.sender != payVault &&
+            msg.sender != payrollManager
+        ) revert YieldRouter__NotAuthorizedCaller();
         _;
     }
 
@@ -279,14 +287,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     //     payrollDispatcher = _dispatcher;
     //     emit PayrollDispatcherSet(_dispatcher);
     // }
-    
-    
+
     function setPayVault(address _payVault) external onlyOwner {
         if (_payVault == address(0)) revert YieldRouter__ZeroAddress();
         payVault = _payVault;
         emit PayVaultSet(_payVault);
     }
-    
+
     function setPayrollManager(address _payrollManager) external onlyOwner {
         if (_payrollManager == address(0)) revert YieldRouter__ZeroAddress();
         payrollManager = _payrollManager;
@@ -365,7 +372,6 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         );
 
         poolExists[pool] = true;
-
 
         emit PoolAdded(idx, adapterAddress, pool);
     }
@@ -449,8 +455,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 highRiskThreshold: highRiskThreshold,
                 medRiskThreshold: medRiskThreshold,
                 snapshotTierBps: snapshotTierBps,
-                currentAllocation: 0,
-                yieldEarned: 0,
+                idleBalance: totalDeposited,
                 isActive: true,
                 dispatcher: dispatcher
             })
@@ -485,7 +490,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         PayrollCycle storage cycle = cycles[employer][cycleId - 1];
 
         // Only cancellable if agent has never rebalanced — no funds in pools
-        if (cycle.currentAllocation > 0)
+        if (cycle.idleBalance < cycle.totalDeposited)
             revert YieldRouter__CycleNotCancellable();
 
         amountReturned = cycle.totalDeposited;
@@ -548,9 +553,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     )
         public
         view
-        cycleIsActive(caller, cycleId)
         returns (uint256 bufferAmount, uint256 bufferBps, uint256 timeLeft)
     {
+        if (cycleId == 0 || cycleId > cycles[caller].length)
+            revert YieldRouter__CycleNotFound();
+
         PayrollCycle memory cycle = cycles[caller][cycleId - 1];
 
         if (block.timestamp >= cycle.payDay) {
@@ -685,6 +692,35 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         }
     }
 
+    function getLiveYield(address caller, uint256 cycleId) external view returns (
+        uint256 totalValue, 
+        uint256 netYield, 
+        bool isLoss
+    ) {
+        if (cycleId == 0 || cycleId > cycles[caller].length)
+            revert YieldRouter__CycleNotFound();
+
+        PayrollCycle storage cycle = cycles[caller][cycleId - 1];
+        
+        uint256 deployedValue = _getTotalDeployedValue(caller, cycleId);
+
+        console.log("Deployed value", deployedValue);
+        console.log("idle balance: ", cycle.idleBalance);
+        console.log("total deposite: ", cycle.totalDeposited);
+
+        totalValue = cycle.idleBalance + deployedValue;
+
+        console.log("Total Value: ", totalValue);
+        
+        if (totalValue >= cycle.totalDeposited) {
+            netYield = totalValue - cycle.totalDeposited;
+            isLoss = false;
+        } else {
+            netYield = cycle.totalDeposited - totalValue; 
+            isLoss = true;
+        }
+    }
+
     // ─── Agent Rebalance ─────────────────────────────────────────────────────
 
     /**
@@ -702,8 +738,6 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         nonReentrant
         cycleIsActive(caller, cycleId)
     {
-
-
         PayrollCycle storage cycle = cycles[caller][cycleId - 1];
         uint256 timeIntoCycle = block.timestamp - cycle.cycleStartTime;
 
@@ -722,8 +756,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
             _withdrawAllFromPools(caller, cycleId);
 
-            uint256 disbursed = cycle.totalDeposited + cycle.yieldEarned;
-            uint256 earned = cycle.yieldEarned;
+            uint256 disbursed = cycle.idleBalance;
 
             cycle.isActive = false;
 
@@ -733,6 +766,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 cycleId,
                 disbursed
             );
+
+           uint256 earned = disbursed > cycle.totalDeposited 
+                ? disbursed - cycle.totalDeposited 
+                : 0;
+
 
             emit PaydaySettled(caller, cycleId, disbursed, earned);
             emit AgentAction(
@@ -751,7 +789,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         // ── Buffer adjustment ─────────────────────────────────────────────────
         {
-            uint256 deployed = _getTotalDeployed(caller, cycleId);
+            uint256 deployed = _getTotalDeployedValue(caller, cycleId);
             if (deployed > idleAmount) {
                 uint256 needed = deployed - idleAmount;
                 uint256 withdrawn = _cascadeWithdraw(
@@ -845,7 +883,6 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 highRiskThreshold,
         uint256 medRiskThreshold
     ) internal {
-
         uint256 currentScore = _getCurrentAllocationScore(
             caller,
             cycleId,
@@ -870,7 +907,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             return;
         }
 
-        uint256 deployed = _getTotalDeployed(caller, cycleId);
+        uint256 deployed = _getTotalDeployedValue(caller, cycleId);
 
         if (deployed == 0) {
             _deployToPool(caller, cycleId, bestIdx, idleAmount);
@@ -952,7 +989,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 shares = IPoolAdapter(adapter).deposit(amount);
 
         poolAllocations[caller][cycleId][poolIndex] += shares;
-        cycles[caller][cycleId - 1].currentAllocation += amount;
+
+        cycles[caller][cycleId - 1].idleBalance -= amount;
     }
 
     function _withdrawFromPool(
@@ -964,18 +1002,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         if (poolAllocations[caller][cycleId][poolIndex] < shares)
             revert YieldRouter__InsufficientPoolBalance();
 
+        poolAllocations[caller][cycleId][poolIndex] -= shares;
+
         received = IPoolAdapter(pools[poolIndex].adapterAddress).withdraw(
             shares
         );
-        poolAllocations[caller][cycleId][poolIndex] -= shares;
-
-        PayrollCycle storage cycle = cycles[caller][cycleId - 1];
-        if (received > cycle.currentAllocation) {
-            cycle.yieldEarned += received - cycle.currentAllocation;
-            cycle.currentAllocation = 0;
-        } else {
-            cycle.currentAllocation -= received;
-        }
+        
+        cycles[caller][cycleId - 1].idleBalance += received;
     }
 
     function _cascadeWithdraw(
@@ -1052,12 +1085,16 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         return RISK_MULT_LOW;
     }
 
-    function _getTotalDeployed(
+    function _getTotalDeployedValue(
         address caller,
         uint256 cycleId
-    ) internal view returns (uint256 total) {
+    ) internal view returns (uint256 totalValue) {
         for (uint256 i = 0; i < pools.length; i++) {
-            total += poolAllocations[caller][cycleId][i];
+            uint256 shares = poolAllocations[caller][cycleId][i];
+            if (shares > 0) {
+                totalValue += IPoolAdapter(pools[i].adapterAddress)
+                    .sharesToValue(shares);
+            }
         }
     }
 

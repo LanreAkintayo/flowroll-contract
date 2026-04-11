@@ -40,12 +40,14 @@ contract Deploy is Script {
             deployerKey = vm.envUint("ANVIL_PRIVATE_KEY");
         }
 
+
         address deployer = vm.addr(deployerKey);
         address agentOp = vm.envOr("AGENT_OPERATOR", deployer);
         address feeRecipient = vm.envOr("FEE_RECIPIENT", deployer);
         uint256 cycleDuration = isTestnet ? TESTNET_CYCLE : ANVIL_CYCLE;
 
         console2.log("=== Flowroll Deploy ===");
+        console2.log("Deployer key: ", deployerKey);
         console2.log("Network:    ", isTestnet ? "Initia Testnet" : "Anvil");
         console2.log("Deployer:   ", deployer);
         console2.log("AgentOp:    ", agentOp);

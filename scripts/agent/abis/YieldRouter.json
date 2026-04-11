@@ -1,4 +1,4 @@
-[
+ [
     {
       "type": "constructor",
       "inputs": [
@@ -559,6 +559,13 @@
     },
     {
       "type": "function",
+      "name": "poolExists",
+      "inputs": [{ "name": "", "type": "address", "internalType": "address" }],
+      "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
       "name": "pools",
       "inputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
       "outputs": [
@@ -729,7 +736,7 @@
         {
           "name": "actionType",
           "type": "uint8",
-          "indexed": false,
+          "indexed": true,
           "internalType": "enum YieldRouter.ActionType"
         },
         {
@@ -1081,6 +1088,7 @@
       "name": "YieldRouter__NotAuthorizedCaller",
       "inputs": []
     },
+    { "type": "error", "name": "YieldRouter__PoolAlreadyExists", "inputs": [] },
     {
       "type": "error",
       "name": "YieldRouter__PoolAlreadyInactive",

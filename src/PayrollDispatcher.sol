@@ -97,7 +97,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     uint256 public feeBps;
 
     // employer → cycleId → DisbursementRecord
-    mapping(address => mapping(uint256 => DisbursementRecord))
+    mapping(address employer => mapping(uint256 cycleId => DisbursementRecord))
         public disbursements;
 
     // ─── Events ──────────────────────────────────────────────────────────────
@@ -116,9 +116,9 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
 
     event EmployeePaid(
         address indexed employer,
-        uint256 indexed cycleId,
+        uint256  cycleId,
         uint256 indexed groupId,
-        address employee,
+        address indexed employee,
         uint256 amount
     );
 

@@ -70,7 +70,12 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         usdc.approve(address(freshRouter), type(uint256).max);
 
         vm.prank(address(payrollManager));
-        freshRouter.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(0));
+        freshRouter.startCycle(
+            employer,
+            DEPOSIT_AMOUNT,
+            CYCLE_DURATION,
+            address(0)
+        );
 
         uint256 payday = freshRouter.getCycle(employer, 1).payDay;
         vm.warp(payday);
@@ -456,23 +461,20 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
 
     function test_rebalance_deployedAmountIsActualReceived() public {
         _startCycle();
-    
+
         _rebalance(employer, 1);
 
         // Simulate yield — withdrawn amount will exceed original deposit
-        uint256 yieldEarnedBefore = router.getCycle(employer, 1).yieldEarned;
-
+        (, uint256 yieldEarnedBefore, ) = router.getLiveYield(employer, 1);
 
         _simulateYield(volatilePool, 1_000e6);
-
 
         _warpToPayday();
         _rebalance(employer, 1);
 
-        uint256 yieldEarnedAfter = router.getCycle(employer, 1).yieldEarned;
-        
-        assertGt(yieldEarnedAfter, yieldEarnedBefore);
+        (, uint256 yieldEarnedAfter, ) = router.getLiveYield(employer, 1);
 
+        assertGt(yieldEarnedAfter, yieldEarnedBefore);
     }
 
     // =========================================================================
@@ -540,7 +542,9 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         _rebalance(employer, 1);
 
         YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, 1);
-        assertGt(cycle.yieldEarned, 0);
+        (, uint256 yieldEarned, ) = router.getLiveYield(employer, 1);
+
+        assertGt(yieldEarned, 0);
     }
 
     function test_yield_dispatcherReceivesAtLeastPrincipal() public {
@@ -563,7 +567,9 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         _rebalance(employer, 1);
 
         YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, 1);
-        assertEq(cycle.yieldEarned, 0);
+        (, uint256 yieldEarned, ) = router.getLiveYield(employer, 1);
+
+        assertEq(yieldEarned, 0);
     }
 
     // =========================================================================

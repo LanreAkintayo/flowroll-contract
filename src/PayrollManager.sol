@@ -97,12 +97,13 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     mapping(address => mapping(uint256 cycleId => uint256 groupId))
         public cycleToGroup;
     mapping(address => EmployerProfile) private employers;
-    mapping(address => mapping(uint256 => PayrollGroup)) private groups;
-    mapping(address => mapping(uint256 => address[])) private groupEmployees;
-    mapping(address => mapping(uint256 => mapping(address => uint256)))
+    mapping(address employer => mapping(uint256 groupId => PayrollGroup)) private groups;
+    mapping(address employer => mapping(uint256 groupId => address[])) private groupEmployees;
+    mapping(address employer => mapping(uint256 groupId => mapping(address employee => uint256 salary)))
         private groupSalaries;
-    mapping(address => mapping(uint256 => mapping(address => bool)))
+    mapping(address employer => mapping(uint256 groupId => mapping(address employee => bool)))
         private isGroupEmployee;
+    // mapping(address employee => uint256[] employeeGroup) private employeeGroups;
 
     // ─── Events ──────────────────────────────────────────────────────────────
 
@@ -716,6 +717,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
 
             isGroupEmployee[msg.sender][groupId][employee] = true;
             groupEmployees[msg.sender][groupId].push(employee);
+            // employeeGroups[employee].push(groupId);
             groupSalaries[msg.sender][groupId][employee] = salary;
             groups[msg.sender][groupId].totalPayroll += salary;
 

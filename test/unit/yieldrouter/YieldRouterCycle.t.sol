@@ -49,8 +49,8 @@ contract YieldRouterCycle is YieldRouterBase {
         assertEq(cycle.totalDeposited, DEPOSIT_AMOUNT);
         assertEq(cycle.cycleStartTime, startTime);
         assertEq(cycle.payDay, startTime + (CYCLE_DURATION));
-        assertEq(cycle.currentAllocation, 0);
-        assertEq(cycle.yieldEarned, 0);
+        assertEq(cycle.idleBalance, cycle.totalDeposited);
+        
         assertTrue(cycle.isActive);
     }
 
