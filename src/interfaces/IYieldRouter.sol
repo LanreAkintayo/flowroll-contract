@@ -43,13 +43,12 @@ interface IYieldRouter {
         uint256 totalDeposited;
         uint256 cycleStartTime;
         uint256 payDay;
-        uint256 cycleDuration;
-        uint256[] tierThresholds;
-        uint256[] snapshotTierBps;
-        uint256 highRiskThreshold;
-        uint256 medRiskThreshold;
-        uint256 currentAllocation;
-        uint256 yieldEarned;
+        uint256 cycleDuration; // in seconds
+        uint256[] tierThresholds; // absolute second thresholds, descending
+        uint256[] snapshotTierBps; // buffer bps per tier, snapshotted
+        uint256 highRiskThreshold; // snapshotted in seconds
+        uint256 medRiskThreshold; // snapshotted in seconds
+        uint256 idleBalance;
         bool isActive;
         address dispatcher;
     }
@@ -73,20 +72,41 @@ interface IYieldRouter {
 
     // ─── Events ──────────────────────────────────────────────────────────────
 
-    event AgentOperatorUpdated(address indexed previous, address indexed updated);
+    event AgentOperatorUpdated(
+        address indexed previous,
+        address indexed updated
+    );
     event PayrollDispatcherSet(address indexed dispatcher);
     event TreasurySet(address indexed treasury);
     event PayVaultSet(address indexed vault);
     event PayrollManagerSet(address indexed payrollManager);
     event BufferConfigUpdated();
     event RiskConfigUpdated(uint256 indexed highPct, uint256 indexed medPct);
-    
-    event PoolAdded(uint256 indexed poolIndex, address adapterAddress, address poolAddress);
+
+    event PoolAdded(
+        uint256 indexed poolIndex,
+        address adapterAddress,
+        address poolAddress
+    );
     event PoolDeactivated(uint256 indexed poolIndex);
-    
-    event CycleStarted(address indexed caller, uint256 indexed cycleId, uint256 totalDeposited, uint256 payDay);
-    event PaydaySettled(address indexed caller, uint256 indexed cycleId, uint256 totalDisbursed, uint256 yieldEarned);
-    event CycleCancelled(address indexed caller, uint256 indexed cycleId, uint256 amountReturned);
+
+    event CycleStarted(
+        address indexed caller,
+        uint256 indexed cycleId,
+        uint256 totalDeposited,
+        uint256 payDay
+    );
+    event PaydaySettled(
+        address indexed caller,
+        uint256 indexed cycleId,
+        uint256 totalDisbursed,
+        uint256 yieldEarned
+    );
+    event CycleCancelled(
+        address indexed caller,
+        uint256 indexed cycleId,
+        uint256 amountReturned
+    );
 
     event AgentAction(
         address indexed caller,
@@ -116,16 +136,25 @@ interface IYieldRouter {
     function agentOperator() external view returns (address);
     function payVault() external view returns (address);
     function payrollManager() external view returns (address);
-    
-    function pools(uint256 index) external view returns (
-        address adapterAddress,
-        address pool,
-        bool isStablePair,
-        bool isActive,
-        uint256 minApyBps
-    );
 
-    function poolAllocations(address caller, uint256 cycleId, uint256 poolIndex) external view returns (uint256);
+    function pools(
+        uint256 index
+    )
+        external
+        view
+        returns (
+            address adapterAddress,
+            address pool,
+            bool isStablePair,
+            bool isActive,
+            uint256 minApyBps
+        );
+
+    function poolAllocations(
+        address caller,
+        uint256 cycleId,
+        uint256 poolIndex
+    ) external view returns (uint256);
 
     // ─── Core Cycle Management ───────────────────────────────────────────────
 
@@ -136,27 +165,44 @@ interface IYieldRouter {
         address dispatcher
     ) external returns (uint256 cycleId);
 
-    function cancelCycle(address employer, uint256 cycleId) external returns (uint256 amountReturned);
+    function cancelCycle(
+        address employer,
+        uint256 cycleId
+    ) external returns (uint256 amountReturned);
 
     function agentRebalance(address caller, uint256 cycleId) external;
 
     // ─── View & Query Functions ──────────────────────────────────────────────
 
-    function getCycle(address caller, uint256 cycleId) external view returns (PayrollCycle memory);
-    function getCycleHistory(address caller) external view returns (PayrollCycle[] memory);
+    function getCycle(
+        address caller,
+        uint256 cycleId
+    ) external view returns (PayrollCycle memory);
+    function getCycleHistory(
+        address caller
+    ) external view returns (PayrollCycle[] memory);
     function getCycleCount(address caller) external view returns (uint256);
-    function getActiveCycles(address caller) external view returns (PayrollCycle[] memory);
-    
+    function getActiveCycles(
+        address caller
+    ) external view returns (PayrollCycle[] memory);
+
     function getPoolCount() external view returns (uint256);
-    function getPool(uint256 poolIndex) external view returns (PoolEntry memory);
+    function getPool(
+        uint256 poolIndex
+    ) external view returns (PoolEntry memory);
 
-    function calculateBuffer(address caller, uint256 cycleId) external view returns (
-        uint256 bufferAmount, 
-        uint256 bufferBps, 
-        uint256 timeLeft
-    );
+    function calculateBuffer(
+        address caller,
+        uint256 cycleId
+    )
+        external
+        view
+        returns (uint256 bufferAmount, uint256 bufferBps, uint256 timeLeft);
 
-    function calculateIdleAmount(address caller, uint256 cycleId) external view returns (uint256);
+    function calculateIdleAmount(
+        address caller,
+        uint256 cycleId
+    ) external view returns (uint256);
 
     function scorePool(
         uint256 poolIndex,
@@ -171,12 +217,20 @@ interface IYieldRouter {
     function setAgentOperator(address _agent) external;
     function setPayVault(address _payVault) external;
     function setPayrollManager(address _payrollManager) external;
-    function setBufferConfig(uint256[] calldata tierPcts, uint256[] calldata tierBps) external;
+    function setBufferConfig(
+        uint256[] calldata tierPcts,
+        uint256[] calldata tierBps
+    ) external;
     function setRiskConfig(uint256 highPct, uint256 medPct) external;
-    
-    function addPool(address adapterAddress, address pool, bool isStablePair, uint256 minApyBps) external;
+
+    function addPool(
+        address adapterAddress,
+        address pool,
+        bool isStablePair,
+        uint256 minApyBps
+    ) external;
     function deactivatePool(uint256 poolIndex) external;
-    
+
     function pause() external;
     function unpause() external;
 }

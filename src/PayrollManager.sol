@@ -717,7 +717,6 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
 
             isGroupEmployee[msg.sender][groupId][employee] = true;
             groupEmployees[msg.sender][groupId].push(employee);
-            // employeeGroups[employee].push(groupId);
             groupSalaries[msg.sender][groupId][employee] = salary;
             groups[msg.sender][groupId].totalPayroll += salary;
 

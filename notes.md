@@ -1,7 +1,45 @@
+// Another flow;
+Deploy the contract first;
+forge script script/Deploy.s.sol   --rpc-url $RPC   --broadcast   --private-key $TESTNET_PRIVATE_KEY 
+
+// Create Group
+cast send $PAYROLL_MANAGER_ADDRESS "createGroup(string, uint256)" "Core Engineering" 60 --rpc-url $RPC --private-key $PK
+
+// Approve to spend funds
+cast send $MOCK_USDC_ADDRESS "approve(address, uint256)" $PAYROLL_MANAGER_ADDRESS 5000000000 --rpc-url $RPC --private-key $PK
+
+cast send $PAYROLL_MANAGER_ADDRESS \
+  "setUpPayroll(uint256,address[],uint256[])" \
+  1 \
+  "[0xc3235B99Bdf0F12e793BcA9B83A8BAD88E06C8B3]" \
+  "[5000000000]" \
+  --rpc-url $RPC --private-key $PK
+
+
+
+cast send $YIELD_ROUTER_ADDRESS \
+  "agentRebalance(address,uint256)" \
+  $DEPLOYER 1 \
+  --rpc-url $RPC \
+  --private-key $PK
+
+
+
+
 // To get getPools
 cast call $YIELD_ROUTER_ADDRESS "getPool(uint256)((address,address,bool,bool,uint256))" 0 --rpc-url $RPC
 
+To setup payroll
 
+
+cast send $PAYROLL_MANAGER_ADDRESS \
+  "setUpPayroll(uint256,address[],uint256[])" \
+  1 \
+  "[0xc3235B99Bdf0F12e793BcA9B83A8BAD88E06C8B3]" \
+  "[5000000000]" \
+  --rpc-url $RPC --private-key $PK
+
+------------------------------------------------------------------------------------------------------------------------
 // To set apys
 echo "Setting stable pool APY to 5%..."
 cast send $STABLE_POOL_ADDRESS \
@@ -68,17 +106,6 @@ cast send $YIELD_ROUTER_ADDRESS \
   "setPayVault(address)" $PAY_VAULT_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Adding stable pool to Router..."
-cast send $YIELD_ROUTER_ADDRESS \
-  "addPool(address,address,bool,uint256)" \
-  $STABLE_ADAPTER_ADDRESS $STABLE_POOL_ADDRESS true 500 \
-  --rpc-url $RPC --private-key $PK
-
-echo "Adding volatile pool to Router..."
-cast send $YIELD_ROUTER_ADDRESS \
-  "addPool(address,address,bool,uint256)" \
-  $VOLATILE_ADAPTER_ADDRESS $VOLATILE_POOL_ADDRESS false 500 \
-  --rpc-url $RPC --private-key $PK
 
 echo "Router configured ✓"
 
@@ -122,6 +149,21 @@ cast send $PAY_VAULT_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
 echo "Vault configured ✓"
+
+echo "===Adding Pools ==="
+echo "Adding stable pool to Router..."
+cast send $YIELD_ROUTER_ADDRESS \
+  "addPool(address,address,bool,uint256)" \
+  $STABLE_ADAPTER_ADDRESS $STABLE_POOL_ADDRESS true 500 \
+  --rpc-url $RPC --private-key $PK
+
+echo "Adding volatile pool to Router..."
+cast send $YIELD_ROUTER_ADDRESS \
+  "addPool(address,address,bool,uint256)" \
+  $VOLATILE_ADAPTER_ADDRESS $VOLATILE_POOL_ADDRESS false 500 \
+  --rpc-url $RPC --private-key $PK
+
+
 echo "=== Wiring complete ==="
 
 STEP 2 -------------------------------------------------------------------------------------------

@@ -226,16 +226,16 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         if (yieldRouter == address(0)) revert PayrollDispatcher__RouterNotSet();
         if (payrollManager == address(0))
             revert PayrollDispatcher__ManagerNotSet();
-        if (payVault == address(0)) revert PayrollDispatcher__VaultNotSet();
+        if (payVault == address(0)) revert PayrollDispatcher__VaultNotSet(); // Valid to this point
         if (amount == 0) revert PayrollDispatcher__InvalidAmount();
         if (disbursements[employer][cycleId].executed)
             revert PayrollDispatcher__AlreadyDisbursed();
 
-        // ── Verify actual balance matches claimed amount ────────────────
+        // // ── Verify actual balance matches claimed amount ────────────────
         if (IERC20(usdc).balanceOf(address(this)) < amount)
             revert PayrollDispatcher__InsufficientBalance();
 
-        // ── Read cycle data ───────────────────────────────────────────────────
+        // // // ── Read cycle data ───────────────────────────────────────────────────
         uint256 totalDeposited = IYieldRouter(yieldRouter)
             .getCycle(employer, cycleId)
             .totalDeposited;

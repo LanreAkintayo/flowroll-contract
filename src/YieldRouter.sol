@@ -751,12 +751,16 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         // ── Payday ───────────────────────────────────────────────────────────
         if (timeLeft == 0) {
+
+            console.log("Time left: ", timeLeft);
             if (cycle.dispatcher == address(0))
                 revert YieldRouter__DispatcherNotSet();
 
             _withdrawAllFromPools(caller, cycleId);
 
             uint256 disbursed = cycle.idleBalance;
+
+            // console.log("Disbursed: ", disbursed);
 
             cycle.isActive = false;
 
@@ -767,10 +771,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 disbursed
             );
 
+            // console.log("After disburse: ", disbursed);
+
            uint256 earned = disbursed > cycle.totalDeposited 
                 ? disbursed - cycle.totalDeposited 
                 : 0;
 
+            // console.log("Earned: ", earned);
 
             emit PaydaySettled(caller, cycleId, disbursed, earned);
             emit AgentAction(
@@ -790,6 +797,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         // ── Buffer adjustment ─────────────────────────────────────────────────
         {
             uint256 deployed = _getTotalDeployedValue(caller, cycleId);
+            
             if (deployed > idleAmount) {
                 uint256 needed = deployed - idleAmount;
                 uint256 withdrawn = _cascadeWithdraw(

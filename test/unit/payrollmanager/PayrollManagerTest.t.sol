@@ -123,11 +123,16 @@ contract PayrollManagerTest is PayrollManagerBase {
             group.activeCycleId
         );
 
-        // console.log(cycle.);
+        // Wrap to the end of pyday
+        vm.warp(router.getCycle(employer, 1).payDay - 2000 seconds);
+        vm.prank(agentOperator);
+        router.agentRebalance(employer, 1);
+        
+        
+        vm.warp(router.getCycle(employer, 1).payDay + 20 seconds);
+        vm.prank(agentOperator);
+        router.agentRebalance(employer, 1);
 
-        // Then we call rebalance;
-
-        // Then call setuppayroll
     }
 
     // =========================================================================
