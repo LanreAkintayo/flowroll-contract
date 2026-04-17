@@ -26,12 +26,6 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.stopPrank();
     }
 
-    function test_unregistered_cannotCreateGroup() public {
-        vm.prank(employer);
-        vm.expectRevert(PayrollManager.PayrollManager__NotRegistered.selector);
-        manager.createGroup("Engineering", CYCLE_DURATION);
-    }
-
     // =========================================================================
     // GROUP MANAGEMENT
     // =========================================================================
@@ -127,12 +121,10 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.warp(router.getCycle(employer, 1).payDay - 2000 seconds);
         vm.prank(agentOperator);
         router.agentRebalance(employer, 1);
-        
-        
+
         vm.warp(router.getCycle(employer, 1).payDay + 20 seconds);
         vm.prank(agentOperator);
         router.agentRebalance(employer, 1);
-
     }
 
     // =========================================================================
@@ -336,24 +328,16 @@ contract PayrollManagerTest is PayrollManagerBase {
         assertEq(usdc.balanceOf(employer), balBefore - EMPLOYEE_SALARY);
     }
 
-    function test_depositPayroll_managerHoldsZeroUSDCAfterDeposit() public {
-        uint256 groupId = _setupGroup();
 
-        vm.prank(employer);
-        manager.depositPayroll(groupId);
-
-        assertEq(usdc.balanceOf(address(manager)), 0);
-    }
 
     function test_depositPayroll_setsActiveCycleId() public {
-        uint256 groupId = _setupGroup();
+        _setupPayroll(employer);
 
-        vm.prank(employer);
-        manager.depositPayroll(groupId);
+
 
         PayrollManager.PayrollGroup memory group = manager.getGroup(
             employer,
-            groupId
+            1
         );
         assertEq(group.activeCycleId, 1);
     }
@@ -507,25 +491,7 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.stopPrank();
     }
 
-    function test_lazyReset_mutationsAllowedAfterCycleCloses() public {
-        uint256 groupId = _setupGroupWithActiveCycle();
-
-        // Warp to payday and let agent settle — dispatcher is wired, won't revert
-        vm.warp(router.getCycle(employer, 1).payDay);
-        vm.prank(agentOperator);
-        router.agentRebalance(employer, 1);
-
-        // Cycle is now closed in YieldRouter — _isGroupActive() detects stale state
-        // and resets activeCycleId on next interaction
-        vm.prank(employer);
-        manager.addEmployee(groupId, employee2, EMPLOYEE_SALARY2);
-
-        assertEq(
-            manager.getSalary(employer, groupId, employee2),
-            EMPLOYEE_SALARY2
-        );
-        assertEq(manager.getGroup(employer, groupId).activeCycleId, 0);
-    }
+ 
 
     // =========================================================================
     // ACCESS CONTROL

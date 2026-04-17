@@ -5,9 +5,9 @@ import {SharedBase} from "./SharedBase.t.sol";
 import {PayrollDispatcher} from "../../src/PayrollDispatcher.sol";
 import {PayrollManager} from "../../src/PayrollManager.sol";
 import {YieldRouter} from "../../src/YieldRouter.sol";
+import {PayVault} from "../../src/PayVault.sol";
 import {MockPool} from "../../src/mocks/MockPool.sol";
 import {MockPoolAdapter} from "../../src/adapters/MockPoolAdapter.sol";
-import {MockPayVault} from "../../src/mocks/MockPayVault.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {console} from "forge-std/console.sol";
 
@@ -16,29 +16,29 @@ abstract contract PayrollDispatcherBase is SharedBase {
 
     // ─── Contracts ───────────────────────────────────────────────────────────
 
-    PayrollDispatcher   internal dispatcher;
-    PayrollManager      internal payrollManager;
-    YieldRouter         internal router;
-    MockPayVault        internal mockVault;
-    MockPool            internal stablePool;
-    MockPool            internal volatilePool;
-    MockPoolAdapter     internal stableAdapter;
-    MockPoolAdapter     internal volatileAdapter;
+    // PayrollDispatcher   internal dispatcher;
+    // PayrollManager      internal manager;
+    // YieldRouter         internal router;
+    // PayVault            internal vault;
+    // MockPool            internal stablePool;
+    // MockPool            internal volatilePool;
+    // MockPoolAdapter     internal stableAdapter;
+    // MockPoolAdapter     internal volatileAdapter;
 
     // ─── Additional Actors ────────────────────────────────────────────────────
 
-    address internal employee2   = makeAddr("employee2");
-    address internal employee3   = makeAddr("employee3");
-    address internal feeRecipient = makeAddr("feeRecipient");
+    // address internal employee2   = makeAddr("employee2");
+    // address internal employee3   = makeAddr("employee3");
+    // address internal feeRecipient = makeAddr("feeRecipient");
 
     // ─── Payroll Constants ────────────────────────────────────────────────────
 
-    uint256 internal constant STABLE_APY_BPS   = 800;
-    uint256 internal constant VOLATILE_APY_BPS = 1_500;
-    uint256 internal constant INITIAL_TVL      = 1_000_000e6;
-    uint256 internal constant STABLE_MIN_APY   = 500;
-    uint256 internal constant VOLATILE_MIN_APY = 500;
-    uint256 internal constant FEE_BPS          = 1_000; // 10% fee on yield
+    // uint256 internal constant STABLE_APY_BPS   = 800;
+    // uint256 internal constant VOLATILE_APY_BPS = 1_500;
+    // uint256 internal constant INITIAL_TVL      = 1_000_000e6;
+    // uint256 internal constant STABLE_MIN_APY   = 500;
+    // uint256 internal constant VOLATILE_MIN_APY = 500;
+    // uint256 internal constant FEE_BPS          = 1_000; // 10% fee on yield
 
     // ─── Payroll Schedule ─────────────────────────────────────────────────────
 
@@ -54,100 +54,92 @@ abstract contract PayrollDispatcherBase is SharedBase {
     function setUp() public virtual override {
         super.setUp();
 
-        vm.startPrank(owner);
+        // vm.startPrank(owner);
 
-        // ── Deploy pools ──────────────────────────────────────────────────────
-        stablePool = new MockPool(
-            address(usdc),
-            "USDC/iUSD Stable Pool",
-            STABLE_APY_BPS,
-            true,
-            "Flowroll Stable Shares",
-            "frUSDC-S"
-        );
+        // // ── Deploy pools ──────────────────────────────────────────────────────
+        // stablePool = new MockPool(
+        //     address(usdc),
+        //     "USDC/iUSD Stable Pool",
+        //     STABLE_APY_BPS,
+        //     true,
+        //     "Flowroll Stable Shares",
+        //     "frUSDC-S"
+        // );
 
-        volatilePool = new MockPool(
-            address(usdc),
-            "USDC/INIT Volatile Pool",
-            VOLATILE_APY_BPS,
-            false,
-            "Flowroll Volatile Shares",
-            "frUSDC-V"
-        );
+        // volatilePool = new MockPool(
+        //     address(usdc),
+        //     "USDC/INIT Volatile Pool",
+        //     VOLATILE_APY_BPS,
+        //     false,
+        //     "Flowroll Volatile Shares",
+        //     "frUSDC-V"
+        // );
 
-        // Seed pools with initial TVL
-        usdc.mint(owner, INITIAL_TVL * 2);
-        usdc.approve(address(stablePool),   INITIAL_TVL);
-        usdc.approve(address(volatilePool), INITIAL_TVL);
-        stablePool.deposit(INITIAL_TVL,   owner);
-        volatilePool.deposit(INITIAL_TVL, owner);
+        // // Seed pools with initial TVL
+        // usdc.mint(owner, INITIAL_TVL * 2);
+        // usdc.approve(address(stablePool),   INITIAL_TVL);
+        // usdc.approve(address(volatilePool), INITIAL_TVL);
+        // stablePool.deposit(INITIAL_TVL,   owner);
+        // volatilePool.deposit(INITIAL_TVL, owner);
 
-        // ── Deploy adapters ───────────────────────────────────────────────────
-        stableAdapter   = new MockPoolAdapter(address(usdc), address(stablePool));
-        volatileAdapter = new MockPoolAdapter(address(usdc), address(volatilePool));
+        // // ── Deploy adapters ───────────────────────────────────────────────────
+        // stableAdapter   = new MockPoolAdapter(address(usdc), address(stablePool));
+        // volatileAdapter = new MockPoolAdapter(address(usdc), address(volatilePool));
 
-        // ── Deploy YieldRouter ────────────────────────────────────────────────
-        router = new YieldRouter(agentOperator, address(usdc));
+        // // ── Deploy YieldRouter ────────────────────────────────────────────────
+        // router = new YieldRouter(agentOperator, address(usdc));
 
-        // ── Deploy PayrollManager ─────────────────────────────────────────────
-        payrollManager = new PayrollManager(address(usdc), feeRecipient, FEE_BPS);
+        // // ── Deploy PayrollManager ─────────────────────────────────────────────
+        // manager = new PayrollManager(address(usdc), feeRecipient, FEE_BPS);
 
-        // ── Deploy MockPayVault ───────────────────────────────────────────────
-        mockVault = new MockPayVault();
+        // // ── Deploy MockPayVault ───────────────────────────────────────────────
+        // vault = new PayVault(address(usdc), feeRecipient, FEE_BPS);
 
-        // ── Deploy PayrollDispatcher ──────────────────────────────────────────
-        dispatcher = new PayrollDispatcher(
-            address(usdc),
-            feeRecipient,
-            FEE_BPS
-        );
+        // // ── Deploy PayrollDispatcher ──────────────────────────────────────────
+        // dispatcher = new PayrollDispatcher(
+        //     address(usdc),
+        //     feeRecipient,
+        //     FEE_BPS
+        // );
 
-        // ── Wire everything up ────────────────────────────────────────────────
-        // router.setTreasury(address(payrollManager));
-        router.setPayrollManager(address(payrollManager));
-        // router.setPayrollDispatcher(address(dispatcher));
-        router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
-        router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
+        // // ── Wire everything up ────────────────────────────────────────────────
+        // // router.setTreasury(address(manager));
+        // router.setPayrollManager(address(manager));
+        // // router.setPayrollDispatcher(address(dispatcher));
+        // router.addPool(address(stableAdapter),   address(stablePool),   true,  STABLE_MIN_APY);
+        // router.addPool(address(volatileAdapter), address(volatilePool), false, VOLATILE_MIN_APY);
 
-        payrollManager.setYieldRouter(address(router));
-        payrollManager.setPayrollDispatcher(address(dispatcher));
+        // manager.setYieldRouter(address(router));
+        // manager.setPayrollDispatcher(address(dispatcher));
 
 
-        dispatcher.setYieldRouter(address(router));
-        dispatcher.setPayrollManager(address(payrollManager));
-        dispatcher.setPayVault(address(mockVault));
+        // dispatcher.setYieldRouter(address(router));
+        // dispatcher.setPayrollManager(address(manager));
+        // dispatcher.setPayVault(address(vault));
 
-        vm.stopPrank();
+        // vm.stopPrank();
 
-        // ── Fund additional employees ─────────────────────────────────────────
-        vm.startPrank(owner);
-        usdc.mint(employee2, DEPOSIT_AMOUNT * 10);
-        usdc.mint(employee3, DEPOSIT_AMOUNT * 10);
-        vm.stopPrank();
+        // // ── Fund additional employees ─────────────────────────────────────────
+        // vm.startPrank(owner);
+        // usdc.mint(employee2, DEPOSIT_AMOUNT * 10);
+        // usdc.mint(employee3, DEPOSIT_AMOUNT * 10);
+        // vm.stopPrank();
 
-        // ── Register employer and set up payroll group ────────────────────────
-        vm.startPrank(employer);
-        payrollManager.registerEmployer();
-        payrollManager.createGroup("Engineering", CYCLE_DURATION);
+        // // ── Register employer and set up payroll group ────────────────────────
+        // vm.startPrank(employer);
+        // manager.registerEmployer();
+        // manager.createGroup("Engineering", CYCLE_DURATION);
 
-        // Approve payrollManager to pull payroll funds
-        usdc.approve(address(payrollManager), type(uint256).max);
+        // // Approve manager to pull payroll funds
+        // usdc.approve(address(manager), type(uint256).max);
 
-        // Add three employees to group 1
-        payrollManager.addEmployee(1, employee,  SALARY_1);
-        payrollManager.addEmployee(1, employee2, SALARY_2);
-        payrollManager.addEmployee(1, employee3, SALARY_3);
-        vm.stopPrank();
+        // // Add three employees to group 1
+        // manager.addEmployee(1, employee,  SALARY_1);
+        // manager.addEmployee(1, employee2, SALARY_2);
+        // manager.addEmployee(1, employee3, SALARY_3);
+        // vm.stopPrank();
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
-
-    /// @dev Deposit payroll and return the cycleId
-    function _depositPayroll() internal returns (uint256 cycleId) {
-        vm.prank(employer);
-        payrollManager.depositPayroll(1);
-        cycleId = payrollManager.getGroup(employer, 1).activeCycleId;
-    }
 
     /// @dev Warp to payday for a specific cycle
     function _warpToPayday(uint256 cycleId) internal {
@@ -175,7 +167,25 @@ abstract contract PayrollDispatcherBase is SharedBase {
 
     /// @dev Full cycle — deposit, rebalance, simulate yield, warp to payday, trigger payday
     function _runFullCycle(uint256 yieldAmount) internal returns (uint256 cycleId) {
-        cycleId = _depositPayroll();
+         address[] memory employees = new address[](3);
+        employees[0] = employee;
+        employees[1] = employee2;
+        employees[2] = employee3;
+
+        uint256[] memory salaries = new uint256[](3);
+        salaries[0] = SALARY_1;
+        salaries[1] = SALARY_2;
+        salaries[2] = SALARY_3;
+
+        vm.startPrank(employer);
+
+        uint256 groupId = manager.createGroup("Tech Team", CYCLE_DURATION);
+
+        usdc.approve(address(manager), DEPOSIT_AMOUNT);
+
+        cycleId = manager.setUpPayroll(groupId, employees, salaries);
+        vm.stopPrank();
+
         _rebalance(cycleId);                    // deploy to pool
         _simulateYield(yieldAmount);            // inject yield
         _warpToPayday(cycleId);                 // fast forward
@@ -186,14 +196,32 @@ abstract contract PayrollDispatcherBase is SharedBase {
 
     /// @dev Full cycle with no yield
     function _runFullCycleNoYield() internal returns (uint256 cycleId) {
-        cycleId = _depositPayroll();
+
+         address[] memory employees = new address[](3);
+        employees[0] = employee;
+        employees[1] = employee2;
+        employees[2] = employee3;
+
+        uint256[] memory salaries = new uint256[](3);
+        salaries[0] = SALARY_1;
+        salaries[1] = SALARY_2;
+        salaries[2] = SALARY_3;
+
+        vm.startPrank(employer);
+        uint256 groupId = manager.createGroup("Tech Team", CYCLE_DURATION);
+
+        usdc.approve(address(manager), TOTAL_PAYROLL);
+
+        cycleId = manager.setUpPayroll(groupId, employees, salaries);
+        vm.stopPrank();
+
         _warpToPayday(cycleId);
         _rebalance(cycleId);
     }
 
     /// @dev Calculate expected fee from yield amount
     function _expectedFee(uint256 yieldAmount) internal pure returns (uint256) {
-        return (yieldAmount * FEE_BPS) / SCALE;
+        return (yieldAmount * CREDIT_FEE_BPS) / SCALE;
     }
 
     /// @dev Calculate expected employee share

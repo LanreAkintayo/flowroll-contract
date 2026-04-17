@@ -43,12 +43,12 @@ cast send $PAYROLL_MANAGER_ADDRESS \
 // To set apys
 echo "Setting stable pool APY to 5%..."
 cast send $STABLE_POOL_ADDRESS \
-  "setApyBps(uint256)" 500 \
+  "setApyBps(uint256)" 3000 \
   --rpc-url $RPC --private-key $PK
 
 echo "Setting volatile pool APY to 20%..."
 cast send $VOLATILE_POOL_ADDRESS \
-  "setApyBps(uint256)" 2000 \
+  "setApyBps(uint256)" 500 \
   --rpc-url $RPC --private-key $PK
 
 
@@ -96,59 +96,82 @@ forge script script/Deploy.s.sol   --rpc-url $RPC   --broadcast   --private-key 
 To wire the contract;
 echo "=== Step 1: Wiring contracts ==="
 
-echo "Setting PayrollManager on Router..."
+echo "Setting up YieldRouter..."
 cast send $YIELD_ROUTER_ADDRESS \
   "setPayrollManager(address)" $PAYROLL_MANAGER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Setting PayVault on Router..."
 cast send $YIELD_ROUTER_ADDRESS \
   "setPayVault(address)" $PAY_VAULT_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-
 echo "Router configured ✓"
 
-echo "Setting YieldRouter on Manager..."
+
+
+echo "Setting up PayrollManager..."
 cast send $PAYROLL_MANAGER_ADDRESS \
   "setYieldRouter(address)" $YIELD_ROUTER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Setting Dispatcher on Manager..."
 cast send $PAYROLL_MANAGER_ADDRESS \
   "setPayrollDispatcher(address)" $PAYROLL_DISPATCHER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
+cast send $PAYROLL_MANAGER_ADDRESS \
+  "setPayVault(address)" $PAY_VAULT_ADDRESS \
+  --rpc-url $RPC --private-key $PK
+
 echo "Manager configured ✓"
 
-echo "Setting YieldRouter on Dispatcher..."
+
+echo "Setting up Dispatcher..."
 cast send $PAYROLL_DISPATCHER_ADDRESS \
   "setYieldRouter(address)" $YIELD_ROUTER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Setting PayrollManager on Dispatcher..."
 cast send $PAYROLL_DISPATCHER_ADDRESS \
   "setPayrollManager(address)" $PAYROLL_MANAGER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Setting PayVault on Dispatcher..."
 cast send $PAYROLL_DISPATCHER_ADDRESS \
   "setPayVault(address)" $PAY_VAULT_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
 echo "Dispatcher configured ✓"
 
-echo "Setting Dispatcher on Vault..."
+
+echo "Setting up PayVault..."
 cast send $PAY_VAULT_ADDRESS \
   "setDispatcher(address)" $PAYROLL_DISPATCHER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
-echo "Setting YieldRouter on Vault..."
 cast send $PAY_VAULT_ADDRESS \
   "setYieldRouter(address)" $YIELD_ROUTER_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
+cast send $PAY_VAULT_ADDRESS \
+  "setPayrollManager(address)" $PAYROLL_MANAGER_ADDRESS \
+  --rpc-url $RPC --private-key $PK
+
+cast send $PAY_VAULT_ADDRESS \
+  "setFlowrollCredit(address)" $FLOWROLL_CREDIT_ADDRESS \
+  --rpc-url $RPC --private-key $PK
+
 echo "Vault configured ✓"
+
+echo "Setting up FlowrollCredit..."
+cast send $FLOWROLL_CREDIT_ADDRESS \
+  "setPayrollManager(address)" $PAYROLL_MANAGER_ADDRESS \
+  --rpc-url $RPC --private-key $PK
+
+cast send $FLOWROLL_CREDIT_ADDRESS \
+  "setPayVault(address)" $PAY_VAULT_ADDRESS \
+  --rpc-url $RPC --private-key $PK
+
+echo "FlowrollCredit configured ✓"
+
+
 
 echo "===Adding Pools ==="
 echo "Adding stable pool to Router..."
@@ -177,6 +200,11 @@ cast send $MOCK_USDC_ADDRESS \
   "mint(address,uint256)" $DEPLOYER $((INITIAL_TVL * 2)) \
   --rpc-url $RPC --private-key $PK
 
+echo "Minting USDC into Flowroll Credit..."
+cast send $MOCK_USDC_ADDRESS \
+  "mint(address,uint256)" $FLOWROLL_CREDIT_ADDRESS $((INITIAL_TVL * 2)) \
+  --rpc-url $RPC --private-key $PK
+
 echo "Approving stable pool..."
 cast send $MOCK_USDC_ADDRESS \
   "approve(address,uint256)" $STABLE_POOL_ADDRESS $INITIAL_TVL \
@@ -200,4 +228,18 @@ cast send $VOLATILE_POOL_ADDRESS \
   --rpc-url $RPC --private-key $PK
 
 echo "Volatile pool seeded ✓"
+
+
+echo "Funding Zapper with native token..."
+cast send $FLOWROLL_ZAPPER_ADDRESS \
+  --value $(cast to-wei 1000) \
+  --rpc-url $RPC --private-key $PK
+
+echo "Minting USDC into Zapper..."
+cast send $MOCK_USDC_ADDRESS \
+  "mint(address,uint256)" $FLOWROLL_ZAPPER_ADDRESS $(cast to-wei 5000000000000) \
+  --rpc-url $RPC --private-key $PK
+
+echo "Zapper funded ✓"
+
 echo "=== Pools seeded ==="

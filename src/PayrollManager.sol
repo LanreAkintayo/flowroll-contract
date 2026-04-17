@@ -80,6 +80,8 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     error PayrollManager__InvalidFeeRecipient();
     error PayrollManager__EmptyArray();
     error PayrollManager__ArrayLengthMismatch();
+    error PayrollManager__InsufficientPendingSalary();
+    error PayrollManager__NotPayVault();
 
     // ─── Constants ───────────────────────────────────────────────────────────
 
@@ -92,6 +94,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     address public yieldRouter;
     address public payrollDispatcher;
     address public feeRecipient;
+    address public payVault;
     uint256 public feeBps;
 
     mapping(address => mapping(uint256 cycleId => uint256 groupId))
@@ -104,6 +107,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     mapping(address employer => mapping(uint256 groupId => mapping(address employee => bool)))
         private isGroupEmployee;
     // mapping(address employee => uint256[] employeeGroup) private employeeGroups;
+    mapping(address employee => uint256 totalPendingSalary) private employeeTotalPendingSalary;
 
     // ─── Events ──────────────────────────────────────────────────────────────
 
@@ -151,18 +155,32 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     event FeeBpsUpdated(uint256 previous, uint256 updated);
     event YieldRouterSet(address indexed router);
     event PayrollDispatcherSet(address indexed _dispatcher);
+    event PayVaultSet(
+        address indexed vault
+    );
 
     event PayrollSetup(
         address indexed employer,
         uint256 indexed groupId,
         uint256 indexed cycleId
     );
+    
+    
+    event TotalPendingSalaryRemoved(address indexed employee, uint256 indexed amount);
+
 
     // ─── Modifiers ───────────────────────────────────────────────────────────
 
     modifier onlyRegistered() {
         if (!employers[msg.sender].isRegistered)
             revert PayrollManager__NotRegistered();
+        _;
+    }
+
+    modifier onlyPayVault() {
+        if (msg.sender != payVault){
+            revert PayrollManager__NotPayVault();
+        }
         _;
     }
 
@@ -211,6 +229,12 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         if (_dispatcher == address(0)) revert PayrollManager__ZeroAddress();
         payrollDispatcher = _dispatcher;
         emit PayrollDispatcherSet(_dispatcher);
+    }
+    
+    function setPayVault(address _payVault) external onlyOwner {
+        if (_payVault == address(0)) revert PayrollManager__ZeroAddress();
+        payVault = _payVault;
+        emit PayVaultSet(_payVault);
     }
 
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
@@ -625,6 +649,12 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         return groupSalaries[employer][groupId][employee];
     }
 
+    function getEmployeeTotalPendingSalary(
+        address employee
+    ) external view returns (uint256) {
+        return employeeTotalPendingSalary[employee];
+    }
+
     function getTotalPayroll(
         address employer,
         uint256 groupId
@@ -719,6 +749,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
             groupEmployees[msg.sender][groupId].push(employee);
             groupSalaries[msg.sender][groupId][employee] = salary;
             groups[msg.sender][groupId].totalPayroll += salary;
+            employeeTotalPendingSalary[employee] += salary;
 
             emit EmployeeAdded(msg.sender, groupId, employee, salary);
         }
@@ -759,5 +790,15 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
             totalPayroll,
             cycleDuration
         );
+    }
+
+    function removeFromTotalPendingSalary(address employee, uint256 amount) external onlyPayVault{
+        if (employeeTotalPendingSalary[employee] < amount){
+            revert PayrollManager__InsufficientPendingSalary();
+        }
+
+        employeeTotalPendingSalary[employee] -= amount;
+
+        emit TotalPendingSalaryRemoved(employee, amount);
     }
 }

@@ -7,6 +7,8 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IYieldRouter} from "./interfaces/IYieldRouter.sol";
+import {IPayrollManager} from "./interfaces/IPayrollManager.sol";
+import {IFlowrollCredit} from "./interfaces/IFlowrollCredit.sol";
 
 /**
  * @title PayVault
@@ -63,6 +65,8 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
 
     error PayVault__NotDispatcher();
     error PayVault__NotYieldRouter();
+    error PayVault__NotPayrollManager();
+    error PayVault__NotFlowrollCredit();
     error PayVault__ZeroAddress();
     error PayVault__ZeroAmount();
     error PayVault__ZeroDuration();
@@ -88,6 +92,8 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
     address public dispatcher;   // PayrollDispatcher — authorized to call credit()
     address public yieldRouter;  // YieldRouter — authorized to call disburse()
     address public feeRecipient;
+    address public payrollManager;
+    address public flowrollCredit;
     uint256 public feeBps;
 
     uint256 public totalEmployeeBalances;
@@ -110,6 +116,8 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
     event Credited(
         address indexed employee,
         uint256 amount,
+        uint256 actualCreditAmount,
+        uint256 remainingDebt,
         uint256 timestamp
     );
 
@@ -143,8 +151,16 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
         uint256 amount
     );
 
+    event FundsTransferred(
+        address indexed recipient,
+        uint256 amount
+    );
+
+
     event DispatcherSet(address indexed dispatcher);
     event YieldRouterSet(address indexed router);
+    event PayrollManagerSet(address indexed manager);
+    event FlowrollCreditSet(address indexed credit);
     event FeeRecipientUpdated(address indexed previous, address indexed updated);
     event FeeBpsUpdated(uint256 previous, uint256 updated);
 
@@ -157,6 +173,11 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
 
     modifier onlyYieldRouter() {
         if (msg.sender != yieldRouter) revert PayVault__NotYieldRouter();
+        _;
+    }
+
+    modifier onlyPayrollManager() {
+        if (msg.sender != payrollManager) revert PayVault__NotPayrollManager();
         _;
     }
 
@@ -193,6 +214,18 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
         if (_router == address(0)) revert PayVault__ZeroAddress();
         yieldRouter = _router;
         emit YieldRouterSet(_router);
+    }
+
+    function setPayrollManager(address _manager) external onlyOwner {
+        if (_manager == address(0)) revert PayVault__ZeroAddress();
+        payrollManager = _manager;
+        emit PayrollManagerSet(_manager);
+    }
+
+    function setFlowrollCredit(address _flowrollCredit) external onlyOwner {
+        if (_flowrollCredit == address(0)) revert PayVault__ZeroAddress();
+        flowrollCredit = _flowrollCredit;
+        emit FlowrollCreditSet(_flowrollCredit);
     }
 
     function setFeeRecipient(address _feeRecipient) external onlyOwner {
@@ -233,11 +266,36 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
         if (amount == 0)            revert PayVault__ZeroAmount();
 
         IERC20(usdc).safeTransferFrom(msg.sender, address(this), amount);
-        balances[employee] += amount;
-        totalEmployeeBalances += amount;
 
-        emit Credited(employee, amount, block.timestamp);
+        // Before we add the balance of the employee we have to resolve the actual amount;
+        (uint256 actualCreditAmount, uint256 remainingDebt) = _resolveEmployeeCredit(employee, amount);
+
+        // Update total pending salary
+        IPayrollManager(payrollManager).removeFromTotalPendingSalary(employee, amount);
+
+        balances[employee] += actualCreditAmount;
+        totalEmployeeBalances += actualCreditAmount;
+
+         // Update debt;
+        IFlowrollCredit(flowrollCredit).updateDebt(employee, remainingDebt);  
+
+        // Send the requested salary back to flowroll credit;
+        uint256 amountToSend = amount - actualCreditAmount;
+        IERC20(usdc).safeTransfer(flowrollCredit, amountToSend);
+
+        emit FundsTransferred(flowrollCredit, amountToSend);
+        emit Credited(employee, amount, actualCreditAmount, remainingDebt, block.timestamp);
     }
+
+    function _resolveEmployeeCredit(address _employee, uint256 _amount) public view returns (uint256 creditAmount, uint256 remainingDebt) {
+        // Check if they have debt;
+        uint256 employeeDebt = IFlowrollCredit(flowrollCredit).getEmployeeDebt(_employee);        
+        if (employeeDebt == 0) return (_amount, 0); 
+
+        creditAmount = _amount > employeeDebt ? _amount - employeeDebt : 0;
+        remainingDebt = _amount < employeeDebt ? employeeDebt - _amount : 0;    
+    }
+
 
     // ─── Core: Claim ─────────────────────────────────────────────────────────
 

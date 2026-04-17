@@ -19,42 +19,12 @@ import {IPayVault} from "./interfaces/IPayVault.sol";
  *   SINGLE ENTRY POINT: Only YieldRouter can call disburse(). Called
  *   automatically on payday after YieldRouter withdraws all pool positions
  *   and transfers the full amount (principal + yield) to this contract.
- *
- *   YIELD SPLIT: Employees receive exactly their assigned salaries from
- *   totalDeposited. Protocol fee is taken from yield only. Remaining
- *   yield returns to employer. Principal always fully covers salaries.
- *
- *     totalReceived  = totalDeposited + yieldEarned
- *     fee            = yieldEarned * feeBps / SCALE  → feeRecipient
- *     employerReturn = yieldEarned - fee              → employer wallet
- *     employeeTotal  = totalDeposited                 → split among employees
- *
- *   STATELESS READS: Employee list, salaries, and totalPayroll are read
- *   from PayrollManager at disbursement time. Dispatcher stores only
- *   disbursement records for auditing and double-disbursement protection.
- *
- *   NO CROSS-CHAIN LOGIC: Dispatcher only credits PayVault on the same
- *   chain. Cross-chain bridging is handled by the frontend using Initia's
- *   native bridge SDK after employees claim from PayVault.
- *
- *   PROPORTIONAL SPLIT: Each employee's share is calculated as:
- *     share = (salary * employeeTotal) / totalPayroll
- *   Multiply before divide to preserve precision. Any dust from rounding
- *   stays in the contract and is recoverable by owner.
- *
- *   BALANCE ASSERTION: disburse() verifies that the contract's actual
- *   USDC balance matches the amount parameter before proceeding. This
- *   ensures YieldRouter cannot claim to have sent more than it actually
- *   transferred.
- *
- *   PAID COUNT: employeeCount in DisbursementRecord reflects the number
- *   of employees actually credited — not headcount. Matches the number
- *   of EmployeePaid events emitted exactly.
+ 
  */
 contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    // ─── Structs ─────────────────────────────────────────────────────────────
+    // ─ Structs ─
 
     struct DisbursementRecord {
         uint256 totalReceived;
@@ -68,7 +38,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         bool executed;
     }
 
-    // ─── Custom Errors ───────────────────────────────────────────────────────
+    // ─ Custom Errors ─
 
     error PayrollDispatcher__NotYieldRouter();
     error PayrollDispatcher__ZeroAddress();
@@ -82,12 +52,12 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     error PayrollDispatcher__ZeroTotalPayroll();
     error PayrollDispatcher__InsufficientBalance();
 
-    // ─── Constants ───────────────────────────────────────────────────────────
+    // ─ Constants ─
 
     uint256 public constant SCALE = 10_000;
     uint256 public constant MAX_FEE_BPS = 2_000; // 20% max fee on yield
 
-    // ─── State ───────────────────────────────────────────────────────────────
+    // ─ State ─
 
     address public immutable usdc;
     address public yieldRouter;
@@ -100,7 +70,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     mapping(address employer => mapping(uint256 cycleId => DisbursementRecord))
         public disbursements;
 
-    // ─── Events ──────────────────────────────────────────────────────────────
+    // ─ Events 
 
     event Disbursed(
         address indexed employer,
@@ -135,7 +105,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     );
     event FeeBpsUpdated(uint256 previous, uint256 updated);
 
-    // ─── Modifiers ───────────────────────────────────────────────────────────
+    // ─ Modifiers ─
 
     modifier onlyYieldRouter() {
         if (msg.sender != yieldRouter)
@@ -143,10 +113,10 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         _;
     }
 
-    // ─── Constructor ─────────────────────────────────────────────────────────
+    // ─ Constructor ─
 
     /**
-     * @param _usdc         USDC token address on evm-1
+     * @param _usdc         USDC token address on evm
      * @param _feeRecipient Address that receives protocol fee from yield
      * @param _feeBps       Fee in basis points taken from yield earned
      */
@@ -165,7 +135,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         feeBps = _feeBps;
     }
 
-    // ─── Admin ───────────────────────────────────────────────────────────────
+    // ─ Admin ─
 
     function setYieldRouter(address _router) external onlyOwner {
         if (_router == address(0)) revert PayrollDispatcher__ZeroAddress();
@@ -206,7 +176,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         _unpause();
     }
 
-    // ─── Core: Disburse ──────────────────────────────────────────────────────
+    // ─ Core: Disburse 
 
     /**
      * @notice Settle a payroll cycle. Called by YieldRouter on payday.
@@ -222,7 +192,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         uint256 cycleId,
         uint256 amount
     ) external onlyYieldRouter whenNotPaused nonReentrant {
-        // ── Guard checks ──────────────────────────────────────────────────────
+        //  Guard checks 
         if (yieldRouter == address(0)) revert PayrollDispatcher__RouterNotSet();
         if (payrollManager == address(0))
             revert PayrollDispatcher__ManagerNotSet();
@@ -231,44 +201,44 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         if (disbursements[employer][cycleId].executed)
             revert PayrollDispatcher__AlreadyDisbursed();
 
-        // // ── Verify actual balance matches claimed amount ────────────────
+        // //  Verify actual balance matches claimed amount 
         if (IERC20(usdc).balanceOf(address(this)) < amount)
             revert PayrollDispatcher__InsufficientBalance();
 
-        // // // ── Read cycle data ───────────────────────────────────────────────────
+        // // //  Read cycle data ─
         uint256 totalDeposited = IYieldRouter(yieldRouter)
             .getCycle(employer, cycleId)
             .totalDeposited;
 
-        // ── Calculate yield split ─────────────────────────────────────────────
+        //  Calculate yield split 
         uint256 yieldEarned = amount > totalDeposited
             ? amount - totalDeposited
             : 0;
 
         uint256 fee = (yieldEarned * feeBps) / SCALE;
         uint256 employerReturn = yieldEarned - fee;
-        uint256 employeeTotal = totalDeposited;
+        uint256 employeeTotal = amount > totalDeposited ? totalDeposited : amount;
 
-        // ── Collect protocol fee ──────────────────────────────────────────────
+        //  Collect protocol fee 
         if (fee > 0) {
             IERC20(usdc).safeTransfer(feeRecipient, fee);
             emit FeeCollected(feeRecipient, fee);
         }
 
-        // ── Return yield to employer ──────────────────────────────────────────
+        // Return yield to employer 
         if (employerReturn > 0) {
             IERC20(usdc).safeTransfer(employer, employerReturn);
             emit YieldReturnedToEmployer(employer, employerReturn);
         }
 
-        // ── Disburse to employees — extracted to free stack slots ─────────────
+        //  Disburse to employees — extracted to free stack slots 
         (uint256 groupId, uint256 employeeCount) = _disburseToEmployees(
             employer,
             cycleId,
             employeeTotal
         );
 
-        // ── Record disbursement ───────────────────────────────────────────────
+        //  Record disbursement 
         disbursements[employer][cycleId] = DisbursementRecord({
             totalReceived: amount,
             totalDeposited: totalDeposited,
@@ -324,7 +294,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
 
         IERC20(usdc).approve(payVault, employeeTotal);
 
-        // ── Track paid count, not headcount ────────────────────────────
+        // Track paid count, not headcount
         uint256 paid;
 
         for (uint256 i = 0; i < employees.length; i++) {
@@ -344,7 +314,6 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
 
             IPayVault(payVault).credit(employee, share);
 
-            // ── groupId on EmployeePaid ────────────────────────────────
             emit EmployeePaid(employer, cycleId, groupId, employee, share);
 
             paid++;
@@ -355,7 +324,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         return (groupId, paid);
     }
 
-    // ─── View Functions ───────────────────────────────────────────────────────
+    // ─ View Functions ----
 
     function getDisbursement(
         address employer,
@@ -371,7 +340,6 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         return disbursements[employer][cycleId].executed;
     }
 
-    // ─── Recovery ────────────────────────────────────────────────────────────
 
     /**
      * @notice Recover dust USDC left from rounding.

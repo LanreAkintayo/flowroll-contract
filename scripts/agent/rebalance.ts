@@ -295,7 +295,7 @@ function parseAgentAction(
     router:  ethers.Contract,
     receipt: ethers.TransactionReceipt
 ): string {
-    try {
+    try {   
         for (const log of receipt.logs) {
             try {
                 const parsed = router.interface.parseLog({

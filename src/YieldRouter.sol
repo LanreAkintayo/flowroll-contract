@@ -998,6 +998,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         poolAllocations[caller][cycleId][poolIndex] += shares;
 
+        console.log("Pool allocation: ", poolAllocations[caller][cycleId][poolIndex]);
+
         cycles[caller][cycleId - 1].idleBalance -= amount;
     }
 

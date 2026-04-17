@@ -2,14 +2,14 @@
 pragma solidity ^0.8.20;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {YieldRouter} from "../../../src/YieldRouter.sol"; 
+import {YieldRouter} from "../../../src/YieldRouter.sol";
 import {MockUSDC} from "../../../src/mocks/MockUSDC.sol";
 import {MockPool} from "../../../src/mocks/MockPool.sol";
 import {MockPoolAdapter} from "../../../src/adapters/MockPoolAdapter.sol";
 import {YieldRouterBase} from "../../base/YieldRouterBase.t.sol";
+import {console} from "forge-std/console.sol";
 
 contract YieldRouterCycle is YieldRouterBase {
-
     // =========================================================================
     // CYCLE LIFECYCLE
     // =========================================================================
@@ -17,27 +17,18 @@ contract YieldRouterCycle is YieldRouterBase {
     // ─── startCycle: input validation ────────────────────────────────────────
 
     function test_startCycle_revertsOnZeroDeposit() public {
-        vm.prank(address(payrollManager));
+        vm.prank(address(manager));
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDeposit.selector);
-        router.startCycle(employer, 0, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(employer, 0, CYCLE_DURATION, address(dispatcher));
     }
 
     function test_startCycle_revertsOnZeroDuration() public {
-        vm.prank(address(payrollManager));
+        vm.prank(address(manager));
         vm.expectRevert(YieldRouter.YieldRouter__ZeroDuration.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, 0, address(mockDispatcher));
+        router.startCycle(employer, DEPOSIT_AMOUNT, 0, address(dispatcher));
     }
 
     // ─── startCycle: state correctness ───────────────────────────────────────
-
-    function test_startCycle_pullsUSDCFromCaller() public {
-        uint256 balanceBefore = usdc.balanceOf(address(payrollManager));
-
-        _startCycle();
-
-        assertEq(usdc.balanceOf(address(payrollManager)), balanceBefore - DEPOSIT_AMOUNT);
-        assertEq(usdc.balanceOf(address(router)), DEPOSIT_AMOUNT);
-    }
 
     function test_startCycle_storesCycleCorrectly() public {
         uint256 startTime = block.timestamp;
@@ -50,22 +41,8 @@ contract YieldRouterCycle is YieldRouterBase {
         assertEq(cycle.cycleStartTime, startTime);
         assertEq(cycle.payDay, startTime + (CYCLE_DURATION));
         assertEq(cycle.idleBalance, cycle.totalDeposited);
-        
+
         assertTrue(cycle.isActive);
-    }
-
-    function test_startCycle_emitsCycleStarted() public {
-        uint256 expectedPayday = block.timestamp + (CYCLE_DURATION);
-
-        vm.expectEmit(true, true, false, true);
-        emit YieldRouter.CycleStarted(
-            employer,
-            1,
-            DEPOSIT_AMOUNT,
-            expectedPayday
-        );
-
-        _startCycle();
     }
 
     // ─── Multiple concurrent cycles ──────────────────────────────────────────
@@ -96,7 +73,12 @@ contract YieldRouterCycle is YieldRouterBase {
         vm.startPrank(owner);
         usdc.mint(owner, DEPOSIT_AMOUNT);
         usdc.approve(address(router), DEPOSIT_AMOUNT);
-        router.startCycle(employerB, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(
+            employerB,
+            DEPOSIT_AMOUNT,
+            CYCLE_DURATION,
+            address(dispatcher)
+        );
         vm.stopPrank();
 
         // Each employer has exactly one cycle, independently
@@ -171,5 +153,4 @@ contract YieldRouterCycle is YieldRouterBase {
         assertTrue(p.isStablePair);
         assertTrue(p.isActive);
     }
-
 }

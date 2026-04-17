@@ -43,19 +43,19 @@ contract YieldRouterAccess is YieldRouterBase {
     function test_startCycle_revertsIfNotAuthorizedCaller() public {
         vm.prank(stranger);
         vm.expectRevert(YieldRouter.YieldRouter__NotAuthorizedCaller.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(dispatcher));
     }
 
     function test_startCycle_revertsIfCalledByEmployerDirectly() public {
         // Employers must go through Treasury — direct calls blocked
         vm.prank(employer);
         vm.expectRevert(YieldRouter.YieldRouter__NotAuthorizedCaller.selector);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(dispatcher));
     }
 
     function test_startCycle_treasuryCanCall() public {
-        vm.prank(address(payrollManager));
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        vm.prank(address(manager));
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(dispatcher));
         // no revert = pass
     }
 
@@ -64,7 +64,7 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.startPrank(owner);
         usdc.mint(owner, DEPOSIT_AMOUNT);
         usdc.approve(address(router), DEPOSIT_AMOUNT);
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(dispatcher));
         vm.stopPrank();
     }
 
@@ -120,9 +120,9 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.prank(owner);
         router.pause();
 
-        vm.prank(address(payrollManager));
+        vm.prank(address(manager));
         vm.expectRevert();
-        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(mockDispatcher));
+        router.startCycle(employer, DEPOSIT_AMOUNT, CYCLE_DURATION, address(dispatcher));
     }
 
 }

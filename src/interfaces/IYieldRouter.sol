@@ -6,7 +6,7 @@ pragma solidity ^0.8.24;
  * @notice Interface for the YieldRouter core agent.
  */
 interface IYieldRouter {
-    // ─── Enums ───────────────────────────────────────────────────────────────
+    // Enums ----------------------------------------------------------------------
 
     enum ActionType {
         CycleStarted,
@@ -18,7 +18,7 @@ interface IYieldRouter {
         NoActionNeeded
     }
 
-    // ─── Structs ─────────────────────────────────────────────────────────────
+    // Structs ----------------------------------------------------------------------
 
     struct BufferConfig {
         uint256[] tierPcts;
@@ -53,7 +53,7 @@ interface IYieldRouter {
         address dispatcher;
     }
 
-    // ─── Custom Errors ───────────────────────────────────────────────────────
+    // Custom Errors ----------------------------------------------------------------------
 
     error YieldRouter__NotAgent();
     error YieldRouter__NotAuthorizedCaller();
@@ -70,7 +70,7 @@ interface IYieldRouter {
     error YieldRouter__InvalidRiskConfig();
     error YieldRouter__CycleNotCancellable();
 
-    // ─── Events ──────────────────────────────────────────────────────────────
+    // Events ----------------------------------------------------------------------
 
     event AgentOperatorUpdated(
         address indexed previous,
@@ -120,7 +120,7 @@ interface IYieldRouter {
         uint256 scoreAfter
     );
 
-    // ─── State Variable Getters ──────────────────────────────────────────────
+    // State Variable Getters ----------------------------------------------------------------------
 
     function SCALE() external view returns (uint256);
     function IL_RISK_STABLE() external view returns (uint256);
@@ -156,7 +156,7 @@ interface IYieldRouter {
         uint256 poolIndex
     ) external view returns (uint256);
 
-    // ─── Core Cycle Management ───────────────────────────────────────────────
+    // Core Cycle Management ----------------------------------------------------------------------
 
     function startCycle(
         address employer,
@@ -172,7 +172,7 @@ interface IYieldRouter {
 
     function agentRebalance(address caller, uint256 cycleId) external;
 
-    // ─── View & Query Functions ──────────────────────────────────────────────
+    //  View & Query Functions ----------------------------------------------------------------------
 
     function getCycle(
         address caller,
@@ -212,7 +212,7 @@ interface IYieldRouter {
         uint256 medRiskThreshold
     ) external view returns (uint256 score);
 
-    // ─── Admin Functions ──────────────────────────────────────────────────────
+    // Admin Functions ----------------------------------------------------------------------
 
     function setAgentOperator(address _agent) external;
     function setPayVault(address _payVault) external;

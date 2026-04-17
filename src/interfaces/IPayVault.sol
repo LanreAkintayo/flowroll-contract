@@ -6,7 +6,8 @@ pragma solidity ^0.8.24;
  * @notice Interface for the PayVault contract.
  */
 interface IPayVault {
-    // ─── Structs ─────────────────────────────────────────────────────────────
+    
+    // Structs -----------------------------------------------------------------------
 
     struct AutoSaveCycle {
         uint256 cycleId;
@@ -16,7 +17,7 @@ interface IPayVault {
         bool isActive;
     }
 
-    // ─── Custom Errors ───────────────────────────────────────────────────────
+    // Custom Errors -----------------------------------------------------------------
 
     error PayVault__NotDispatcher();
     error PayVault__NotYieldRouter();
@@ -33,7 +34,7 @@ interface IPayVault {
     error PayVault__CycleAlreadySettled();
     error PayVault__AlreadyDisbursed();
 
-    // ─── Events ──────────────────────────────────────────────────────────────
+    // Events -----------------------------------------------------------------------
 
     event Credited(address indexed employee, uint256 amount, uint256 timestamp);
     event Claimed(address indexed employee, uint256 amount, uint256 timestamp);
@@ -63,7 +64,7 @@ interface IPayVault {
     event FeeRecipientUpdated(address indexed previous, address indexed updated);
     event FeeBpsUpdated(uint256 previous, uint256 updated);
 
-    // ─── State Variable Getters ──────────────────────────────────────────────
+    // State Variable Getters -----------------------------------------------------------------
 
     function SCALE() external view returns (uint256);
     function MAX_FEE_BPS() external view returns (uint256);
@@ -75,7 +76,7 @@ interface IPayVault {
     function feeBps() external view returns (uint256);
     function totalEmployeeBalances() external view returns (uint256);
 
-    // ─── Core Functions ──────────────────────────────────────────────────────
+    // Core Functions ---------------------------------------------------------------------------
 
     /**
      * @notice Credit an employee's balance. Called by PayrollDispatcher.
@@ -97,14 +98,14 @@ interface IPayVault {
      */
     function disburse(address employee, uint256 cycleId, uint256 amount) external;
 
-    // ─── View Functions ───────────────────────────────────────────────────────
+    // View Functions -----------------------------------------------------------------
 
     function getBalance(address employee) external view returns (uint256);
     function getAutoSaveCycles(address employee) external view returns (AutoSaveCycle[] memory);
     function getAutoSaveCycle(address employee, uint256 index) external view returns (AutoSaveCycle memory);
     function isCycleSettled(address employee, uint256 cycleId) external view returns (bool);
 
-    // ─── Admin & Recovery Functions ──────────────────────────────────────────
+    // Admin & Recovery Functions -----------------------------------------------------------------
 
     function setDispatcher(address _dispatcher) external;
     function setYieldRouter(address _router) external;
