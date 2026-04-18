@@ -4,7 +4,6 @@ pragma solidity ^0.8.24;
 import {PayrollDispatcherBase} from "../../base/PayrollDispatcherBase.t.sol";
 import {PayrollDispatcher} from "../../../src/PayrollDispatcher.sol";
 
-import {console} from "forge-std/console.sol";
 
 contract PayrollDispatcherTest is PayrollDispatcherBase {
     // =========================================================================
@@ -260,11 +259,6 @@ contract PayrollDispatcherTest is PayrollDispatcherBase {
         vm.expectEmit(true, true, true, false);
         emit PayrollDispatcher.EmployeePaid(employer, cycleId, 1, employee, 0);
 
-        // vm.expectEmit(true, true, true, false);
-        // emit PayrollDispatcher.EmployeePaid(employer, cycleId, 1, employee2, 0);
-
-        // vm.expectEmit(true, true, true, false);
-        // emit PayrollDispatcher.EmployeePaid(employer, cycleId, 1, employee3, 0);
 
         _rebalance(cycleId);
     }

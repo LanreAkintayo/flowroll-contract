@@ -80,7 +80,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
     uint256 public constant SCALE = 10_000;
     uint256 public constant MAX_FEE_BPS = 2_000;
 
-    address public immutable usdc;
+    address public immutable USDC;
     address public yieldRouter;
     address public payrollManager;
     address public payVault;
@@ -111,7 +111,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         if (_usdc == address(0) || _feeRecipient == address(0)) revert PayrollDispatcher__ZeroAddress();
         if (_feeBps > MAX_FEE_BPS) revert PayrollDispatcher__InvalidFeeBps();
 
-        usdc = _usdc;
+        USDC = _usdc;
         feeRecipient = _feeRecipient;
         feeBps = _feeBps;
     }
@@ -135,7 +135,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         if (amount == 0) revert PayrollDispatcher__InvalidAmount();
         if (disbursements[employer][cycleId].executed) revert PayrollDispatcher__AlreadyDisbursed();
 
-        if (IERC20(usdc).balanceOf(address(this)) < amount) revert PayrollDispatcher__InsufficientBalance();
+        if (IERC20(USDC).balanceOf(address(this)) < amount) revert PayrollDispatcher__InsufficientBalance();
 
         uint256 totalDeposited = IYieldRouter(yieldRouter).getCycle(employer, cycleId).totalDeposited;
 
@@ -145,12 +145,12 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         uint256 employeeTotal = amount > totalDeposited ? totalDeposited : amount;
 
         if (fee > 0) {
-            IERC20(usdc).safeTransfer(feeRecipient, fee);
+            IERC20(USDC).safeTransfer(feeRecipient, fee);
             emit FeeCollected(feeRecipient, fee);
         }
 
         if (employerReturn > 0) {
-            IERC20(usdc).safeTransfer(employer, employerReturn);
+            IERC20(USDC).safeTransfer(employer, employerReturn);
             emit YieldReturnedToEmployer(employer, employerReturn);
         }
 
@@ -223,9 +223,9 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
      * @notice Recovers dust USDC left from division rounding.
      */
     function recoverDust() external onlyOwner {
-        uint256 balance = IERC20(usdc).balanceOf(address(this));
+        uint256 balance = IERC20(USDC).balanceOf(address(this));
         if (balance > 0) {
-            IERC20(usdc).safeTransfer(feeRecipient, balance);
+            IERC20(USDC).safeTransfer(feeRecipient, balance);
         }
     }
 
@@ -253,7 +253,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
         if (employees.length == 0) revert PayrollDispatcher__NoEmployees();
         if (totalPayroll == 0) revert PayrollDispatcher__ZeroTotalPayroll();
 
-        IERC20(usdc).approve(payVault, employeeTotal);
+        IERC20(USDC).approve(payVault, employeeTotal);
 
         uint256 paid;
 
@@ -273,7 +273,7 @@ contract PayrollDispatcher is Ownable, Pausable, ReentrancyGuard {
             paid++;
         }
 
-        IERC20(usdc).approve(payVault, 0);
+        IERC20(USDC).approve(payVault, 0);
 
         return (groupId, paid);
     }

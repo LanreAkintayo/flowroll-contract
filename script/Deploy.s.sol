@@ -1,4 +1,4 @@
-// // SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import {Script, console2} from "forge-std/Script.sol";
@@ -13,18 +13,18 @@ import {MockPoolAdapter} from "../src/adapters/MockPoolAdapter.sol";
 import {FlowrollCredit} from "../src/FlowrollCredit.sol";
 import {FlowrollZapper} from "../src/FlowrollZapper.sol";
 
+/**
+ * @title Deploy
+ * @dev Deployment script for the Flowroll protocol ecosystem on Anvil or Initia Testnet.
+ */
 contract Deploy is Script {
-    // ─── Config ──────────────────────────────────────────────────────────────
+    // --- CONFIG ---
 
     uint256 constant INITIAL_SUPPLY = 10_000_000e6;
     uint256 constant INITIAL_TVL = 1_000_000e6;
     uint256 constant STABLE_APY_BPS = 800;
     uint256 constant VOLATILE_APY_BPS = 1_500;
     uint256 constant FEE_BPS = 1_000;
-    uint256 constant EMPLOYER_FUNDS = 100_000e6;
-    uint256 constant SALARY_1 = 5_000e6;
-    uint256 constant SALARY_2 = 3_000e6;
-    uint256 constant SALARY_3 = 2_000e6;
     uint256 constant CREDIT_FEE_BPS = 150;
     uint256 constant MAX_ADVANCE_BPS = 8_000;
 
@@ -32,22 +32,19 @@ contract Deploy is Script {
     uint256 constant GAS_PER_INIT = 5;
     uint256 constant MAX_ZAP = 100e18;
 
-    // Cycle duration differs per network
     uint256 constant ANVIL_CYCLE = 2 minutes;
-    uint256 constant TESTNET_CYCLE = 10 minutes; // short enough to demo, long enough to observe
+    uint256 constant TESTNET_CYCLE = 10 minutes;
 
+    // --- EXTERNAL ---
+
+    /**
+     * @dev Main execution function for the deployment script.
+     */
     function run() external {
-        // ── Detect network ────────────────────────────────────────────────────
         string memory network = vm.envOr("NETWORK", string("anvil"));
-        bool isTestnet = keccak256(bytes(network)) ==
-            keccak256(bytes("testnet"));
+        bool isTestnet = keccak256(bytes(network)) == keccak256(bytes("testnet"));
 
-        uint256 deployerKey;
-        if (isTestnet) {
-            deployerKey = vm.envUint("TESTNET_PRIVATE_KEY");
-        } else {
-            deployerKey = vm.envUint("ANVIL_PRIVATE_KEY");
-        }
+        uint256 deployerKey = isTestnet ? vm.envUint("TESTNET_PRIVATE_KEY") : vm.envUint("ANVIL_PRIVATE_KEY");
 
         address deployer = vm.addr(deployerKey);
         address agentOp = vm.envOr("AGENT_OPERATOR", deployer);
@@ -55,24 +52,17 @@ contract Deploy is Script {
         uint256 cycleDuration = isTestnet ? TESTNET_CYCLE : ANVIL_CYCLE;
 
         console2.log("=== Flowroll Deploy ===");
-        console2.log("Deployer key: ", deployerKey);
-        console2.log("Network:    ", isTestnet ? "Initia Testnet" : "Anvil");
-        console2.log("Deployer:   ", deployer);
-        console2.log("AgentOp:    ", agentOp);
-        console2.log("Fee Recip:  ", feeRecipient);
-        console2.log("Cycle:      ", cycleDuration, "seconds");
+        console2.log("Network: ", isTestnet ? "Initia Testnet" : "Anvil");
+        console2.log("Deployer: ", deployer);
+        console2.log("Cycle: ", cycleDuration);
         console2.log("");
 
         vm.startBroadcast(deployerKey);
 
-        // ── 1. MockUSDC ───────────────────────────────────────────────────────
-        // MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
+        // --- ASSETS ---
         MockUSDC usdc = MockUSDC(vm.envAddress("MOCK_USDC_ADDRESS"));
-        MockERC20 bridgedInit = MockERC20(
-            vm.envAddress("BRIDGED_INIT_ADDRESS")
-        );
+        MockERC20 bridgedInit = MockERC20(vm.envAddress("BRIDGED_INIT_ADDRESS"));
 
-        // 3. Deploy the Zapper using the newly created mock addresses
         FlowrollZapper zapper = new FlowrollZapper(
             address(bridgedInit),
             address(usdc),
@@ -81,12 +71,7 @@ contract Deploy is Script {
             MAX_ZAP
         );
 
-        console2.log("MockUSDC:          ", address(usdc));
-        console2.log("Mock Bridged INIT: ", address(bridgedInit));
-        console2.log("Zapper:            ", address(zapper));
-        console2.log("");
-
-        // ── 2. Pools ──────────────────────────────────────────────────────────
+        // --- POOLS & ADAPTERS ---
         MockPool stablePool = new MockPool(
             address(usdc),
             "Flowroll Stable Yield Vault",
@@ -105,53 +90,19 @@ contract Deploy is Script {
             "frUSDC-V"
         );
 
-        console2.log("StablePool:        ", address(stablePool));
-        console2.log("VolatilePool:      ", address(volatilePool));
+        MockPoolAdapter stableAdapter = new MockPoolAdapter(address(usdc), address(stablePool));
+        MockPoolAdapter volatileAdapter = new MockPoolAdapter(address(usdc), address(volatilePool));
 
-        // ── 4. Adapters ───────────────────────────────────────────────────────
-        MockPoolAdapter stableAdapter = new MockPoolAdapter(
-            address(usdc),
-            address(stablePool)
-        );
-        MockPoolAdapter volatileAdapter = new MockPoolAdapter(
-            address(usdc),
-            address(volatilePool)
-        );
-        console2.log("StableAdapter:     ", address(stableAdapter));
-        console2.log("VolatileAdapter:   ", address(volatileAdapter));
-
-        // ── 5. Core contracts ─────────────────────────────────────────────────
+        // --- CORE PROTOCOL ---
         YieldRouter router = new YieldRouter(agentOp, address(usdc));
-        PayrollDispatcher dispatcher = new PayrollDispatcher(
-            address(usdc),
-            feeRecipient,
-            FEE_BPS
-        );
+        PayrollDispatcher dispatcher = new PayrollDispatcher(address(usdc), feeRecipient, FEE_BPS);
         PayVault vault = new PayVault(address(usdc), feeRecipient, FEE_BPS);
-        PayrollManager manager = new PayrollManager(
-            address(usdc),
-            feeRecipient,
-            FEE_BPS
-        );
-        FlowrollCredit flowrollCredit = new FlowrollCredit(
-            address(usdc),
-            CREDIT_FEE_BPS,
-            MAX_ADVANCE_BPS
-        );
-
-        console2.log("YieldRouter:       ", address(router));
-        console2.log("PayrollDispatcher: ", address(dispatcher));
-        console2.log("PayVault:          ", address(vault));
-        console2.log("PayrollManager:    ", address(manager));
-        console2.log("FlowrollCredit: ", address(flowrollCredit));
-
-        console2.log("Contracts wired");
+        PayrollManager manager = new PayrollManager(address(usdc), feeRecipient, FEE_BPS);
+        FlowrollCredit flowrollCredit = new FlowrollCredit(address(usdc), CREDIT_FEE_BPS, MAX_ADVANCE_BPS);
 
         vm.stopBroadcast();
 
-        // ── 8. Print env block ────────────────────────────────────────────────
         console2.log("\n--- COPY TO scripts/agent/.env ---");
-        // console2.log("NETWORK=", network);
         console2.log("MOCK_USDC_ADDRESS=", address(usdc));
         console2.log("STABLE_POOL_ADDRESS=", address(stablePool));
         console2.log("VOLATILE_POOL_ADDRESS=", address(volatilePool));
@@ -167,8 +118,5 @@ contract Deploy is Script {
         console2.log("DEPLOYMENT_BLOCK=0");
         console2.log("----------------------------------\n");
     }
-
-    function makeAddress(string memory name) internal pure returns (address) {
-        return address(uint160(uint256(keccak256(abi.encodePacked(name)))));
-    }
+   
 }

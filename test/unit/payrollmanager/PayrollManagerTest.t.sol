@@ -85,7 +85,6 @@ contract PayrollManagerTest is PayrollManagerBase {
     }
 
     function test_setupPayroll() public {
-        address employerB = makeAddr("employerB");
 
         address[] memory employees = new address[](2);
         employees[0] = employee;
@@ -108,14 +107,7 @@ contract PayrollManagerTest is PayrollManagerBase {
         vm.prank(agentOperator);
         router.agentRebalance(employer, 1);
 
-        PayrollManager.PayrollGroup memory group = manager.getGroup(
-            employer,
-            groupId
-        );
-        YieldRouter.PayrollCycle memory cycle = router.getCycle(
-            employer,
-            group.activeCycleId
-        );
+   
 
         // Wrap to the end of pyday
         vm.warp(router.getCycle(employer, 1).payDay - 2000 seconds);
@@ -226,7 +218,7 @@ contract PayrollManagerTest is PayrollManagerBase {
         manager.updateSalary(groupId, employee, 8_000e6);
     }
 
-    // ─── Batch functions ─────────────────────────────────────────────────────
+    // Batch functions 
 
     function test_addEmployees_addsAllAndUpdatesTotalPayroll() public {
         vm.startPrank(employer);

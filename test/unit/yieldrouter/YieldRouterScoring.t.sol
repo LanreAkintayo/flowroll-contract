@@ -6,8 +6,6 @@ import {YieldRouter} from "../../../src/YieldRouter.sol";
 
 contract YieldRouterScoringTest is YieldRouterBase {
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
-
     uint256 internal constant IDLE_AMOUNT = 10_000e6; // well below 1M TVL — no liq penalty
 
 

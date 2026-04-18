@@ -69,8 +69,6 @@ contract FlowrollCreditTest is FlowrollCreditBase {
         vm.prank(agentOperator);
         router.agentRebalance(employer, 1);
 
-        uint256 debtToRecover = credit.getEmployeeDebt(employee);
-        uint256 finalNetSalary = EMPLOYEE_SALARY - debtToRecover;
         uint256 pendingSalary = manager.getEmployeeTotalPendingSalary(employee);
 
         assertEq(pendingSalary, 0);

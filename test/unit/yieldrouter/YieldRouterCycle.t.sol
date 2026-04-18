@@ -1,20 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Test, console2} from "forge-std/Test.sol";
 import {YieldRouter} from "../../../src/YieldRouter.sol";
-import {MockUSDC} from "../../../src/mocks/MockUSDC.sol";
-import {MockPool} from "../../../src/mocks/MockPool.sol";
-import {MockPoolAdapter} from "../../../src/adapters/MockPoolAdapter.sol";
 import {YieldRouterBase} from "../../base/YieldRouterBase.t.sol";
-import {console} from "forge-std/console.sol";
 
 contract YieldRouterCycle is YieldRouterBase {
     // =========================================================================
     // CYCLE LIFECYCLE
     // =========================================================================
 
-    // ─── startCycle: input validation ────────────────────────────────────────
+    //  startCycle: input validation 
 
     function test_startCycle_revertsOnZeroDeposit() public {
         vm.prank(address(manager));
@@ -28,7 +23,7 @@ contract YieldRouterCycle is YieldRouterBase {
         router.startCycle(employer, DEPOSIT_AMOUNT, 0, address(dispatcher));
     }
 
-    // ─── startCycle: state correctness ───────────────────────────────────────
+    //  startCycle: state correctness 
 
     function test_startCycle_storesCycleCorrectly() public {
         uint256 startTime = block.timestamp;
@@ -45,7 +40,7 @@ contract YieldRouterCycle is YieldRouterBase {
         assertTrue(cycle.isActive);
     }
 
-    // ─── Multiple concurrent cycles ──────────────────────────────────────────
+    //  Multiple concurrent cycles 
 
     function test_startCycle_incrementsCycleIdPerEmployer() public {
         _startCycle();
@@ -96,7 +91,7 @@ contract YieldRouterCycle is YieldRouterBase {
         assertEq(usdc.balanceOf(address(router)), DEPOSIT_AMOUNT * 2);
     }
 
-    // ─── Cycle getters ───────────────────────────────────────────────────────
+    //  Cycle getters 
 
     function test_getCycle_revertsOnInvalidCycleId() public {
         vm.expectRevert(YieldRouter.YieldRouter__CycleNotFound.selector);
@@ -136,7 +131,7 @@ contract YieldRouterCycle is YieldRouterBase {
         assertEq(router.getCycleCount(employer), 2);
     }
 
-    // ─── Pool getters ─────────────────────────────────────────────────────────
+    //  Pool getters 
 
     function test_getPoolCount_returnsCorrectCount() public view {
         assertEq(router.getPoolCount(), 2);

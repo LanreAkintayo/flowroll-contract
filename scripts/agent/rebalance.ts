@@ -1,250 +1,106 @@
-// import { ethers }                          from "ethers";
-// import { RebalanceResult, ACTION_TYPE_LABELS } from "./types";
-// import { logger }                          from "./logger";
-
-// /**
-//  * Call agentRebalance for a single cycle.
-//  * Parses AgentAction event from receipt to determine what happened.
-//  * Returns structured result regardless of success or failure.
-//  */
-// export async function rebalanceCycle(
-//     router:   ethers.Contract,
-//     employer: string,
-//     cycleId:  bigint
-// ): Promise<RebalanceResult> {
-//     const label = `employer: ${employer.slice(0, 8)}... cycleId: ${cycleId}`;
-
-//     try {
-//         logger.info(`Rebalancing — ${label}`);
-
-//         // Estimate gas first — catches reverts before broadcasting
-//         const gasEstimate = await router.agentRebalance.estimateGas(
-//             employer,
-//             cycleId
-//         );
-
-//         // Add 20% buffer to gas estimate
-//         const gasLimit = (gasEstimate * BigInt(120)) / BigInt(100);
-
-//         const tx = await router.agentRebalance(employer, cycleId, {
-//             gasLimit
-//         });
-
-//         logger.info(`Transaction sent: ${tx.hash} — ${label}`);
-
-//         const receipt = await tx.wait();
-
-//         if (!receipt || receipt.status === 0) {
-//             return {
-//                 employer,
-//                 cycleId,
-//                 success: false,
-//                 actionType: "Unknown",
-//                 txHash: tx.hash,
-//                 error: "Transaction reverted"
-//             };
-//         }
-
-//         // Parse AgentAction event from receipt
-//         const actionType = parseAgentAction(router, receipt);
-
-//         logger.info(`✅ ${actionType} — ${label} — tx: ${tx.hash} — gas: ${receipt.gasUsed}`);
-
-//         // Special log for payday
-//         if (actionType === "PaydayTriggered") {
-//             logger.info(`🎉 PAYDAY SETTLED — ${label}`);
-//         }
-
-//         return {
-//             employer,
-//             cycleId,
-//             success:    true,
-//             actionType,
-//             txHash:     tx.hash,
-//             gasUsed:    receipt.gasUsed
-//         };
-
-//     } catch (e: any) {
-//         // Gas estimation failed — likely a contract revert
-//         const errorMsg = e?.message || String(e);
-
-//         // Cycle might have been closed by another process — not a real error
-//         if (errorMsg.includes("CycleNotActive") || errorMsg.includes("CycleNotFound")) {
-//             logger.info(`Cycle already closed — ${label}`);
-//             return {
-//                 employer,
-//                 cycleId,
-//                 success:    true,
-//                 actionType: "AlreadyClosed"
-//             };
-//         }
-
-//         logger.error(`❌ Rebalance failed — ${label}: ${errorMsg}`);
-
-//         return {
-//             employer,
-//             cycleId,
-//             success:    false,
-//             actionType: "Failed",
-//             error:      errorMsg
-//         };
-//     }
-// }
-
-// /**
-//  * Parse AgentAction event from transaction receipt.
-//  * Returns the action type label string.
-//  */
-// function parseAgentAction(
-//     router:  ethers.Contract,
-//     receipt: ethers.TransactionReceipt
-// ): string {
-//     console.log("Receipts.logs: ", receipt.logs);
-//     try {
-//         for (const log of receipt.logs) {
-//             try {
-//                 const parsed = router.interface.parseLog({
-//                     topics: [...log.topics],
-//                     data:   log.data
-//                 });
-
-//                 console.log("Parsed inside parseAgentAction: ", parsed);
-
-//                 if (parsed && parsed.name === "AgentAction") {
-//                     const actionTypeNum = Number(parsed.args[3]);
-//                     return ACTION_TYPE_LABELS[actionTypeNum] || `Unknown(${actionTypeNum})`;
-//                 }
-//             } catch {
-//                 // Not an AgentAction log — skip
-//             }
-//         }
-//     } catch (e) {
-//         logger.warn(`Failed to parse AgentAction event: ${e}`);
-//     }
-
-//     return "Unknown";
-// }
-
-
-import { ethers }                              from "ethers";
+import { ethers } from "ethers";
 import { RebalanceResult, ACTION_TYPE_LABELS } from "./types";
-import { logger }                              from "./logger";
-import { config }                              from "./config";
+import { logger } from "./logger";
+import { config } from "./config";
 
 /**
- * Call agentRebalance for a single cycle.
- * Includes:
- *   - Pre-call cycle state check — skips inactive cycles
- *   - Gas price oracle — fetches current network gas price
- *   - Retry logic — retries once on failure before giving up
- *   - AgentAction event parsing — identifies what action was taken
+ * Orchestrates the rebalancing of a single payroll cycle.
+ * Performs pre-flight checks, manages execution retries, and parses resulting on-chain events.
+ * * @param router The YieldRouter contract instance.
+ * @param employer Address of the employer owning the cycle.
+ * @param cycleId Unique identifier for the payroll cycle.
+ * @returns Result of the rebalance operation including action metadata.
  */
 export async function rebalanceCycle(
-    router:   ethers.Contract,
+    router: ethers.Contract,
     employer: string,
-    cycleId:  bigint
+    cycleId: bigint
 ): Promise<RebalanceResult> {
-    const label = `employer: ${employer.slice(0, 10)}... cycleId: ${cycleId}`;
+    const context = `employer: ${employer.slice(0, 10)}... | cycleId: ${cycleId}`;
 
-    // ── Pre-call cycle state check ────────────────────────────────────────────
-    // Skip inactive cycles before wasting gas on a call that will revert
+    // Pre-flight check: Prevent gas waste on inactive cycles
     try {
         const cycle = await router.getCycle(employer, cycleId);
         if (!cycle.isActive) {
-            logger.info(`Cycle already inactive — skipping ${label}`);
+            logger.info(`Cycle inactive; skipping ${context}`);
             return {
                 employer,
                 cycleId,
-                success:    true,
+                success: true,
                 actionType: "AlreadyClosed"
             };
         }
-    } catch (e) {
-        logger.warn(`Could not read cycle state for ${label} — proceeding anyway: ${e}`);
+    } catch (error) {
+        logger.warn(`Cycle state check failed for ${context}; attempting rebalance regardless.`);
     }
 
-    // ── Attempt rebalance with retries ────────────────────────────────────────
     let lastError = "";
 
+    // Retry loop for transient network or provider issues
     for (let attempt = 1; attempt <= config.maxRetries; attempt++) {
-        const result = await _attemptRebalance(router, employer, cycleId, label, attempt);
+        const result = await _attemptRebalance(router, employer, cycleId, context, attempt);
 
         if (result.success) return result;
 
-        lastError = result.error || "Unknown error";
+        lastError = result.error || "Unknown operational error";
 
-        // Don't retry if cycle is already closed — not a transient error
-        if (
-            lastError.includes("CycleNotActive") ||
-            lastError.includes("CycleNotFound")  ||
-            lastError.includes("AlreadyClosed")
-        ) {
-            logger.info(`Cycle already closed — ${label}`);
+        // Terminal errors: Do not retry if the state is invalid
+        const isTerminal = ["CycleNotActive", "CycleNotFound", "AlreadyClosed"]
+            .some(err => lastError.includes(err));
+
+        if (isTerminal) {
             return {
                 employer,
                 cycleId,
-                success:    true,
+                success: true,
                 actionType: "AlreadyClosed"
             };
         }
 
         if (attempt < config.maxRetries) {
-            logger.warn(`Attempt ${attempt} failed — retrying in ${config.retryDelayMs}ms`);
+            logger.warn(`Attempt ${attempt} failed; retrying in ${config.retryDelayMs}ms`);
             await sleep(config.retryDelayMs);
         }
     }
 
-    // All retries exhausted
-    logger.error(`❌ All ${config.maxRetries} attempts failed — ${label}: ${lastError}`);
+    logger.error(`Exhausted all ${config.maxRetries} attempts for ${context}: ${lastError}`);
     return {
         employer,
         cycleId,
-        success:    false,
+        success: false,
         actionType: "Failed",
-        error:      lastError
+        error: lastError
     };
 }
 
-// ─── Internal: single attempt ─────────────────────────────────────────────────
+// --- INTERNAL ---
 
+/**
+ * Executes a single transaction attempt for the rebalance operation.
+ */
 async function _attemptRebalance(
-    router:   ethers.Contract,
+    router: ethers.Contract,
     employer: string,
-    cycleId:  bigint,
-    label:    string,
-    attempt:  number
+    cycleId: bigint,
+    label: string,
+    attempt: number
 ): Promise<RebalanceResult> {
     try {
-        if (attempt > 1) {
-            logger.info(`Retry attempt ${attempt}/${config.maxRetries} — ${label}`);
-        } else {
-            logger.info(`Rebalancing — ${label}`);
-        }
+        logger.info(`${attempt > 1 ? `Retry ${attempt}/${config.maxRetries}` : "Rebalancing"} - ${label}`);
 
-        // ── Gas price oracle — fetch current network gas price ────────────────
-        const feeData    = await router.runner?.provider?.getFeeData();
-        const gasPrice   = feeData?.gasPrice ?? undefined;
+        // Gas price acquisition
+        const feeData = await router.runner?.provider?.getFeeData();
+        const gasPrice = feeData?.gasPrice ?? undefined;
 
-        if (gasPrice) {
-            logger.debug(`Gas price: ${ethers.formatUnits(gasPrice, "gwei")} gwei`);
-        }
+        // Estimation with dynamic safety buffer (20%)
+        const gasEstimate = await router.agentRebalance.estimateGas(employer, cycleId);
+        const gasLimit = (gasEstimate * 120n) / 100n;
 
-        // ── Estimate gas ──────────────────────────────────────────────────────
-        const gasEstimate = await router.agentRebalance.estimateGas(
-            employer,
-            cycleId
-        );
-
-        // Add 20% buffer
-        const gasLimit = (gasEstimate * BigInt(120)) / BigInt(100);
-
-        // ── Send transaction ──────────────────────────────────────────────────
-        const txOptions: Record<string, unknown> = { gasLimit };
+        const txOptions: ethers.TransactionRequest = { gasLimit };
         if (gasPrice) txOptions.gasPrice = gasPrice;
 
         const tx = await router.agentRebalance(employer, cycleId, txOptions);
-
-        logger.info(`Transaction sent: ${tx.hash} — ${label}`);
+        logger.info(`TX broadcast: ${tx.hash}`);
 
         const receipt = await tx.wait();
 
@@ -252,73 +108,68 @@ async function _attemptRebalance(
             return {
                 employer,
                 cycleId,
-                success:    false,
+                success: false,
                 actionType: "Unknown",
-                txHash:     tx.hash,
-                error:      "Transaction reverted on-chain"
+                txHash: tx.hash,
+                error: "Execution reverted on-chain"
             };
         }
 
-        // ── Parse AgentAction event ───────────────────────────────────────────
-        const actionType = parseAgentAction(router, receipt);
-
-        logger.info(
-            `✅ ${actionType} — ${label} — tx: ${tx.hash} — gas: ${receipt.gasUsed}`
-        );
+        const actionType = _parseAgentAction(router, receipt);
+        logger.info(`✅ ${actionType} | gas: ${receipt.gasUsed} | tx: ${tx.hash}`);
 
         return {
             employer,
             cycleId,
-            success:    true,
+            success: true,
             actionType,
-            txHash:     tx.hash,
-            gasUsed:    receipt.gasUsed
+            txHash: tx.hash,
+            gasUsed: receipt.gasUsed
         };
 
-    } catch (e: any) {
-        const errorMsg = e?.message || String(e);
-        logger.warn(`Attempt ${attempt} error — ${label}: ${errorMsg}`);
+    } catch (error: any) {
+        const msg = error?.message || String(error);
+        logger.warn(`Attempt ${attempt} failed for ${label}: ${msg}`);
 
         return {
             employer,
             cycleId,
-            success:    false,
+            success: false,
             actionType: "Failed",
-            error:      errorMsg
+            error: msg
         };
     }
 }
 
-// ─── Parse AgentAction event ──────────────────────────────────────────────────
-
-function parseAgentAction(
-    router:  ethers.Contract,
+/**
+ * Extracts and decodes the AgentAction event from transaction logs.
+ */
+function _parseAgentAction(
+    router: ethers.Contract,
     receipt: ethers.TransactionReceipt
 ): string {
-    try {   
+    try {
         for (const log of receipt.logs) {
             try {
                 const parsed = router.interface.parseLog({
                     topics: [...log.topics],
-                    data:   log.data
+                    data: log.data
                 });
 
-                if (parsed && parsed.name === "AgentAction") {
+                if (parsed?.name === "AgentAction") {
                     const actionTypeNum = Number(parsed.args[3]);
                     return ACTION_TYPE_LABELS[actionTypeNum] || `Unknown(${actionTypeNum})`;
                 }
             } catch {
-                // Not an AgentAction log — skip
+                continue; // Log not matching YieldRouter interface
             }
         }
-    } catch (e) {
-        logger.warn(`Failed to parse AgentAction event: ${e}`);
+    } catch (error) {
+        logger.warn(`Event parsing failed: ${error}`);
     }
 
     return "Unknown";
 }
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));

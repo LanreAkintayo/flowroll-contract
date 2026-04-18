@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {Test, console} from "forge-std/Test.sol";
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {Test} from "forge-std/Test.sol";
 import {MockERC20} from "../../../src/mocks/MockERC20.sol";
 import {FlowrollZapper} from "../../../src/FlowrollZapper.sol";
 
@@ -54,7 +53,7 @@ contract FlowrollZapperTest is Test {
     function test_InitialState() public view {
         assertEq(address(zapper.bridgedInit()), address(bridgedInit));
         assertEq(address(zapper.testUsdc()), address(testUsdc));
-        assertEq(zapper.initUnit(), INIT_UNIT);
+        assertEq(zapper.INIT_UNIT(), INIT_UNIT);
         assertEq(zapper.usdcRate(), USDC_PER_INIT * USDC_UNIT);
         assertEq(zapper.gasRate(), GAS_PER_INIT * GAS_UNIT);
         assertEq(zapper.maxZapPerWallet(), MAX_ZAP);

@@ -4,8 +4,6 @@ pragma solidity ^0.8.24;
 import {YieldRouterBase} from "../../base/YieldRouterBase.t.sol";
 import {YieldRouter} from "../../../src/YieldRouter.sol";
 
-import {console} from "forge-std/console.sol";
-
 contract YieldRouterRebalanceTest is YieldRouterBase {
     // =========================================================================
     // PRECONDITION GUARDS
@@ -114,18 +112,8 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
 
         assertEq(usdc.balanceOf(address(vault)), DEPOSIT_AMOUNT);
 
-        // 50000000000
-        // 5000000000
     }
 
-    // function test_payday_dispatcherDisburseCalledWithCorrectArgs() public {
-    //     _startCycle();
-    //     _warpToPayday();
-    //     _rebalance(employer, 1);
-
-    //     assertEq(dispatcher.disbursements(employer, 1), DEPOSIT_AMOUNT);
-    //     assertEq(dispatcher.totalDisbursed(), DEPOSIT_AMOUNT);
-    // }
 
     function test_payday_emitsPaydaySettled() public {
         _startCycle();
@@ -190,7 +178,7 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         // Warp to high-buffer zone — buffer jumps, more must be liquid
         _warpToTimeLeft(TIER_3_TIME_LEFT - 1);
 
-        (uint256 bufferAmount, uint256 bufferBps, ) = router.calculateBuffer(
+        (uint256 bufferAmount, , ) = router.calculateBuffer(
             employer,
             1
         );
@@ -517,7 +505,6 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
 
         _warpToTimeLeft(TIER_3_TIME_LEFT);
 
-        uint256 routerBalanceBefore = usdc.balanceOf(address(router));
         (uint256 bufferNeeded, , ) = router.calculateBuffer(employer, 1);
 
         _rebalance(employer, 1);
@@ -545,24 +532,11 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         _warpToPayday();
         _rebalance(employer, 1);
 
-        YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, 1);
         (, uint256 yieldEarned, ) = router.getLiveYield(employer, 1);
 
         assertGt(yieldEarned, 0);
     }
 
-    // function test_yield_dispatcherReceivesAtLeastPrincipal() public {
-    //     _startCycle();
-    //     _rebalance(employer, 1);
-
-    //     _simulateYield(volatilePool, 500e6);
-
-    //     _warpToPayday();
-    //     _rebalance(employer, 1);
-
-    //     // Dispatcher should have received at least the original deposit
-    //     assertGe(dispatcher.totalDisbursed(), DEPOSIT_AMOUNT);
-    // }
 
     function test_yield_cycleYieldEarnedIsZero_withNoYieldSimulated() public {
         _startCycle();
@@ -570,7 +544,6 @@ contract YieldRouterRebalanceTest is YieldRouterBase {
         _warpToPayday();
         _rebalance(employer, 1);
 
-        YieldRouter.PayrollCycle memory cycle = router.getCycle(employer, 1);
         (, uint256 yieldEarned, ) = router.getLiveYield(employer, 1);
 
         assertEq(yieldEarned, 0);

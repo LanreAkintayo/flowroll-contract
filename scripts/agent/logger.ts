@@ -3,23 +3,37 @@ import Transport from "winston-transport";
 import { Server } from "socket.io";
 import { config } from "./config";
 
+/**
+ * Global reference for the Socket.IO server to enable real-time log broadcasting.
+ */
 let ioInstance: Server | null = null;
 
-export const setSocketServer = (io: Server) => {
+/**
+ * Injects the Socket.IO instance into the logging module.
+ */
+export const setSocketServer = (io: Server): void => {
     ioInstance = io;
 };
 
-// Custom Winston transport to broadcast logs to frontend
+/**
+ * Interface representing the structure of Winston log information.
+ */
+interface LogInfo {
+    level: string;
+    message: string;
+    timestamp?: string;
+    [key: string]: any;
+}
+
+/**
+ * Custom Winston transport that broadcasts logs to connected clients via Socket.IO.
+ */
 class SocketTransport extends Transport {
-    log(info: any, callback: () => void) {
-        setImmediate(() => {
-            this.emit("logged", info);
-        });
+    public log(info: LogInfo, callback: () => void): void {
+        setImmediate(() => this.emit("logged", info));
 
         if (ioInstance) {
-            let type = "info";
-            if (info.level === "error") type = "error";
-            if (info.level === "warn") type = "warning";
+            const type = this._getLogType(info.level);
 
             ioInstance.emit("agent-log", {
                 id: Math.random().toString(36).substring(7),
@@ -30,69 +44,41 @@ class SocketTransport extends Transport {
         }
         callback();
     }
+
+    private _getLogType(level: string): string {
+        if (level === "error") return "error";
+        if (level === "warn") return "warning";
+        return "info";
+    }
 }
 
 const { combine, timestamp, printf, colorize } = winston.format;
 
+/**
+ * Standardized log output format.
+ */
 const logFormat = printf(({ level, message, timestamp }) => {
     return `[${timestamp}] ${level.toUpperCase()}: ${message}`;
 });
 
+/**
+ * Shared configuration for timestamping logs.
+ */
+const timeFormat = timestamp({ format: "YYYY-MM-DD HH:mm:ss" });
+
+/**
+ * Core logger instance managing Console, File, and Socket outputs.
+ */
 export const logger = winston.createLogger({
     level: config.logLevel,
-    format: combine(
-        timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-        logFormat
-    ),
+    format: combine(timeFormat, logFormat),
     transports: [
         new winston.transports.Console({
-            format: combine(
-                colorize(),
-                timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-                logFormat
-            )
+            format: combine(colorize(), timeFormat, logFormat)
         }),
         new winston.transports.File({
-            filename: "agent.log",
-            format: combine(
-                timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-                logFormat
-            )
+            filename: "agent.log"
         }),
-        new SocketTransport() 
+        new SocketTransport()
     ]
 });
-
-
-// import winston from "winston";
-// import { config } from "./config";
-
-// const { combine, timestamp, printf, colorize } = winston.format;
-
-// const logFormat = printf(({ level, message, timestamp }) => {
-//     return `[${timestamp}] ${level.toUpperCase()}: ${message}`;
-// });
-
-// export const logger = winston.createLogger({
-//     level: config.logLevel,
-//     format: combine(
-//         timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-//         logFormat
-//     ),
-//     transports: [
-//         new winston.transports.Console({
-//             format: combine(
-//                 colorize(),
-//                 timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-//                 logFormat
-//             )
-//         }),
-//         new winston.transports.File({
-//             filename: "agent.log",
-//             format: combine(
-//                 timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-//                 logFormat
-//             )
-//         })
-//     ]
-// });

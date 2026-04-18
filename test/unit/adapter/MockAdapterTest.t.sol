@@ -5,10 +5,8 @@ import {YieldRouterBase} from "../../base/YieldRouterBase.t.sol";
 import {MockPoolAdapter} from "../../../src/adapters/MockPoolAdapter.sol";
 import {BasePoolAdapter} from "../../../src/adapters/BasePoolAdapter.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
-import {console2} from "forge-std/console2.sol";
 
 contract MockPoolAdapterTest is YieldRouterBase {
-    // ─── Helpers ─────────────────────────────────────────────────────────────
 
     uint256 internal constant ADAPTER_DEPOSIT = 10_000e6; // 10k USDC
 

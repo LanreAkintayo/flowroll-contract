@@ -342,8 +342,6 @@ contract PayVaultTest is PayVaultBase {
             0
         );
 
-        uint256 totalReceived = savedAmount; // approximate — exact depends on pool math
-
         // Balance should be greater than savedAmount due to yield
         assertGt(vault.getBalance(employee), savedAmount);
 

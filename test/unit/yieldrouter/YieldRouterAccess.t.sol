@@ -1,11 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Test, console2} from "forge-std/Test.sol";
 import {YieldRouter} from "../../../src/YieldRouter.sol"; 
-import {MockUSDC} from "../../../src/mocks/MockUSDC.sol";
-import {MockPool} from "../../../src/mocks/MockPool.sol";
-import {MockPoolAdapter} from "../../../src/adapters/MockPoolAdapter.sol";
 import {YieldRouterBase} from "../../base/YieldRouterBase.t.sol";
 
 contract YieldRouterAccess is YieldRouterBase {
@@ -14,7 +10,7 @@ contract YieldRouterAccess is YieldRouterBase {
     // ACCESS CONTROL
     // =========================================================================
 
-    // ─── agentRebalance ──────────────────────────────────────────────────────
+    //  agentRebalance 
 
     function test_agentRebalance_revertsIfNotAgent() public {
         _startCycle();
@@ -38,7 +34,7 @@ contract YieldRouterAccess is YieldRouterBase {
         router.agentRebalance(employer, 1); // should not revert
     }
 
-    // ─── startCycle ──────────────────────────────────────────────────────────
+    //  startCycle 
 
     function test_startCycle_revertsIfNotAuthorizedCaller() public {
         vm.prank(stranger);
@@ -68,7 +64,7 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.stopPrank();
     }
 
-    // ─── Pool management ─────────────────────────────────────────────────────
+    //  Pool management 
 
     function test_addPool_revertsIfNotOwner() public {
         vm.prank(stranger);
@@ -90,7 +86,7 @@ contract YieldRouterAccess is YieldRouterBase {
         vm.stopPrank();
     }
 
-    // ─── Admin setters ───────────────────────────────────────────────────────
+    //  Admin setters 
 
     function test_setAgentOperator_revertsIfNotOwner() public {
         vm.prank(stranger);

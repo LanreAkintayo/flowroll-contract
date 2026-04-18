@@ -3,44 +3,21 @@ pragma solidity ^0.8.24;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
-import {
-    ReentrancyGuard
-} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {
-    SafeERC20
-} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IPoolAdapter} from "./interfaces/IPoolAdapter.sol";
 import {IPayrollDispatcher} from "./interfaces/IPayrollDispatcher.sol";
-import {console} from "forge-std/console.sol";
+
 /**
  * @title YieldRouter
  * @notice Core yield agent contract for Flowroll.
- *
- * @dev Key architectural decisions:
- *
- *   MULTI-CYCLE: No single-active-cycle restriction per caller. Each cycle is
- *   independently tracked — separate buffer, allocation, and yield accounting.
- *
- *   ADAPTER PATTERN: Never interacts with pools directly. All pool operations
- *   go through IPoolAdapter implementations. Adding a pool = deploy adapter +
- *   call addPool(). No changes to this contract required.
- *
- *   DYNAMIC BUFFER: Buffer tiers are percentage-based and owner-configurable.
- *   Config is snapshotted onto each cycle at startCycle() — mid-cycle owner
- *   changes only affect future cycles, never running ones.
- *
- *   TIME IN SECONDS: All internal time math uses seconds. cycleDuration is
- *   passed in seconds — callers use Solidity time units (30 days, 10 minutes).
- *   This makes the contract work correctly at any time granularity.
- *
- *   TREASURY ENTRY POINT: Employers interact through Treasury.sol, which calls
- *   startCycle() on their behalf. Direct employer calls are blocked.
+ * @dev Manages independent payroll cycles, pool allocations via adapters, and agent-driven rebalancing.
  */
 contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    // ─── Enums ───────────────────────────────────────────────────────────────
+    // --- ENUMS ---
 
     enum ActionType {
         CycleStarted,
@@ -52,20 +29,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         NoActionNeeded
     }
 
-    // ─── Structs ─────────────────────────────────────────────────────────────
+    // --- STRUCTS ---
 
-    /**
-     * @notice Owner-configurable buffer ladder.
-     * @dev tierPcts and tierBps must satisfy:
-     *   - tierPcts.length == tierBps.length - 1
-     *   - tierPcts is strictly descending
-     *   - tierBps is strictly ascending
-     *   tierBps has one extra entry — the catch-all for when timeLeft falls
-     *   below all tierPct thresholds (payday zone).
-     */
     struct BufferConfig {
-        uint256[] tierPcts; // % of cycleDuration, in bps (e.g. 7000 = 70%)
-        uint256[] tierBps; // buffer % in bps per tier (e.g. 1000 = 10%)
+        uint256[] tierPcts;
+        uint256[] tierBps;
     }
 
     struct RiskConfig {
@@ -81,28 +49,22 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 minApyBps;
     }
 
-    /**
-     * @notice Represents a single payroll cycle for a caller.
-     * @dev Buffer config is snapshotted at startCycle() — tierThresholds and
-     *   snapshotTierBps are immutable for the lifetime of this cycle.
-     *   cycleDuration and all thresholds are stored in seconds.
-     */
     struct PayrollCycle {
         uint256 cycleId;
         uint256 totalDeposited;
         uint256 cycleStartTime;
         uint256 payDay;
-        uint256 cycleDuration; // in seconds
-        uint256[] tierThresholds; // absolute second thresholds, descending
-        uint256[] snapshotTierBps; // buffer bps per tier, snapshotted
-        uint256 highRiskThreshold; // snapshotted in seconds
-        uint256 medRiskThreshold; // snapshotted in seconds
+        uint256 cycleDuration;
+        uint256[] tierThresholds;
+        uint256[] snapshotTierBps;
+        uint256 highRiskThreshold;
+        uint256 medRiskThreshold;
         uint256 idleBalance;
         bool isActive;
         address dispatcher;
     }
 
-    // ─── Custom Errors ───────────────────────────────────────────────────────
+    // --- ERRORS ---
 
     error YieldRouter__NotAgent();
     error YieldRouter__NotAuthorizedCaller();
@@ -120,7 +82,23 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     error YieldRouter__CycleNotCancellable();
     error YieldRouter__PoolAlreadyExists();
 
-    // ─── Constants ───────────────────────────────────────────────────────────
+    // --- EVENTS ---
+
+    event AgentOperatorUpdated(address indexed previous, address indexed updated);
+    event PayrollDispatcherSet(address indexed dispatcher);
+    event TreasurySet(address indexed treasury);
+    event PayVaultSet(address indexed vault);
+    event PayrollManagerSet(address indexed payrollManager);
+    event BufferConfigUpdated();
+    event PoolAdded(uint256 indexed poolIndex, address adapterAddress, address poolAddress);
+    event PoolDeactivated(uint256 indexed poolIndex);
+    event CycleStarted(address indexed caller, uint256 indexed cycleId, uint256 totalDeposited, uint256 payDay);
+    event PaydaySettled(address indexed caller, uint256 indexed cycleId, uint256 totalDisbursed, uint256 yieldEarned);
+    event AgentAction(address indexed caller, uint256 indexed cycleId, uint256 timeIntoCycle, ActionType indexed actionType, uint256 fromPoolIndex, uint256 toPoolIndex, uint256 amountMoved, uint256 scoreBefore, uint256 scoreAfter);
+    event RiskConfigUpdated(uint256 indexed highPct, uint256 indexed medPct);
+    event CycleCancelled(address indexed caller, uint256 indexed cycleId, uint256 amountReturned);
+
+    // --- STATE VARIABLES ---
 
     uint256 public constant SCALE = 10_000;
     uint256 public constant IL_RISK_STABLE = 10_000;
@@ -132,11 +110,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     uint256 public constant MIN_APY_BPS = 200;
     uint256 public constant NO_POOL = type(uint256).max;
 
-    // ─── State ───────────────────────────────────────────────────────────────
-
-    address public immutable usdc;
+    address public immutable USDC;
     address public agentOperator;
-    // address public payrollDispatcher;
     address public payVault;
     address public payrollManager;
 
@@ -145,108 +120,43 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     RiskConfig riskConfig;
 
     mapping(address => PayrollCycle[]) public cycles;
-    mapping(address caller => mapping(uint256 cycleId => mapping(uint256 poolIndex => uint256)))
-        public poolAllocations;
-    // mapping(address caller => mapping(uint256 cycleId => uint256 amount)) public amountInReserve;
+    mapping(address caller => mapping(uint256 cycleId => mapping(uint256 poolIndex => uint256))) public poolAllocations;
     mapping(address => bool) public poolExists;
 
-    // ─── Events ──────────────────────────────────────────────────────────────
-
-    event AgentOperatorUpdated(
-        address indexed previous,
-        address indexed updated
-    );
-    event PayrollDispatcherSet(address indexed dispatcher);
-    event TreasurySet(address indexed treasury);
-    event PayVaultSet(address indexed vault);
-    event PayrollManagerSet(address indexed payrollManager);
-    event BufferConfigUpdated();
-    event PoolAdded(
-        uint256 indexed poolIndex,
-        address adapterAddress,
-        address poolAddress
-    );
-    event PoolDeactivated(uint256 indexed poolIndex);
-    event CycleStarted(
-        address indexed caller,
-        uint256 indexed cycleId,
-        uint256 totalDeposited,
-        uint256 payDay
-    );
-    event PaydaySettled(
-        address indexed caller,
-        uint256 indexed cycleId,
-        uint256 totalDisbursed,
-        uint256 yieldEarned
-    );
-
-    /// @notice Single source of truth for all agent activity. Index by caller + cycleId off-chain.
-    event AgentAction(
-        address indexed caller,
-        uint256 indexed cycleId,
-        uint256 timeIntoCycle,
-        ActionType indexed actionType,
-        uint256 fromPoolIndex,
-        uint256 toPoolIndex,
-        uint256 amountMoved,
-        uint256 scoreBefore,
-        uint256 scoreAfter
-    );
-    event RiskConfigUpdated(uint256 indexed highPct, uint256 indexed medPct);
-    event CycleCancelled(
-        address indexed caller,
-        uint256 indexed cycleId,
-        uint256 amountReturned
-    );
-
-    // ─── Modifiers ───────────────────────────────────────────────────────────
+    // --- MODIFIERS ---
 
     modifier onlyAgent() {
-        if (msg.sender != agentOperator && msg.sender != owner())
-            revert YieldRouter__NotAgent();
+        _onlyAgent();
         _;
     }
 
-    /// @dev Treasury and owner only. Employers go through Treasury — never call directly.
     modifier onlyAuthorizedCaller() {
-        if (
-            msg.sender != owner() &&
-            msg.sender != payVault &&
-            msg.sender != payrollManager
-        ) revert YieldRouter__NotAuthorizedCaller();
+        _onlyAuthorizedCaller();
         _;
     }
 
     modifier cycleExists(address caller, uint256 cycleId) {
-        if (cycleId == 0 || cycleId > cycles[caller].length)
-            revert YieldRouter__CycleNotFound();
+        _cycleExists(caller, cycleId);
         _;
     }
 
     modifier cycleIsActive(address caller, uint256 cycleId) {
-        if (cycleId == 0 || cycleId > cycles[caller].length)
-            revert YieldRouter__CycleNotFound();
-        if (!cycles[caller][cycleId - 1].isActive)
-            revert YieldRouter__CycleNotActive();
+        _cycleIsActive(caller, cycleId);
         _;
     }
 
-    // ─── Constructor ─────────────────────────────────────────────────────────
+    // --- CONSTRUCTOR ---
 
     /**
-     * @param _agentOperator Backend agent wallet
-     * @param _usdc          USDC token address for this environment
+     * @param _agentOperator Backend agent wallet.
+     * @param _usdc USDC token address for this environment.
      */
     constructor(address _agentOperator, address _usdc) Ownable(msg.sender) {
-        if (_agentOperator == address(0)) revert YieldRouter__ZeroAddress();
-        if (_usdc == address(0)) revert YieldRouter__ZeroAddress();
+        if (_agentOperator == address(0) || _usdc == address(0)) revert YieldRouter__ZeroAddress();
 
         agentOperator = _agentOperator;
-        usdc = _usdc;
+        USDC = _usdc;
 
-        // Default buffer ladder — 6 tiers, percentage-based.
-        // Thresholds: 70%, 50%, 30%, 25%, 10% of cycle duration remaining.
-        // Buffers:     5%,  10%, 15%, 40%, 80%, 105% of totalDeposited.
         uint256[] memory defaultPcts = new uint256[](6);
         defaultPcts[0] = 7_000;
         defaultPcts[1] = 5_000;
@@ -274,19 +184,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         });
     }
 
-    // ─── Admin ───────────────────────────────────────────────────────────────
+    // --- EXTERNAL ---
 
     function setAgentOperator(address _agent) external onlyOwner {
         if (_agent == address(0)) revert YieldRouter__ZeroAddress();
         emit AgentOperatorUpdated(agentOperator, _agent);
         agentOperator = _agent;
     }
-
-    // function setPayrollDispatcher(address _dispatcher) external onlyOwner {
-    //     if (_dispatcher == address(0)) revert YieldRouter__ZeroAddress();
-    //     payrollDispatcher = _dispatcher;
-    //     emit PayrollDispatcherSet(_dispatcher);
-    // }
 
     function setPayVault(address _payVault) external onlyOwner {
         if (_payVault == address(0)) revert YieldRouter__ZeroAddress();
@@ -301,29 +205,22 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     }
 
     /**
-     * @notice Update the global buffer config.
-     * @dev Only affects cycles started after this call. Running cycles are unaffected —
-     *      their config was snapshotted at startCycle().
-     *      Requires tierPcts.length + 1 == tierBps.length.
+     * @notice Updates the global buffer configuration.
+     * @dev Does not affect actively running cycles.
      */
     function setBufferConfig(
         uint256[] calldata tierPcts,
         uint256[] calldata tierBps
     ) external onlyOwner {
         if (tierPcts.length == 0) revert YieldRouter__InvalidBufferConfig();
-        if (tierBps.length != tierPcts.length)
-            revert YieldRouter__InvalidBufferConfig();
-        if (tierPcts[tierPcts.length - 1] != 0)
-            revert YieldRouter__InvalidBufferConfig();
+        if (tierBps.length != tierPcts.length) revert YieldRouter__InvalidBufferConfig();
+        if (tierPcts[tierPcts.length - 1] != 0) revert YieldRouter__InvalidBufferConfig();
 
-        // Validate descending tierPcts and ascending tierBps
         for (uint256 i = 1; i < tierPcts.length; i++) {
-            if (tierPcts[i] >= tierPcts[i - 1])
-                revert YieldRouter__InvalidBufferConfig();
+            if (tierPcts[i] >= tierPcts[i - 1]) revert YieldRouter__InvalidBufferConfig();
         }
         for (uint256 i = 1; i < tierBps.length; i++) {
-            if (tierBps[i] <= tierBps[i - 1])
-                revert YieldRouter__InvalidBufferConfig();
+            if (tierBps[i] <= tierBps[i - 1]) revert YieldRouter__InvalidBufferConfig();
         }
 
         bufferConfig.tierPcts = tierPcts;
@@ -348,16 +245,13 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         _unpause();
     }
 
-    // ─── Pool Management ─────────────────────────────────────────────────────
-
     function addPool(
         address adapterAddress,
         address pool,
         bool isStablePair,
         uint256 minApyBps
     ) external onlyOwner {
-        if (adapterAddress == address(0)) revert YieldRouter__ZeroAddress();
-        if (pool == address(0)) revert YieldRouter__ZeroAddress();
+        if (adapterAddress == address(0) || pool == address(0)) revert YieldRouter__ZeroAddress();
         if (poolExists[pool]) revert YieldRouter__PoolAlreadyExists();
 
         uint256 idx = pools.length;
@@ -372,40 +266,19 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         );
 
         poolExists[pool] = true;
-
         emit PoolAdded(idx, adapterAddress, pool);
     }
 
     function deactivatePool(uint256 poolIndex) external onlyOwner {
         if (poolIndex >= pools.length) revert YieldRouter__InvalidPoolIndex();
-        if (!pools[poolIndex].isActive)
-            revert YieldRouter__PoolAlreadyInactive();
+        if (!pools[poolIndex].isActive) revert YieldRouter__PoolAlreadyInactive();
+        
         pools[poolIndex].isActive = false;
         emit PoolDeactivated(poolIndex);
     }
 
-    function getPoolCount() external view returns (uint256) {
-        return pools.length;
-    }
-
-    function getPool(
-        uint256 poolIndex
-    ) external view returns (PoolEntry memory) {
-        if (poolIndex >= pools.length) revert YieldRouter__InvalidPoolIndex();
-        return pools[poolIndex];
-    }
-
-    // ─── Cycle Management ────────────────────────────────────────────────────
-
     /**
-     * @notice Start a new payroll cycle.
-     * @dev Buffer config is snapshotted here — converting tierPcts to absolute
-     *      second thresholds based on cycleDuration. Owner config changes after
-     *      this point have no effect on this cycle.
-     *
-     * @param employer         Employer address this cycle belongs to
-     * @param totalDeposited   USDC amount (6 decimals)
-     * @param cycleDuration    Cycle length in seconds (e.g. 30 days, 10 minutes)
+     * @notice Starts a new payroll cycle and snapshots the active configuration.
      */
     function startCycle(
         address employer,
@@ -416,13 +289,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         if (totalDeposited == 0) revert YieldRouter__ZeroDeposit();
         if (cycleDuration == 0) revert YieldRouter__ZeroDuration();
 
-        IERC20(usdc).safeTransferFrom(
-            msg.sender,
-            address(this),
-            totalDeposited
-        );
+        IERC20(USDC).safeTransferFrom(msg.sender, address(this), totalDeposited);
 
-        // Snapshot buffer config — compute absolute thresholds in seconds
         BufferConfig storage config = bufferConfig;
         uint256 tierCount = config.tierPcts.length;
 
@@ -439,10 +307,8 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 newCycleId = cycles[employer].length + 1;
         uint256 payday = block.timestamp + cycleDuration;
 
-        uint256 highRiskThreshold = (cycleDuration *
-            riskConfig.highThresholdPct) / SCALE;
-        uint256 medRiskThreshold = (cycleDuration *
-            riskConfig.medThresholdPct) / SCALE;
+        uint256 highRiskThreshold = (cycleDuration * riskConfig.highThresholdPct) / SCALE;
+        uint256 medRiskThreshold = (cycleDuration * riskConfig.medThresholdPct) / SCALE;
 
         cycles[employer].push(
             PayrollCycle({
@@ -489,244 +355,18 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
     {
         PayrollCycle storage cycle = cycles[employer][cycleId - 1];
 
-        // Only cancellable if agent has never rebalanced — no funds in pools
-        if (cycle.idleBalance < cycle.totalDeposited)
-            revert YieldRouter__CycleNotCancellable();
+        if (cycle.idleBalance < cycle.totalDeposited) revert YieldRouter__CycleNotCancellable();
 
         amountReturned = cycle.totalDeposited;
         cycle.isActive = false;
 
-        IERC20(usdc).safeTransfer(msg.sender, amountReturned);
+        IERC20(USDC).safeTransfer(msg.sender, amountReturned);
 
         emit CycleCancelled(employer, cycleId, amountReturned);
     }
 
-    // ─── Cycle Getters ───────────────────────────────────────────────────────
-
-    function getCycle(
-        address caller,
-        uint256 cycleId
-    ) external view cycleExists(caller, cycleId) returns (PayrollCycle memory) {
-        return cycles[caller][cycleId - 1];
-    }
-
-    function getCycleHistory(
-        address caller
-    ) external view returns (PayrollCycle[] memory) {
-        return cycles[caller];
-    }
-
-    function getCycleCount(address caller) external view returns (uint256) {
-        return cycles[caller].length;
-    }
-
-    function getActiveCycles(
-        address caller
-    ) external view returns (PayrollCycle[] memory) {
-        PayrollCycle[] memory all = cycles[caller];
-        uint256 count = 0;
-        for (uint256 i = 0; i < all.length; i++) {
-            if (all[i].isActive) count++;
-        }
-        PayrollCycle[] memory active = new PayrollCycle[](count);
-        uint256 j = 0;
-        for (uint256 i = 0; i < all.length; i++) {
-            if (all[i].isActive) active[j++] = all[i];
-        }
-        return active;
-    }
-
-    // ─── Buffer Calculation ──────────────────────────────────────────────────
-
     /**
-     * @notice Calculate buffer for a specific cycle using its snapshotted config.
-     * @dev Operates entirely in seconds. tierThresholds are pre-computed absolute
-     *      second values — no percentage math at query time.
-     *
-     * @return bufferAmount USDC that must remain liquid
-     * @return bufferBps    Active buffer tier in basis points
-     * @return timeLeft     Seconds remaining until payday
-     */
-    function calculateBuffer(
-        address caller,
-        uint256 cycleId
-    )
-        public
-        view
-        returns (uint256 bufferAmount, uint256 bufferBps, uint256 timeLeft)
-    {
-        if (cycleId == 0 || cycleId > cycles[caller].length)
-            revert YieldRouter__CycleNotFound();
-
-        PayrollCycle memory cycle = cycles[caller][cycleId - 1];
-
-        if (block.timestamp >= cycle.payDay) {
-            timeLeft = 0;
-            bufferBps = cycle.snapshotTierBps[cycle.snapshotTierBps.length - 1];
-        } else {
-            timeLeft = cycle.payDay - block.timestamp;
-
-            // Walk tiers descending — first threshold timeLeft satisfies wins
-            bufferBps = cycle.snapshotTierBps[cycle.snapshotTierBps.length - 1];
-            for (uint256 i = 0; i < cycle.tierThresholds.length; i++) {
-                if (timeLeft >= cycle.tierThresholds[i]) {
-                    bufferBps = cycle.snapshotTierBps[i];
-                    break;
-                }
-            }
-        }
-
-        bufferAmount = (cycle.totalDeposited * bufferBps) / SCALE;
-        if (bufferAmount > cycle.totalDeposited)
-            bufferAmount = cycle.totalDeposited;
-    }
-
-    /// @notice Seconds-based idle amount available for yield deployment.
-    function calculateIdleAmount(
-        address caller,
-        uint256 cycleId
-    ) public view cycleIsActive(caller, cycleId) returns (uint256) {
-        (uint256 bufferAmount, , ) = calculateBuffer(caller, cycleId);
-        uint256 total = cycles[caller][cycleId - 1].totalDeposited;
-        return total > bufferAmount ? total - bufferAmount : 0;
-    }
-
-    // ─── Scoring ─────────────────────────────────────────────────────────────
-
-    /**
-     * @notice Score = APY × LiquidityFactor × RiskMultiplier × ILRiskFactor
-     * @dev timeLeft is in seconds — risk multiplier thresholds are percentage-based
-     *      relative to a reference 30-day cycle for scoring consistency.
-     *      Pools below their APY floor score 0.
-     */
-    function scorePool(
-        uint256 poolIndex,
-        uint256 idleAmount,
-        uint256 timeLeft,
-        uint256 highRiskThreshold,
-        uint256 medRiskThreshold
-    ) public view returns (uint256 score) {
-        if (poolIndex >= pools.length) revert YieldRouter__InvalidPoolIndex();
-        PoolEntry memory pool = pools[poolIndex];
-        if (!pool.isActive) return 0;
-
-        uint256 apyBps;
-        uint256 poolTvl;
-        {
-            IPoolAdapter adapter = IPoolAdapter(pool.adapterAddress);
-            apyBps = adapter.getApyBps();
-            poolTvl = adapter.getTvl();
-        }
-
-        {
-            uint256 minApy = pool.minApyBps > MIN_APY_BPS
-                ? pool.minApyBps
-                : MIN_APY_BPS;
-            if (apyBps < minApy) return 0;
-        }
-
-        uint256 liqFactor = (idleAmount == 0 || poolTvl >= idleAmount)
-            ? SCALE
-            : (poolTvl * SCALE) / idleAmount;
-
-        uint256 ilFactor = pool.isStablePair
-            ? IL_RISK_STABLE
-            : IL_RISK_VOLATILE;
-        uint256 riskMult = _getRiskMultiplier(
-            timeLeft,
-            highRiskThreshold,
-            medRiskThreshold
-        );
-
-        score =
-            (((((apyBps * liqFactor) / SCALE) * riskMult) / SCALE) * ilFactor) /
-            SCALE;
-    }
-
-    function findBestPool(
-        uint256 idleAmount,
-        uint256 timeLeft,
-        uint256 highRiskThreshold,
-        uint256 medRiskThreshold
-    ) public view returns (uint256 bestIdx, uint256 bestScore) {
-        bestIdx = NO_POOL;
-        bestScore = 0;
-        for (uint256 i = 0; i < pools.length; i++) {
-            uint256 s = scorePool(
-                i,
-                idleAmount,
-                timeLeft,
-                highRiskThreshold,
-                medRiskThreshold
-            );
-            if (s > bestScore) {
-                bestScore = s;
-                bestIdx = i;
-            }
-        }
-    }
-
-    function findWorstAllocatedPool(
-        address caller,
-        uint256 cycleId,
-        uint256 idleAmount,
-        uint256 timeLeft,
-        uint256 highRiskThreshold,
-        uint256 medRiskThreshold
-    ) public view returns (uint256 worstIdx, uint256 worstScore) {
-        worstIdx = NO_POOL;
-        worstScore = type(uint256).max;
-        for (uint256 i = 0; i < pools.length; i++) {
-            if (poolAllocations[caller][cycleId][i] == 0) continue;
-            uint256 s = scorePool(
-                i,
-                idleAmount,
-                timeLeft,
-                highRiskThreshold,
-                medRiskThreshold
-            );
-            if (s < worstScore) {
-                worstScore = s;
-                worstIdx = i;
-            }
-        }
-    }
-
-    function getLiveYield(address caller, uint256 cycleId) external view returns (
-        uint256 totalValue, 
-        uint256 netYield, 
-        bool isLoss
-    ) {
-        if (cycleId == 0 || cycleId > cycles[caller].length)
-            revert YieldRouter__CycleNotFound();
-
-        PayrollCycle storage cycle = cycles[caller][cycleId - 1];
-        
-        uint256 deployedValue = _getTotalDeployedValue(caller, cycleId);
-
-        console.log("Deployed value", deployedValue);
-        console.log("idle balance: ", cycle.idleBalance);
-        console.log("total deposite: ", cycle.totalDeposited);
-
-        totalValue = cycle.idleBalance + deployedValue;
-
-        console.log("Total Value: ", totalValue);
-        
-        if (totalValue >= cycle.totalDeposited) {
-            netYield = totalValue - cycle.totalDeposited;
-            isLoss = false;
-        } else {
-            netYield = cycle.totalDeposited - totalValue; 
-            isLoss = true;
-        }
-    }
-
-    // ─── Agent Rebalance ─────────────────────────────────────────────────────
-
-    /**
-     * @notice Main entry point for the off-chain agent.
-     * @dev Execution order is strict — safety before optimisation:
-     *   Payday → Buffer → No idle → APY floor → Rebalance
+     * @notice Main entry point for the off-chain agent to execute yield strategies.
      */
     function agentRebalance(
         address caller,
@@ -749,35 +389,22 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             ? cycle.totalDeposited - bufferAmount
             : 0;
 
-        // ── Payday ───────────────────────────────────────────────────────────
+        // --- Payday ---
         if (timeLeft == 0) {
-
-            console.log("Time left: ", timeLeft);
-            if (cycle.dispatcher == address(0))
-                revert YieldRouter__DispatcherNotSet();
+            if (cycle.dispatcher == address(0)) revert YieldRouter__DispatcherNotSet();
 
             _withdrawAllFromPools(caller, cycleId);
 
             uint256 disbursed = cycle.idleBalance;
 
-            // console.log("Disbursed: ", disbursed);
-
             cycle.isActive = false;
 
-            IERC20(usdc).safeTransfer(cycle.dispatcher, disbursed);
-            IPayrollDispatcher(cycle.dispatcher).disburse(
-                caller,
-                cycleId,
-                disbursed
-            );
+            IERC20(USDC).safeTransfer(cycle.dispatcher, disbursed);
+            IPayrollDispatcher(cycle.dispatcher).disburse(caller, cycleId, disbursed);
 
-            // console.log("After disburse: ", disbursed);
-
-           uint256 earned = disbursed > cycle.totalDeposited 
+            uint256 earned = disbursed > cycle.totalDeposited 
                 ? disbursed - cycle.totalDeposited 
                 : 0;
-
-            // console.log("Earned: ", earned);
 
             emit PaydaySettled(caller, cycleId, disbursed, earned);
             emit AgentAction(
@@ -794,7 +421,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             return;
         }
 
-        // ── Buffer adjustment ─────────────────────────────────────────────────
+        // --- Buffer adjustment ---
         {
             uint256 deployed = _getTotalDeployedValue(caller, cycleId);
             
@@ -823,7 +450,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             }
         }
 
-        // ── No idle capital ───────────────────────────────────────────────────
+        // --- No idle capital ---
         if (idleAmount == 0) {
             emit AgentAction(
                 caller,
@@ -839,7 +466,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             return;
         }
 
-        // ── APY floor check ───────────────────────────────────────────────────
+        // --- APY floor check ---
         uint256 bestIdx;
         uint256 bestScore;
         (bestIdx, bestScore) = findBestPool(
@@ -864,7 +491,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             return;
         }
 
-        // ── Rebalance or hold ─────────────────────────────────────────────────
+        // --- Rebalance or hold ---
         _handleRebalanceOrHold(
             caller,
             cycleId,
@@ -878,7 +505,182 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         );
     }
 
-    // ─── Internal: Rebalance ─────────────────────────────────────────────────
+    // --- EXTERNAL VIEW ---
+
+    function getPoolCount() external view returns (uint256) {
+        return pools.length;
+    }
+
+    function getPool(uint256 poolIndex) external view returns (PoolEntry memory) {
+        if (poolIndex >= pools.length) revert YieldRouter__InvalidPoolIndex();
+        return pools[poolIndex];
+    }
+
+    function getCycle(address caller, uint256 cycleId) external view cycleExists(caller, cycleId) returns (PayrollCycle memory) {
+        return cycles[caller][cycleId - 1];
+    }
+
+    function getCycleHistory(address caller) external view returns (PayrollCycle[] memory) {
+        return cycles[caller];
+    }
+
+    function getCycleCount(address caller) external view returns (uint256) {
+        return cycles[caller].length;
+    }
+
+    function getActiveCycles(address caller) external view returns (PayrollCycle[] memory) {
+        PayrollCycle[] memory all = cycles[caller];
+        uint256 count = 0;
+        for (uint256 i = 0; i < all.length; i++) {
+            if (all[i].isActive) count++;
+        }
+        PayrollCycle[] memory active = new PayrollCycle[](count);
+        uint256 j = 0;
+        for (uint256 i = 0; i < all.length; i++) {
+            if (all[i].isActive) active[j++] = all[i];
+        }
+        return active;
+    }
+
+    function getLiveYield(address caller, uint256 cycleId) external view returns (
+        uint256 totalValue, 
+        uint256 netYield, 
+        bool isLoss
+    ) {
+        if (cycleId == 0 || cycleId > cycles[caller].length) revert YieldRouter__CycleNotFound();
+
+        PayrollCycle storage cycle = cycles[caller][cycleId - 1];
+        
+        uint256 deployedValue = _getTotalDeployedValue(caller, cycleId);
+
+        totalValue = cycle.idleBalance + deployedValue;
+
+        if (totalValue >= cycle.totalDeposited) {
+            netYield = totalValue - cycle.totalDeposited;
+            isLoss = false;
+        } else {
+            netYield = cycle.totalDeposited - totalValue; 
+            isLoss = true;
+        }
+    }
+
+    // --- PUBLIC VIEW ---
+
+    /**
+     * @notice Calculates the required liquid buffer based on time remaining.
+     */
+    function calculateBuffer(
+        address caller,
+        uint256 cycleId
+    )
+        public
+        view
+        returns (uint256 bufferAmount, uint256 bufferBps, uint256 timeLeft)
+    {
+        if (cycleId == 0 || cycleId > cycles[caller].length) revert YieldRouter__CycleNotFound();
+
+        PayrollCycle memory cycle = cycles[caller][cycleId - 1];
+
+        if (block.timestamp >= cycle.payDay) {
+            timeLeft = 0;
+            bufferBps = cycle.snapshotTierBps[cycle.snapshotTierBps.length - 1];
+        } else {
+            timeLeft = cycle.payDay - block.timestamp;
+
+            bufferBps = cycle.snapshotTierBps[cycle.snapshotTierBps.length - 1];
+            for (uint256 i = 0; i < cycle.tierThresholds.length; i++) {
+                if (timeLeft >= cycle.tierThresholds[i]) {
+                    bufferBps = cycle.snapshotTierBps[i];
+                    break;
+                }
+            }
+        }
+
+        bufferAmount = (cycle.totalDeposited * bufferBps) / SCALE;
+        if (bufferAmount > cycle.totalDeposited) bufferAmount = cycle.totalDeposited;
+    }
+
+    function calculateIdleAmount(
+        address caller,
+        uint256 cycleId
+    ) public view cycleIsActive(caller, cycleId) returns (uint256) {
+        (uint256 bufferAmount, , ) = calculateBuffer(caller, cycleId);
+        uint256 total = cycles[caller][cycleId - 1].totalDeposited;
+        return total > bufferAmount ? total - bufferAmount : 0;
+    }
+
+    function scorePool(
+        uint256 poolIndex,
+        uint256 idleAmount,
+        uint256 timeLeft,
+        uint256 highRiskThreshold,
+        uint256 medRiskThreshold
+    ) public view returns (uint256 score) {
+        if (poolIndex >= pools.length) revert YieldRouter__InvalidPoolIndex();
+        PoolEntry memory pool = pools[poolIndex];
+        if (!pool.isActive) return 0;
+
+        uint256 apyBps;
+        uint256 poolTvl;
+        {
+            IPoolAdapter adapter = IPoolAdapter(pool.adapterAddress);
+            apyBps = adapter.getApyBps();
+            poolTvl = adapter.getTvl();
+        }
+
+        {
+            uint256 minApy = pool.minApyBps > MIN_APY_BPS ? pool.minApyBps : MIN_APY_BPS;
+            if (apyBps < minApy) return 0;
+        }
+
+        uint256 liqFactor = (idleAmount == 0 || poolTvl >= idleAmount)
+            ? SCALE
+            : (poolTvl * SCALE) / idleAmount;
+
+        uint256 ilFactor = pool.isStablePair ? IL_RISK_STABLE : IL_RISK_VOLATILE;
+        uint256 riskMult = _getRiskMultiplier(timeLeft, highRiskThreshold, medRiskThreshold);
+
+        score = (((((apyBps * liqFactor) / SCALE) * riskMult) / SCALE) * ilFactor) / SCALE;
+    }
+
+    function findBestPool(
+        uint256 idleAmount,
+        uint256 timeLeft,
+        uint256 highRiskThreshold,
+        uint256 medRiskThreshold
+    ) public view returns (uint256 bestIdx, uint256 bestScore) {
+        bestIdx = NO_POOL;
+        bestScore = 0;
+        for (uint256 i = 0; i < pools.length; i++) {
+            uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
+            if (s > bestScore) {
+                bestScore = s;
+                bestIdx = i;
+            }
+        }
+    }
+
+    function findWorstAllocatedPool(
+        address caller,
+        uint256 cycleId,
+        uint256 idleAmount,
+        uint256 timeLeft,
+        uint256 highRiskThreshold,
+        uint256 medRiskThreshold
+    ) public view returns (uint256 worstIdx, uint256 worstScore) {
+        worstIdx = NO_POOL;
+        worstScore = type(uint256).max;
+        for (uint256 i = 0; i < pools.length; i++) {
+            if (poolAllocations[caller][cycleId][i] == 0) continue;
+            uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
+            if (s < worstScore) {
+                worstScore = s;
+                worstIdx = i;
+            }
+        }
+    }
+
+    // --- INTERNAL ---
 
     function _handleRebalanceOrHold(
         address caller,
@@ -901,17 +703,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         );
 
         if (bestScore <= currentScore + REBALANCE_THRESHOLD) {
-            emit AgentAction(
-                caller,
-                cycleId,
-                timeIntoCycle,
-                ActionType.NoActionNeeded,
-                NO_POOL,
-                NO_POOL,
-                0,
-                currentScore,
-                bestScore
-            );
+            emit AgentAction(caller, cycleId, timeIntoCycle, ActionType.NoActionNeeded, NO_POOL, NO_POOL, 0, currentScore, bestScore);
             return;
         }
 
@@ -919,72 +711,28 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         if (deployed == 0) {
             _deployToPool(caller, cycleId, bestIdx, idleAmount);
-            emit AgentAction(
-                caller,
-                cycleId,
-                timeIntoCycle,
-                ActionType.Rebalanced,
-                NO_POOL,
-                bestIdx,
-                idleAmount,
-                currentScore,
-                bestScore
-            );
+            emit AgentAction(caller, cycleId, timeIntoCycle, ActionType.Rebalanced, NO_POOL, bestIdx, idleAmount, currentScore, bestScore);
         } else {
             uint256 worstIdx;
             uint256 received;
             {
-                (worstIdx, ) = findWorstAllocatedPool(
-                    caller,
-                    cycleId,
-                    idleAmount,
-                    timeLeft,
-                    highRiskThreshold,
-                    medRiskThreshold
-                );
+                (worstIdx, ) = findWorstAllocatedPool(caller, cycleId, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
                 if (worstIdx != NO_POOL && worstIdx != bestIdx) {
                     uint256 shares = poolAllocations[caller][cycleId][worstIdx];
                     if (shares > 0) {
-                        received = _withdrawFromPool(
-                            caller,
-                            cycleId,
-                            worstIdx,
-                            shares
-                        );
+                        received = _withdrawFromPool(caller, cycleId, worstIdx, shares);
                     }
                 }
             }
 
             if (received > 0) {
                 _deployToPool(caller, cycleId, bestIdx, received);
-                emit AgentAction(
-                    caller,
-                    cycleId,
-                    timeIntoCycle,
-                    ActionType.Rebalanced,
-                    worstIdx,
-                    bestIdx,
-                    received,
-                    currentScore,
-                    bestScore
-                );
+                emit AgentAction(caller, cycleId, timeIntoCycle, ActionType.Rebalanced, worstIdx, bestIdx, received, currentScore, bestScore);
             } else {
-                emit AgentAction(
-                    caller,
-                    cycleId,
-                    timeIntoCycle,
-                    ActionType.NoActionNeeded,
-                    NO_POOL,
-                    NO_POOL,
-                    0,
-                    currentScore,
-                    bestScore
-                );
+                emit AgentAction(caller, cycleId, timeIntoCycle, ActionType.NoActionNeeded, NO_POOL, NO_POOL, 0, currentScore, bestScore);
             }
         }
     }
-
-    // ─── Internal: Pool Interactions ─────────────────────────────────────────
 
     function _deployToPool(
         address caller,
@@ -993,12 +741,10 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 amount
     ) internal {
         address adapter = pools[poolIndex].adapterAddress;
-        IERC20(usdc).approve(adapter, amount);
+        IERC20(USDC).approve(adapter, amount);
         uint256 shares = IPoolAdapter(adapter).deposit(amount);
 
         poolAllocations[caller][cycleId][poolIndex] += shares;
-
-        console.log("Pool allocation: ", poolAllocations[caller][cycleId][poolIndex]);
 
         cycles[caller][cycleId - 1].idleBalance -= amount;
     }
@@ -1009,14 +755,11 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         uint256 poolIndex,
         uint256 shares
     ) internal returns (uint256 received) {
-        if (poolAllocations[caller][cycleId][poolIndex] < shares)
-            revert YieldRouter__InsufficientPoolBalance();
+        if (poolAllocations[caller][cycleId][poolIndex] < shares) revert YieldRouter__InsufficientPoolBalance();
 
         poolAllocations[caller][cycleId][poolIndex] -= shares;
 
-        received = IPoolAdapter(pools[poolIndex].adapterAddress).withdraw(
-            shares
-        );
+        received = IPoolAdapter(pools[poolIndex].adapterAddress).withdraw(shares);
         
         cycles[caller][cycleId - 1].idleBalance += received;
     }
@@ -1046,8 +789,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
             uint256 shares = poolAllocations[caller][cycleId][worstIdx];
             if (shares == 0) break;
 
-            uint256 positionValue = IPoolAdapter(pools[worstIdx].adapterAddress)
-                .sharesToValue(shares);
+            uint256 positionValue = IPoolAdapter(pools[worstIdx].adapterAddress).sharesToValue(shares);
 
             uint256 sharesToWithdraw;
             if (positionValue <= remaining) {
@@ -1057,12 +799,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
                 if (sharesToWithdraw == 0) sharesToWithdraw = 1;
             }
 
-            uint256 received = _withdrawFromPool(
-                caller,
-                cycleId,
-                worstIdx,
-                sharesToWithdraw
-            );
+            uint256 received = _withdrawFromPool(caller, cycleId, worstIdx, sharesToWithdraw);
             totalWithdrawn += received;
 
             if (received >= remaining) {
@@ -1080,19 +817,23 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         }
     }
 
-    // ─── Internal: Pure Helpers ───────────────────────────────────────────────
+    // --- INTERNAL VIEW ---
 
-    /**
-     * @dev timeLeft is in seconds, thresholds are percentage-based relative to a reference cycle duration.
-     */
-    function _getRiskMultiplier(
-        uint256 timeLeft,
-        uint256 highThreshold,
-        uint256 medThreshold
-    ) internal pure returns (uint256) {
-        if (timeLeft >= highThreshold) return RISK_MULT_HIGH;
-        if (timeLeft >= medThreshold) return RISK_MULT_MED;
-        return RISK_MULT_LOW;
+    function _onlyAgent() internal view {
+        if (msg.sender != agentOperator && msg.sender != owner()) revert YieldRouter__NotAgent();
+    }
+
+    function _onlyAuthorizedCaller() internal view {
+        if (msg.sender != owner() && msg.sender != payVault && msg.sender != payrollManager) revert YieldRouter__NotAuthorizedCaller();
+    }
+
+    function _cycleExists(address caller, uint256 cycleId) internal view {
+        if (cycleId == 0 || cycleId > cycles[caller].length) revert YieldRouter__CycleNotFound();
+    }
+
+    function _cycleIsActive(address caller, uint256 cycleId) internal view {
+        if (cycleId == 0 || cycleId > cycles[caller].length) revert YieldRouter__CycleNotFound();
+        if (!cycles[caller][cycleId - 1].isActive) revert YieldRouter__CycleNotActive();
     }
 
     function _getTotalDeployedValue(
@@ -1102,8 +843,7 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         for (uint256 i = 0; i < pools.length; i++) {
             uint256 shares = poolAllocations[caller][cycleId][i];
             if (shares > 0) {
-                totalValue += IPoolAdapter(pools[i].adapterAddress)
-                    .sharesToValue(shares);
+                totalValue += IPoolAdapter(pools[i].adapterAddress).sharesToValue(shares);
             }
         }
     }
@@ -1119,15 +859,21 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
         for (uint256 i = 0; i < pools.length; i++) {
             if (!pools[i].isActive) continue;
             if (poolAllocations[caller][cycleId][i] > 0) {
-                uint256 s = scorePool(
-                    i,
-                    idleAmount,
-                    timeLeft,
-                    highRiskThreshold,
-                    medRiskThreshold
-                );
+                uint256 s = scorePool(i, idleAmount, timeLeft, highRiskThreshold, medRiskThreshold);
                 if (s > best) best = s;
             }
         }
+    }
+
+    // --- INTERNAL PURE ---
+
+    function _getRiskMultiplier(
+        uint256 timeLeft,
+        uint256 highThreshold,
+        uint256 medThreshold
+    ) internal pure returns (uint256) {
+        if (timeLeft >= highThreshold) return RISK_MULT_HIGH;
+        if (timeLeft >= medThreshold) return RISK_MULT_MED;
+        return RISK_MULT_LOW;
     }
 }

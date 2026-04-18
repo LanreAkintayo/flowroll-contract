@@ -17,7 +17,7 @@ contract FlowrollCredit is Ownable, Pausable, ReentrancyGuard {
 
     // --- STATE VARIABLES ---
 
-    IERC20 public immutable token;
+    IERC20 public  token;
     address public payrollManager;
     address public payVault;
 

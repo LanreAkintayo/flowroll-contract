@@ -18,10 +18,10 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
 
     // --- STATE VARIABLES ---
 
-    IERC20 public immutable bridgedInit;
-    IERC20 public immutable testUsdc;
+    IERC20 public bridgedInit;
+    IERC20 public testUsdc;
 
-    uint256 public immutable initUnit; 
+    uint256 public immutable INIT_UNIT; 
 
     uint256 public usdcRate; 
     uint256 public gasRate;  
@@ -64,7 +64,7 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
         uint8 initDecimals = IERC20Metadata(_bridgedInit).decimals();
         uint8 usdcDecimals = IERC20Metadata(_testUsdc).decimals();
         
-        initUnit = 10 ** initDecimals;
+        INIT_UNIT = 10 ** initDecimals;
         usdcRate = _rawUsdcPerInit * (10 ** usdcDecimals);
         gasRate = _rawGasPerInit * 1e18;
 
@@ -155,7 +155,7 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
      * @return gasOut Expected Native Gas output in base units.
      */
     function getQuote(uint256 initAmount) public view returns (uint256 usdcOut, uint256 gasOut) {
-        usdcOut = (initAmount * usdcRate) / initUnit;
-        gasOut = (initAmount * gasRate) / initUnit;
+        usdcOut = (initAmount * usdcRate) / INIT_UNIT;
+        gasOut = (initAmount * gasRate) / INIT_UNIT;
     }
 }
