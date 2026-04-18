@@ -16,6 +16,8 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
+    // --- STATE VARIABLES ---
+
     IERC20 public immutable bridgedInit;
     IERC20 public immutable testUsdc;
 
@@ -27,21 +29,26 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
     uint256 public maxZapPerWallet;
     mapping(address => uint256) public totalZapped;
 
+    // --- EVENTS ---
+
     event Zapped(address indexed user, uint256 initDeposited, uint256 usdcReceived, uint256 gasReceived);
     event RatesUpdated(uint256 newUsdcRate, uint256 newGasRate);
     event MaxZapUpdated(uint256 newMaxZap);
+
+    // --- ERRORS ---
 
     error FlowrollZapper__AmountTooLow();
     error FlowrollZapper__ExceedsMaxZapLimit();
     error FlowrollZapper__InsufficientTreasuryBalance();
     error FlowrollZapper__NativeTransferFailed();
 
+    // --- CONSTRUCTOR ---
+
     /**
-     * @notice Initializes the Zapper contract and calculates decimal-adjusted base rates.
      * @param _bridgedInit Address of the bridged INIT token on L2.
      * @param _testUsdc Address of the test USDC token.
-     * @param _rawUsdcPerInit Whole number of USDC given per 1 whole INIT (e.g., 500).
-     * @param _rawGasPerInit Whole number of Native Gas given per 1 whole INIT (e.g., 10).
+     * @param _rawUsdcPerInit Whole number of USDC given per 1 whole INIT.
+     * @param _rawGasPerInit Whole number of Native Gas given per 1 whole INIT.
      * @param _maxZapPerWallet Maximum base units of INIT a single address can zap.
      */
     constructor(
@@ -54,20 +61,25 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
         bridgedInit = IERC20(_bridgedInit);
         testUsdc = IERC20(_testUsdc);
         
-        // Dynamically fetch and store decimal configurations
         uint8 initDecimals = IERC20Metadata(_bridgedInit).decimals();
         uint8 usdcDecimals = IERC20Metadata(_testUsdc).decimals();
         
         initUnit = 10 ** initDecimals;
         usdcRate = _rawUsdcPerInit * (10 ** usdcDecimals);
-        gasRate = _rawGasPerInit * 1e18; // Standard 18 decimals for native EVM gas
+        gasRate = _rawGasPerInit * 1e18;
 
         maxZapPerWallet = _maxZapPerWallet;
     }
 
+    // --- RECEIVE ---
+
+    receive() external payable {}
+
+    // --- EXTERNAL ---
+
     /**
      * @notice Swaps deposited INIT for USDC and Native Gas based on fixed rates.
-     * @param initAmount The amount of INIT to deposit, defined in base units.
+     * @param initAmount The amount of INIT to deposit in base units.
      */
     function zap(uint256 initAmount) external whenNotPaused nonReentrant {
         if (initAmount == 0) revert FlowrollZapper__AmountTooLow();
@@ -91,19 +103,7 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
     }
 
     /**
-     * @notice Calculates the expected output for a given INIT input.
-     * @param initAmount The amount of INIT to query.
-     * @return usdcOut Expected USDC output in base units.
-     * @return gasOut Expected Native Gas output in base units.
-     */
-    function getQuote(uint256 initAmount) public view returns (uint256 usdcOut, uint256 gasOut) {
-        usdcOut = (initAmount * usdcRate) / initUnit;
-        gasOut = (initAmount * gasRate) / initUnit;
-    }
-
-    /**
      * @notice Updates the internal exchange rates.
-     * @dev Automatically adjusts for token decimals.
      */
     function updateRates(uint256 _rawUsdcPerInit, uint256 _rawGasPerInit) external onlyOwner {
         uint8 usdcDecimals = IERC20Metadata(address(testUsdc)).decimals();
@@ -114,7 +114,7 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
     }
 
     /**
-     * @notice Updates the anti-sybil limit.
+     * @notice Updates the anti-sybil deposit limit.
      */
     function updateMaxZap(uint256 _maxZap) external onlyOwner {
         maxZapPerWallet = _maxZap;
@@ -146,5 +146,16 @@ contract FlowrollZapper is Ownable, Pausable, ReentrancyGuard {
         }
     }
 
-    receive() external payable {}
+    // --- PUBLIC VIEW ---
+
+    /**
+     * @notice Calculates the expected output for a given INIT input.
+     * @param initAmount The amount of INIT to query.
+     * @return usdcOut Expected USDC output in base units.
+     * @return gasOut Expected Native Gas output in base units.
+     */
+    function getQuote(uint256 initAmount) public view returns (uint256 usdcOut, uint256 gasOut) {
+        usdcOut = (initAmount * usdcRate) / initUnit;
+        gasOut = (initAmount * gasRate) / initUnit;
+    }
 }

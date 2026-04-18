@@ -237,8 +237,4 @@ contract FlowrollCredit is Ownable, Pausable, ReentrancyGuard {
         if (msg.sender != payVault) revert FlowrollCredit__NotPayVault();
     }
 
-    
-
-
-
 }

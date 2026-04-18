@@ -15,35 +15,12 @@ import {IYieldRouter} from "./interfaces/IYieldRouter.sol";
 /**
  * @title PayrollManager
  * @notice Employer-facing entry point for Flowroll.
- *
- * @dev Key architectural decisions:
- *
- *   GROUP-BASED PAYROLL: Each employer can create multiple independent payroll
- *   groups — one per team, department, or schedule. Each group has its own
- *   employee list, salary schedule, and cycle in YieldRouter. Groups are
- *   completely isolated from each other.
- *
- *   LAZY CYCLE STATE: PayrollManager does not receive callbacks from YieldRouter
- *   or PayrollDispatcher. Instead, it reads YieldRouter state on-demand and
- *   resets stale activeCycleId on next interaction. This avoids coupling and
- *   keeps the contract stateless with respect to cycle lifecycle.
- *
- *   PASS-THROUGH FUNDING: Funds are never held in PayrollManager longer than
- *   one transaction. depositPayroll() pulls USDC from employer and immediately
- *   passes it to YieldRouter.startCycle() in the same transaction.
- *
- *   SCHEDULE LOCK: addEmployee, removeEmployee, updateSalary are only allowed
- *   when a group has no active cycle. This prevents totalPayroll from drifting
- *   out of sync with a running cycle.
- *
- *   CANCELLATION: A cycle can only be cancelled if YieldRouter has not yet
- *   deployed funds to any pool (currentAllocation == 0). Once the agent has
- *   rebalanced, cancellation is blocked.
  */
+
 contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
-    // ─── Structs ─────────────────────────────────────────────────────────────
+    // ---- Structs --------------------------------------------------------------------------------─
 
     struct EmployerProfile {
         bool isRegistered;
@@ -61,7 +38,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         bool exists;
     }
 
-    // ─── Custom Errors ───────────────────────────────────────────────────────
+    // ---- Custom Errors ------------------------------------------------------------------------─
 
     error PayrollManager__NotRegistered();
     error PayrollManager__AlreadyRegistered();
@@ -83,12 +60,12 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     error PayrollManager__InsufficientPendingSalary();
     error PayrollManager__NotPayVault();
 
-    // ─── Constants ───────────────────────────────────────────────────────────
+    // ---- Constants ----------------------------------------------------------------------------──
 
     uint256 public constant SCALE = 10_000;
     uint256 public constant MAX_FEE_BPS = 2_000; // 20% max fee — protect employers
 
-    // ─── State ───────────────────────────────────────────────────────────────
+    // ---- State ------------------------------------------------------------------------------------
 
     address public immutable usdc;
     address public yieldRouter;
@@ -109,7 +86,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     // mapping(address employee => uint256[] employeeGroup) private employeeGroups;
     mapping(address employee => uint256 totalPendingSalary) private employeeTotalPendingSalary;
 
-    // ─── Events ──────────────────────────────────────────────────────────────
+    // ---- Events --------------------------------------------------------------------------------──
 
     event EmployerRegistered(address indexed employer);
     event GroupCreated(
@@ -169,7 +146,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
     event TotalPendingSalaryRemoved(address indexed employee, uint256 indexed amount);
 
 
-    // ─── Modifiers ───────────────────────────────────────────────────────────
+    // ---- Modifiers ----------------------------------------------------------------------------──
 
     modifier onlyRegistered() {
         if (!employers[msg.sender].isRegistered)
@@ -196,7 +173,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         _;
     }
 
-    // ─── Constructor ─────────────────────────────────────────────────────────
+    // ---- Constructor ----------------------------------------------------------------------------
 
     /**
      * @param _usdc          USDC token address for this environment
@@ -217,7 +194,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         feeBps = _feeBps;
     }
 
-    // ─── Admin ───────────────────────────────────────────────────────────────
+    // ---- Admin ------------------------------------------------------------------------------------
 
     function setYieldRouter(address _router) external onlyOwner {
         if (_router == address(0)) revert PayrollManager__ZeroAddress();
@@ -275,7 +252,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         emit EmployerRegistered(msg.sender);
     }
 
-    // ─── Group Management ─────────────────────────────────────────────────────
+    // ---- Group Management --------------------------------------------------------------------──
 
     /**
      * @notice Create a new payroll group.
@@ -292,7 +269,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         groupId = _createGroup(name, cycleDuration);
     }
 
-    // ─── Payroll Schedule ─────────────────────────────────────────────────────
+    // ---- Payroll Schedule --------------------------------------------------------------------──
 
     /**
      * @notice Add an employee to a payroll group.
@@ -519,7 +496,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         }
     }
 
-    // ─── Cycle Management ─────────────────────────────────────────────────────
+    // ---- Cycle Management --------------------------------------------------------------------──
 
     /**
      * @notice Fund a payroll cycle for a group and start yield farming.
@@ -569,10 +546,10 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         if (employees.length != salaries.length)
             revert PayrollManager__ArrayLengthMismatch();
 
-        // ── Add employees ─────────────────────────────────────────────
+        // ── Add employees ------------------------------------------------------------
         _addEmployees(groupId, employees, salaries);
 
-        // ── Deposit payroll and start cycle ───────────────────────────
+        // ── Deposit payroll and start cycle ------------------------------------
         _depositPayroll(groupId);
 
         emit PayrollSetup(
@@ -615,7 +592,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         emit CycleCancelled(msg.sender, groupId, cycleId, amountReturned);
     }
 
-    // ─── View Functions ───────────────────────────────────────────────────────
+    // ---- View Functions ------------------------------------------------------------------------─
 
     function getEmployer(
         address employer
@@ -678,7 +655,7 @@ contract PayrollManager is Ownable, Pausable, ReentrancyGuard {
         return IYieldRouter(yieldRouter).getCycle(employer, cycleId).isActive;
     }
 
-    // ─── Internal Helpers ─────────────────────────────────────────────────────
+    // ---- Internal Helpers --------------------------------------------------------------------──
 
     /**
      * @notice Check if a group has an active cycle in YieldRouter.
