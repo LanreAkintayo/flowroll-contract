@@ -54890,3 +54890,1438 @@
 [2026-04-17 18:31:36] INFO: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 [2026-04-17 18:31:54] INFO: Shutting down agent gracefully...
 [2026-04-17 18:31:56] WARN: Webhook notification failed: Error: Discord webhook returned 429
+[2026-04-18 16:06:15] INFO: Starting Flowroll Agent
+[2026-04-18 16:06:15] INFO: Context: RPC=http://localhost:8545 | Operator=0x96a9b1F84b40ADd32bCd1FE1D8C04A995b2bDC6d
+[2026-04-18 16:06:15] INFO: Connected to Chain ID: 2569952427679664
+[2026-04-18 16:06:15] INFO: Operator Balance: 993870.49999999974370092 INIT
+[2026-04-18 16:06:15] INFO: Health & Socket server running on http://localhost:3001
+[2026-04-18 16:06:15] INFO:   GET /health  — liveness check
+[2026-04-18 16:06:15] INFO:   GET /status  — full agent metrics
+[2026-04-18 16:06:23] WARN: Webhook notification failed: TypeError: fetch failed
+[2026-04-18 16:06:23] INFO: TICK #1 initiated
+[2026-04-18 16:06:23] INFO: State recovered | Last Block: 10324 | Employers: 7
+[2026-04-18 16:06:23] INFO: Scanning blocks 10324 → 10497 for new cycles
+[2026-04-18 16:06:23] INFO: New employer discovered: 0xADEe03eF7C97c0541D8c90F6c263C3a015339F1b
+[2026-04-18 16:06:23] INFO: Found 1 CycleStarted events — 1 new employers
+[2026-04-18 16:06:23] INFO: Discovered 1 new employer(s)
+[2026-04-18 16:06:27] WARN: Webhook notification failed: Error: Discord webhook returned 429
+[2026-04-18 16:06:27] INFO: Active registry: 8 employers
+[2026-04-18 16:06:27] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:06:27] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:06:27] INFO: TX broadcast: 0xd34c3e3aabcb5a4e3a8999ae3e2ca1993000a7ed16a45c0cb3cc028c4412e255
+[2026-04-18 16:06:32] INFO: ✅ Rebalanced | gas: 324871 | tx: 0xd34c3e3aabcb5a4e3a8999ae3e2ca1993000a7ed16a45c0cb3cc028c4412e255
+[2026-04-18 16:06:33] INFO: TICK #1 finalized in 9.7s
+[2026-04-18 16:06:33] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:06:33] INFO: Strategies Rebalanced: 1
+[2026-04-18 16:06:33] INFO: -------------------------------------------------------
+[2026-04-18 16:07:04] INFO: TICK #2 initiated
+[2026-04-18 16:07:04] INFO: State recovered | Last Block: 10497 | Employers: 8
+[2026-04-18 16:07:04] INFO: Scanning blocks 10497 → 10499 for new cycles
+[2026-04-18 16:07:04] INFO: Active registry: 8 employers
+[2026-04-18 16:07:04] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:07:04] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:07:04] INFO: TX broadcast: 0x3b8d15739ce45f666d9e5636f055820a485371f8a4b3ed7ee90b4111af579ac1
+[2026-04-18 16:07:08] INFO: ✅ BufferAdjusted | gas: 334809 | tx: 0x3b8d15739ce45f666d9e5636f055820a485371f8a4b3ed7ee90b4111af579ac1
+[2026-04-18 16:07:09] INFO: TICK #2 finalized in 5.6s
+[2026-04-18 16:07:09] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:07:09] INFO: -------------------------------------------------------
+[2026-04-18 16:07:34] INFO: TICK #3 initiated
+[2026-04-18 16:07:34] INFO: State recovered | Last Block: 10499 | Employers: 8
+[2026-04-18 16:07:34] INFO: Scanning blocks 10499 → 10501 for new cycles
+[2026-04-18 16:07:34] INFO: Active registry: 8 employers
+[2026-04-18 16:07:34] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:07:34] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:07:34] INFO: TX broadcast: 0xfcc27fb3e3215b567df1365d2145a2f90452e0ab6a0deb1ef1c5a0673dcccc27
+[2026-04-18 16:07:38] INFO: ✅ NoActionNeeded | gas: 246667 | tx: 0xfcc27fb3e3215b567df1365d2145a2f90452e0ab6a0deb1ef1c5a0673dcccc27
+[2026-04-18 16:07:39] INFO: TICK #3 finalized in 5.6s
+[2026-04-18 16:07:39] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:07:39] INFO: -------------------------------------------------------
+[2026-04-18 16:08:04] INFO: TICK #4 initiated
+[2026-04-18 16:08:04] INFO: State recovered | Last Block: 10501 | Employers: 8
+[2026-04-18 16:08:04] INFO: Scanning blocks 10501 → 10503 for new cycles
+[2026-04-18 16:08:05] INFO: Active registry: 8 employers
+[2026-04-18 16:08:05] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:08:05] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:08:05] INFO: TX broadcast: 0x867b881eba30d10cc95799131abb6746ec6fbbc8c11de8551377146fdcb18c26
+[2026-04-18 16:08:09] INFO: ✅ BufferAdjusted | gas: 334905 | tx: 0x867b881eba30d10cc95799131abb6746ec6fbbc8c11de8551377146fdcb18c26
+[2026-04-18 16:08:10] INFO: TICK #4 finalized in 5.6s
+[2026-04-18 16:08:10] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:08:10] INFO: -------------------------------------------------------
+[2026-04-18 16:08:35] INFO: TICK #5 initiated
+[2026-04-18 16:08:35] INFO: State recovered | Last Block: 10503 | Employers: 8
+[2026-04-18 16:08:35] INFO: Scanning blocks 10503 → 10505 for new cycles
+[2026-04-18 16:08:35] INFO: Active registry: 8 employers
+[2026-04-18 16:08:36] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:08:36] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:08:36] INFO: TX broadcast: 0xdcb9289da997d1443f93785cbb725f400291060eedd3711a3531c656723afcd2
+[2026-04-18 16:08:40] INFO: ✅ BufferAdjusted | gas: 295535 | tx: 0xdcb9289da997d1443f93785cbb725f400291060eedd3711a3531c656723afcd2
+[2026-04-18 16:08:41] INFO: TICK #5 finalized in 5.6s
+[2026-04-18 16:08:41] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:08:41] INFO: -------------------------------------------------------
+[2026-04-18 16:09:01] INFO: Frontend Command Center connected! (ID: effWAwwnsZNdzXz4AAAC)
+[2026-04-18 16:09:05] INFO: TICK #6 initiated
+[2026-04-18 16:09:05] INFO: State recovered | Last Block: 10505 | Employers: 8
+[2026-04-18 16:09:05] INFO: Scanning blocks 10505 → 10507 for new cycles
+[2026-04-18 16:09:05] INFO: Active registry: 8 employers
+[2026-04-18 16:09:06] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:09:06] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:09:06] INFO: TX broadcast: 0x32c693af1189d7284123c084b3ba464021ab4945982c89e5474534bf8eb4fcba
+[2026-04-18 16:09:10] INFO: ✅ MovedToReserve | gas: 168716 | tx: 0x32c693af1189d7284123c084b3ba464021ab4945982c89e5474534bf8eb4fcba
+[2026-04-18 16:09:11] INFO: TICK #6 finalized in 5.5s
+[2026-04-18 16:09:11] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:09:11] INFO: -------------------------------------------------------
+[2026-04-18 16:09:18] INFO: Frontend Command Center connected! (ID: agCDUulp8lhnhSU0AAAF)
+[2026-04-18 16:09:35] INFO: TICK #7 initiated
+[2026-04-18 16:09:35] INFO: State recovered | Last Block: 10507 | Employers: 8
+[2026-04-18 16:09:35] INFO: Scanning blocks 10507 → 10509 for new cycles
+[2026-04-18 16:09:35] INFO: Active registry: 8 employers
+[2026-04-18 16:09:36] INFO: Processing queue: 1 active cycles
+[2026-04-18 16:09:36] INFO: Rebalancing - employer: 0xADEe03eF... | cycleId: 1
+[2026-04-18 16:09:36] INFO: TX broadcast: 0xfe0483265d8c8c4985a39263315a25f5e861d6d9551aacc75c2456733958ede4
+[2026-04-18 16:09:40] INFO: ✅ PaydayTriggered | gas: 594316 | tx: 0xfe0483265d8c8c4985a39263315a25f5e861d6d9551aacc75c2456733958ede4
+[2026-04-18 16:09:41] WARN: Webhook notification failed: TypeError: fetch failed
+[2026-04-18 16:09:42] INFO: TICK #7 finalized in 6.2s
+[2026-04-18 16:09:42] INFO: Status: 1 success | 0 failed
+[2026-04-18 16:09:42] INFO: Paydays Settled: 1
+[2026-04-18 16:09:42] INFO: -------------------------------------------------------
+[2026-04-18 16:10:05] INFO: TICK #8 initiated
+[2026-04-18 16:10:05] INFO: State recovered | Last Block: 10509 | Employers: 8
+[2026-04-18 16:10:05] INFO: Scanning blocks 10509 → 10511 for new cycles
+[2026-04-18 16:10:05] INFO: Active registry: 8 employers
+[2026-04-18 16:10:06] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:10:06] INFO: TICK #8 finalized in 0.3s
+[2026-04-18 16:10:06] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:10:06] INFO: -------------------------------------------------------
+[2026-04-18 16:10:36] INFO: TICK #9 initiated
+[2026-04-18 16:10:36] INFO: State recovered | Last Block: 10511 | Employers: 8
+[2026-04-18 16:10:36] INFO: Scanning blocks 10511 → 10512 for new cycles
+[2026-04-18 16:10:36] INFO: Active registry: 8 employers
+[2026-04-18 16:10:37] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:10:37] INFO: TICK #9 finalized in 0.3s
+[2026-04-18 16:10:37] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:10:37] INFO: -------------------------------------------------------
+[2026-04-18 16:11:06] INFO: TICK #10 initiated
+[2026-04-18 16:11:06] INFO: State recovered | Last Block: 10512 | Employers: 8
+[2026-04-18 16:11:06] INFO: Active registry: 8 employers
+[2026-04-18 16:11:06] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:11:06] INFO: TICK #10 finalized in 0.2s
+[2026-04-18 16:11:06] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:11:06] INFO: -------------------------------------------------------
+[2026-04-18 16:11:38] INFO: TICK #11 initiated
+[2026-04-18 16:11:38] INFO: State recovered | Last Block: 10512 | Employers: 8
+[2026-04-18 16:11:38] INFO: Scanning blocks 10512 → 10513 for new cycles
+[2026-04-18 16:11:38] INFO: Active registry: 8 employers
+[2026-04-18 16:11:38] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:11:38] INFO: TICK #11 finalized in 0.3s
+[2026-04-18 16:11:38] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:11:38] INFO: -------------------------------------------------------
+[2026-04-18 16:12:08] INFO: TICK #12 initiated
+[2026-04-18 16:12:08] INFO: State recovered | Last Block: 10513 | Employers: 8
+[2026-04-18 16:12:08] INFO: Active registry: 8 employers
+[2026-04-18 16:12:08] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:12:08] INFO: TICK #12 finalized in 0.3s
+[2026-04-18 16:12:08] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:12:08] INFO: -------------------------------------------------------
+[2026-04-18 16:12:39] INFO: TICK #13 initiated
+[2026-04-18 16:12:39] INFO: State recovered | Last Block: 10513 | Employers: 8
+[2026-04-18 16:12:39] INFO: Scanning blocks 10513 → 10514 for new cycles
+[2026-04-18 16:12:39] INFO: Active registry: 8 employers
+[2026-04-18 16:12:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:12:39] INFO: TICK #13 finalized in 0.2s
+[2026-04-18 16:12:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:12:39] INFO: -------------------------------------------------------
+[2026-04-18 16:13:10] INFO: TICK #14 initiated
+[2026-04-18 16:13:10] INFO: State recovered | Last Block: 10514 | Employers: 8
+[2026-04-18 16:13:10] INFO: Active registry: 8 employers
+[2026-04-18 16:13:10] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:13:10] INFO: TICK #14 finalized in 0.3s
+[2026-04-18 16:13:10] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:13:10] INFO: -------------------------------------------------------
+[2026-04-18 16:13:40] INFO: TICK #15 initiated
+[2026-04-18 16:13:40] INFO: State recovered | Last Block: 10514 | Employers: 8
+[2026-04-18 16:13:40] INFO: Scanning blocks 10514 → 10515 for new cycles
+[2026-04-18 16:13:40] INFO: Active registry: 8 employers
+[2026-04-18 16:13:40] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:13:40] INFO: TICK #15 finalized in 0.3s
+[2026-04-18 16:13:40] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:13:40] INFO: -------------------------------------------------------
+[2026-04-18 16:14:10] INFO: TICK #16 initiated
+[2026-04-18 16:14:10] INFO: State recovered | Last Block: 10515 | Employers: 8
+[2026-04-18 16:14:10] INFO: Active registry: 8 employers
+[2026-04-18 16:14:10] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:14:10] INFO: TICK #16 finalized in 0.2s
+[2026-04-18 16:14:10] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:14:10] INFO: -------------------------------------------------------
+[2026-04-18 16:14:41] INFO: TICK #17 initiated
+[2026-04-18 16:14:41] INFO: State recovered | Last Block: 10515 | Employers: 8
+[2026-04-18 16:14:41] INFO: Scanning blocks 10515 → 10516 for new cycles
+[2026-04-18 16:14:41] INFO: Active registry: 8 employers
+[2026-04-18 16:14:41] INFO: Processing queue: 0 active cycles
+[2026-04-18 16:14:41] INFO: TICK #17 finalized in 0.3s
+[2026-04-18 16:14:41] INFO: Status: 0 success | 0 failed
+[2026-04-18 16:14:41] INFO: -------------------------------------------------------
+[2026-04-18 21:11:08] INFO: Frontend Command Center connected! (ID: IHQo7ofc-mdy1n73AAAH)
+[2026-04-18 21:11:09] INFO: TICK #18 initiated
+[2026-04-18 21:11:09] INFO: State recovered | Last Block: 10516 | Employers: 8
+[2026-04-18 21:11:09] INFO: Scanning blocks 10516 → 10519 for new cycles
+[2026-04-18 21:11:09] INFO: Active registry: 8 employers
+[2026-04-18 21:11:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:11:09] INFO: TICK #18 finalized in 0.2s
+[2026-04-18 21:11:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:11:09] INFO: -------------------------------------------------------
+[2026-04-18 21:11:39] INFO: TICK #19 initiated
+[2026-04-18 21:11:39] INFO: State recovered | Last Block: 10519 | Employers: 8
+[2026-04-18 21:11:39] INFO: Active registry: 8 employers
+[2026-04-18 21:11:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:11:39] INFO: TICK #19 finalized in 0.1s
+[2026-04-18 21:11:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:11:39] INFO: -------------------------------------------------------
+[2026-04-18 21:12:09] INFO: TICK #20 initiated
+[2026-04-18 21:12:09] INFO: State recovered | Last Block: 10519 | Employers: 8
+[2026-04-18 21:12:09] INFO: Scanning blocks 10519 → 10520 for new cycles
+[2026-04-18 21:12:09] INFO: Active registry: 8 employers
+[2026-04-18 21:12:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:12:09] INFO: TICK #20 finalized in 0.2s
+[2026-04-18 21:12:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:12:09] INFO: -------------------------------------------------------
+[2026-04-18 21:12:39] INFO: TICK #21 initiated
+[2026-04-18 21:12:39] INFO: State recovered | Last Block: 10520 | Employers: 8
+[2026-04-18 21:12:39] INFO: Active registry: 8 employers
+[2026-04-18 21:12:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:12:39] INFO: TICK #21 finalized in 0.2s
+[2026-04-18 21:12:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:12:39] INFO: -------------------------------------------------------
+[2026-04-18 21:13:09] INFO: TICK #22 initiated
+[2026-04-18 21:13:09] INFO: State recovered | Last Block: 10520 | Employers: 8
+[2026-04-18 21:13:09] INFO: Scanning blocks 10520 → 10521 for new cycles
+[2026-04-18 21:13:09] INFO: Active registry: 8 employers
+[2026-04-18 21:13:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:13:09] INFO: TICK #22 finalized in 0.3s
+[2026-04-18 21:13:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:13:09] INFO: -------------------------------------------------------
+[2026-04-18 21:13:39] INFO: TICK #23 initiated
+[2026-04-18 21:13:39] INFO: State recovered | Last Block: 10521 | Employers: 8
+[2026-04-18 21:13:39] INFO: Active registry: 8 employers
+[2026-04-18 21:13:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:13:39] INFO: TICK #23 finalized in 0.2s
+[2026-04-18 21:13:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:13:39] INFO: -------------------------------------------------------
+[2026-04-18 21:14:09] INFO: TICK #24 initiated
+[2026-04-18 21:14:09] INFO: State recovered | Last Block: 10521 | Employers: 8
+[2026-04-18 21:14:09] INFO: Scanning blocks 10521 → 10522 for new cycles
+[2026-04-18 21:14:09] INFO: Active registry: 8 employers
+[2026-04-18 21:14:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:14:09] INFO: TICK #24 finalized in 0.3s
+[2026-04-18 21:14:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:14:09] INFO: -------------------------------------------------------
+[2026-04-18 21:14:39] INFO: TICK #25 initiated
+[2026-04-18 21:14:39] INFO: State recovered | Last Block: 10522 | Employers: 8
+[2026-04-18 21:14:39] INFO: Active registry: 8 employers
+[2026-04-18 21:14:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:14:39] INFO: TICK #25 finalized in 0.3s
+[2026-04-18 21:14:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:14:39] INFO: -------------------------------------------------------
+[2026-04-18 21:15:09] INFO: TICK #26 initiated
+[2026-04-18 21:15:09] INFO: State recovered | Last Block: 10522 | Employers: 8
+[2026-04-18 21:15:09] INFO: Scanning blocks 10522 → 10523 for new cycles
+[2026-04-18 21:15:09] INFO: Active registry: 8 employers
+[2026-04-18 21:15:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:15:09] INFO: TICK #26 finalized in 0.3s
+[2026-04-18 21:15:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:15:09] INFO: -------------------------------------------------------
+[2026-04-18 21:15:39] INFO: TICK #27 initiated
+[2026-04-18 21:15:39] INFO: State recovered | Last Block: 10523 | Employers: 8
+[2026-04-18 21:15:39] INFO: Active registry: 8 employers
+[2026-04-18 21:15:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:15:39] INFO: TICK #27 finalized in 0.3s
+[2026-04-18 21:15:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:15:39] INFO: -------------------------------------------------------
+[2026-04-18 21:16:09] INFO: TICK #28 initiated
+[2026-04-18 21:16:09] INFO: State recovered | Last Block: 10523 | Employers: 8
+[2026-04-18 21:16:09] INFO: Scanning blocks 10523 → 10524 for new cycles
+[2026-04-18 21:16:09] INFO: Active registry: 8 employers
+[2026-04-18 21:16:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:16:09] INFO: TICK #28 finalized in 0.3s
+[2026-04-18 21:16:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:16:09] INFO: -------------------------------------------------------
+[2026-04-18 21:16:39] INFO: TICK #29 initiated
+[2026-04-18 21:16:39] INFO: State recovered | Last Block: 10524 | Employers: 8
+[2026-04-18 21:16:39] INFO: Active registry: 8 employers
+[2026-04-18 21:16:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:16:39] INFO: TICK #29 finalized in 0.3s
+[2026-04-18 21:16:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:16:39] INFO: -------------------------------------------------------
+[2026-04-18 21:17:10] INFO: TICK #30 initiated
+[2026-04-18 21:17:10] INFO: State recovered | Last Block: 10524 | Employers: 8
+[2026-04-18 21:17:10] INFO: Scanning blocks 10524 → 10525 for new cycles
+[2026-04-18 21:17:10] INFO: Active registry: 8 employers
+[2026-04-18 21:17:10] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:17:10] INFO: TICK #30 finalized in 0.2s
+[2026-04-18 21:17:10] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:17:10] INFO: -------------------------------------------------------
+[2026-04-18 21:17:42] INFO: TICK #31 initiated
+[2026-04-18 21:17:42] INFO: State recovered | Last Block: 10525 | Employers: 8
+[2026-04-18 21:17:42] INFO: Active registry: 8 employers
+[2026-04-18 21:17:42] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:17:42] INFO: TICK #31 finalized in 0.3s
+[2026-04-18 21:17:42] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:17:42] INFO: -------------------------------------------------------
+[2026-04-18 21:18:13] INFO: TICK #32 initiated
+[2026-04-18 21:18:13] INFO: State recovered | Last Block: 10525 | Employers: 8
+[2026-04-18 21:18:13] INFO: Scanning blocks 10525 → 10526 for new cycles
+[2026-04-18 21:18:13] INFO: Active registry: 8 employers
+[2026-04-18 21:18:13] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:18:13] INFO: TICK #32 finalized in 0.3s
+[2026-04-18 21:18:13] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:18:13] INFO: -------------------------------------------------------
+[2026-04-18 21:18:44] INFO: TICK #33 initiated
+[2026-04-18 21:18:44] INFO: State recovered | Last Block: 10526 | Employers: 8
+[2026-04-18 21:18:44] INFO: Active registry: 8 employers
+[2026-04-18 21:18:44] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:18:44] INFO: TICK #33 finalized in 0.2s
+[2026-04-18 21:18:44] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:18:44] INFO: -------------------------------------------------------
+[2026-04-18 21:19:15] INFO: TICK #34 initiated
+[2026-04-18 21:19:15] INFO: State recovered | Last Block: 10526 | Employers: 8
+[2026-04-18 21:19:15] INFO: Scanning blocks 10526 → 10527 for new cycles
+[2026-04-18 21:19:15] INFO: Active registry: 8 employers
+[2026-04-18 21:19:16] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:19:16] INFO: TICK #34 finalized in 0.3s
+[2026-04-18 21:19:16] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:19:16] INFO: -------------------------------------------------------
+[2026-04-18 21:19:45] INFO: TICK #35 initiated
+[2026-04-18 21:19:45] INFO: State recovered | Last Block: 10527 | Employers: 8
+[2026-04-18 21:19:45] INFO: Active registry: 8 employers
+[2026-04-18 21:19:46] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:19:46] INFO: TICK #35 finalized in 0.2s
+[2026-04-18 21:19:46] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:19:46] INFO: -------------------------------------------------------
+[2026-04-18 21:20:17] INFO: TICK #36 initiated
+[2026-04-18 21:20:17] INFO: State recovered | Last Block: 10527 | Employers: 8
+[2026-04-18 21:20:17] INFO: Scanning blocks 10527 → 10528 for new cycles
+[2026-04-18 21:20:17] INFO: Active registry: 8 employers
+[2026-04-18 21:20:17] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:20:17] INFO: TICK #36 finalized in 0.3s
+[2026-04-18 21:20:17] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:20:17] INFO: -------------------------------------------------------
+[2026-04-18 21:20:48] INFO: TICK #37 initiated
+[2026-04-18 21:20:48] INFO: State recovered | Last Block: 10528 | Employers: 8
+[2026-04-18 21:20:48] INFO: Active registry: 8 employers
+[2026-04-18 21:20:48] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:20:48] INFO: TICK #37 finalized in 0.2s
+[2026-04-18 21:20:48] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:20:48] INFO: -------------------------------------------------------
+[2026-04-18 21:21:19] INFO: TICK #38 initiated
+[2026-04-18 21:21:19] INFO: State recovered | Last Block: 10528 | Employers: 8
+[2026-04-18 21:21:19] INFO: Scanning blocks 10528 → 10529 for new cycles
+[2026-04-18 21:21:19] INFO: Active registry: 8 employers
+[2026-04-18 21:21:19] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:21:19] INFO: TICK #38 finalized in 0.2s
+[2026-04-18 21:21:19] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:21:19] INFO: -------------------------------------------------------
+[2026-04-18 21:21:50] INFO: TICK #39 initiated
+[2026-04-18 21:21:50] INFO: State recovered | Last Block: 10529 | Employers: 8
+[2026-04-18 21:21:50] INFO: Active registry: 8 employers
+[2026-04-18 21:21:50] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:21:50] INFO: TICK #39 finalized in 0.2s
+[2026-04-18 21:21:51] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:21:51] INFO: -------------------------------------------------------
+[2026-04-18 21:22:20] INFO: TICK #40 initiated
+[2026-04-18 21:22:20] INFO: State recovered | Last Block: 10529 | Employers: 8
+[2026-04-18 21:22:20] INFO: Scanning blocks 10529 → 10530 for new cycles
+[2026-04-18 21:22:20] INFO: Active registry: 8 employers
+[2026-04-18 21:22:21] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:22:21] INFO: TICK #40 finalized in 0.2s
+[2026-04-18 21:22:21] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:22:21] INFO: -------------------------------------------------------
+[2026-04-18 21:22:52] INFO: TICK #41 initiated
+[2026-04-18 21:22:52] INFO: State recovered | Last Block: 10530 | Employers: 8
+[2026-04-18 21:22:52] INFO: Active registry: 8 employers
+[2026-04-18 21:22:52] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:22:52] INFO: TICK #41 finalized in 0.3s
+[2026-04-18 21:22:52] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:22:52] INFO: -------------------------------------------------------
+[2026-04-18 21:23:23] INFO: TICK #42 initiated
+[2026-04-18 21:23:23] INFO: State recovered | Last Block: 10530 | Employers: 8
+[2026-04-18 21:23:23] INFO: Scanning blocks 10530 → 10531 for new cycles
+[2026-04-18 21:23:23] INFO: Active registry: 8 employers
+[2026-04-18 21:23:23] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:23:23] INFO: TICK #42 finalized in 0.3s
+[2026-04-18 21:23:23] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:23:23] INFO: -------------------------------------------------------
+[2026-04-18 21:23:53] INFO: TICK #43 initiated
+[2026-04-18 21:23:53] INFO: State recovered | Last Block: 10531 | Employers: 8
+[2026-04-18 21:23:53] INFO: Active registry: 8 employers
+[2026-04-18 21:23:53] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:23:53] INFO: TICK #43 finalized in 0.2s
+[2026-04-18 21:23:53] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:23:53] INFO: -------------------------------------------------------
+[2026-04-18 21:24:24] INFO: TICK #44 initiated
+[2026-04-18 21:24:24] INFO: State recovered | Last Block: 10531 | Employers: 8
+[2026-04-18 21:24:24] INFO: Scanning blocks 10531 → 10532 for new cycles
+[2026-04-18 21:24:24] INFO: Active registry: 8 employers
+[2026-04-18 21:24:24] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:24:24] INFO: TICK #44 finalized in 0.2s
+[2026-04-18 21:24:24] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:24:24] INFO: -------------------------------------------------------
+[2026-04-18 21:24:55] INFO: TICK #45 initiated
+[2026-04-18 21:24:55] INFO: State recovered | Last Block: 10532 | Employers: 8
+[2026-04-18 21:24:55] INFO: Active registry: 8 employers
+[2026-04-18 21:24:56] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:24:56] INFO: TICK #45 finalized in 0.2s
+[2026-04-18 21:24:56] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:24:56] INFO: -------------------------------------------------------
+[2026-04-18 21:25:26] INFO: TICK #46 initiated
+[2026-04-18 21:25:26] INFO: State recovered | Last Block: 10532 | Employers: 8
+[2026-04-18 21:25:26] INFO: Scanning blocks 10532 → 10533 for new cycles
+[2026-04-18 21:25:27] INFO: Active registry: 8 employers
+[2026-04-18 21:25:27] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:25:27] INFO: TICK #46 finalized in 0.2s
+[2026-04-18 21:25:27] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:25:27] INFO: -------------------------------------------------------
+[2026-04-18 21:25:58] INFO: TICK #47 initiated
+[2026-04-18 21:25:58] INFO: State recovered | Last Block: 10533 | Employers: 8
+[2026-04-18 21:25:58] INFO: Active registry: 8 employers
+[2026-04-18 21:25:58] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:25:58] INFO: TICK #47 finalized in 0.2s
+[2026-04-18 21:25:58] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:25:58] INFO: -------------------------------------------------------
+[2026-04-18 21:26:29] INFO: TICK #48 initiated
+[2026-04-18 21:26:29] INFO: State recovered | Last Block: 10533 | Employers: 8
+[2026-04-18 21:26:29] INFO: Scanning blocks 10533 → 10534 for new cycles
+[2026-04-18 21:26:29] INFO: Active registry: 8 employers
+[2026-04-18 21:26:29] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:26:29] INFO: TICK #48 finalized in 0.2s
+[2026-04-18 21:26:29] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:26:29] INFO: -------------------------------------------------------
+[2026-04-18 21:27:00] INFO: TICK #49 initiated
+[2026-04-18 21:27:00] INFO: State recovered | Last Block: 10534 | Employers: 8
+[2026-04-18 21:27:00] INFO: Active registry: 8 employers
+[2026-04-18 21:27:00] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:27:00] INFO: TICK #49 finalized in 0.2s
+[2026-04-18 21:27:00] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:27:00] INFO: -------------------------------------------------------
+[2026-04-18 21:27:30] INFO: TICK #50 initiated
+[2026-04-18 21:27:30] INFO: State recovered | Last Block: 10534 | Employers: 8
+[2026-04-18 21:27:30] INFO: Scanning blocks 10534 → 10535 for new cycles
+[2026-04-18 21:27:30] INFO: Active registry: 8 employers
+[2026-04-18 21:27:30] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:27:30] INFO: TICK #50 finalized in 0.2s
+[2026-04-18 21:27:30] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:27:30] INFO: -------------------------------------------------------
+[2026-04-18 21:28:01] INFO: TICK #51 initiated
+[2026-04-18 21:28:01] INFO: State recovered | Last Block: 10535 | Employers: 8
+[2026-04-18 21:28:01] INFO: Active registry: 8 employers
+[2026-04-18 21:28:02] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:28:02] INFO: TICK #51 finalized in 0.2s
+[2026-04-18 21:28:02] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:28:02] INFO: -------------------------------------------------------
+[2026-04-18 21:28:31] INFO: TICK #52 initiated
+[2026-04-18 21:28:31] INFO: State recovered | Last Block: 10535 | Employers: 8
+[2026-04-18 21:28:31] INFO: Scanning blocks 10535 → 10536 for new cycles
+[2026-04-18 21:28:31] INFO: Active registry: 8 employers
+[2026-04-18 21:28:32] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:28:32] INFO: TICK #52 finalized in 0.3s
+[2026-04-18 21:28:32] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:28:32] INFO: -------------------------------------------------------
+[2026-04-18 21:29:03] INFO: TICK #53 initiated
+[2026-04-18 21:29:03] INFO: State recovered | Last Block: 10536 | Employers: 8
+[2026-04-18 21:29:03] INFO: Active registry: 8 employers
+[2026-04-18 21:29:03] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:29:03] INFO: TICK #53 finalized in 0.2s
+[2026-04-18 21:29:03] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:29:03] INFO: -------------------------------------------------------
+[2026-04-18 21:29:34] INFO: TICK #54 initiated
+[2026-04-18 21:29:34] INFO: State recovered | Last Block: 10536 | Employers: 8
+[2026-04-18 21:29:34] INFO: Scanning blocks 10536 → 10537 for new cycles
+[2026-04-18 21:29:34] INFO: Active registry: 8 employers
+[2026-04-18 21:29:34] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:29:34] INFO: TICK #54 finalized in 0.3s
+[2026-04-18 21:29:34] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:29:34] INFO: -------------------------------------------------------
+[2026-04-18 21:30:05] INFO: TICK #55 initiated
+[2026-04-18 21:30:05] INFO: State recovered | Last Block: 10537 | Employers: 8
+[2026-04-18 21:30:05] INFO: Active registry: 8 employers
+[2026-04-18 21:30:05] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:30:05] INFO: TICK #55 finalized in 0.2s
+[2026-04-18 21:30:05] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:30:05] INFO: -------------------------------------------------------
+[2026-04-18 21:30:36] INFO: TICK #56 initiated
+[2026-04-18 21:30:36] INFO: State recovered | Last Block: 10537 | Employers: 8
+[2026-04-18 21:30:36] INFO: Scanning blocks 10537 → 10538 for new cycles
+[2026-04-18 21:30:36] INFO: Active registry: 8 employers
+[2026-04-18 21:30:37] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:30:37] INFO: TICK #56 finalized in 0.2s
+[2026-04-18 21:30:37] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:30:37] INFO: -------------------------------------------------------
+[2026-04-18 21:31:08] INFO: TICK #57 initiated
+[2026-04-18 21:31:08] INFO: State recovered | Last Block: 10538 | Employers: 8
+[2026-04-18 21:31:08] INFO: Scanning blocks 10538 → 10539 for new cycles
+[2026-04-18 21:31:08] INFO: Active registry: 8 employers
+[2026-04-18 21:31:08] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:31:08] INFO: TICK #57 finalized in 0.3s
+[2026-04-18 21:31:08] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:31:08] INFO: -------------------------------------------------------
+[2026-04-18 21:31:39] INFO: TICK #58 initiated
+[2026-04-18 21:31:39] INFO: State recovered | Last Block: 10539 | Employers: 8
+[2026-04-18 21:31:39] INFO: Active registry: 8 employers
+[2026-04-18 21:31:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:31:39] INFO: TICK #58 finalized in 0.2s
+[2026-04-18 21:31:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:31:39] INFO: -------------------------------------------------------
+[2026-04-18 21:32:09] INFO: TICK #59 initiated
+[2026-04-18 21:32:09] INFO: State recovered | Last Block: 10539 | Employers: 8
+[2026-04-18 21:32:09] INFO: Scanning blocks 10539 → 10540 for new cycles
+[2026-04-18 21:32:09] INFO: Active registry: 8 employers
+[2026-04-18 21:32:09] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:32:09] INFO: TICK #59 finalized in 0.2s
+[2026-04-18 21:32:09] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:32:09] INFO: -------------------------------------------------------
+[2026-04-18 21:32:40] INFO: TICK #60 initiated
+[2026-04-18 21:32:40] INFO: State recovered | Last Block: 10540 | Employers: 8
+[2026-04-18 21:32:40] INFO: Active registry: 8 employers
+[2026-04-18 21:32:40] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:32:40] INFO: TICK #60 finalized in 0.2s
+[2026-04-18 21:32:40] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:32:40] INFO: -------------------------------------------------------
+[2026-04-18 21:33:11] INFO: TICK #61 initiated
+[2026-04-18 21:33:11] INFO: State recovered | Last Block: 10540 | Employers: 8
+[2026-04-18 21:33:11] INFO: Scanning blocks 10540 → 10541 for new cycles
+[2026-04-18 21:33:11] INFO: Active registry: 8 employers
+[2026-04-18 21:33:11] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:33:11] INFO: TICK #61 finalized in 0.2s
+[2026-04-18 21:33:11] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:33:11] INFO: -------------------------------------------------------
+[2026-04-18 21:33:42] INFO: TICK #62 initiated
+[2026-04-18 21:33:42] INFO: State recovered | Last Block: 10541 | Employers: 8
+[2026-04-18 21:33:42] INFO: Active registry: 8 employers
+[2026-04-18 21:33:42] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:33:42] INFO: TICK #62 finalized in 0.2s
+[2026-04-18 21:33:42] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:33:42] INFO: -------------------------------------------------------
+[2026-04-18 21:34:13] INFO: TICK #63 initiated
+[2026-04-18 21:34:13] INFO: State recovered | Last Block: 10541 | Employers: 8
+[2026-04-18 21:34:13] INFO: Scanning blocks 10541 → 10542 for new cycles
+[2026-04-18 21:34:13] INFO: Active registry: 8 employers
+[2026-04-18 21:34:13] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:34:13] INFO: TICK #63 finalized in 0.2s
+[2026-04-18 21:34:13] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:34:13] INFO: -------------------------------------------------------
+[2026-04-18 21:34:45] INFO: TICK #64 initiated
+[2026-04-18 21:34:45] INFO: State recovered | Last Block: 10542 | Employers: 8
+[2026-04-18 21:34:45] INFO: Active registry: 8 employers
+[2026-04-18 21:34:45] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:34:45] INFO: TICK #64 finalized in 0.2s
+[2026-04-18 21:34:45] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:34:45] INFO: -------------------------------------------------------
+[2026-04-18 21:35:16] INFO: TICK #65 initiated
+[2026-04-18 21:35:16] INFO: State recovered | Last Block: 10542 | Employers: 8
+[2026-04-18 21:35:16] INFO: Scanning blocks 10542 → 10543 for new cycles
+[2026-04-18 21:35:16] INFO: Active registry: 8 employers
+[2026-04-18 21:35:16] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:35:16] INFO: TICK #65 finalized in 0.2s
+[2026-04-18 21:35:16] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:35:16] INFO: -------------------------------------------------------
+[2026-04-18 21:35:46] INFO: TICK #66 initiated
+[2026-04-18 21:35:46] INFO: State recovered | Last Block: 10543 | Employers: 8
+[2026-04-18 21:35:46] INFO: Active registry: 8 employers
+[2026-04-18 21:35:46] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:35:46] INFO: TICK #66 finalized in 0.3s
+[2026-04-18 21:35:46] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:35:46] INFO: -------------------------------------------------------
+[2026-04-18 21:36:16] INFO: TICK #67 initiated
+[2026-04-18 21:36:16] INFO: State recovered | Last Block: 10543 | Employers: 8
+[2026-04-18 21:36:16] INFO: Scanning blocks 10543 → 10544 for new cycles
+[2026-04-18 21:36:16] INFO: Active registry: 8 employers
+[2026-04-18 21:36:16] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:36:16] INFO: TICK #67 finalized in 0.3s
+[2026-04-18 21:36:16] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:36:16] INFO: -------------------------------------------------------
+[2026-04-18 21:36:47] INFO: TICK #68 initiated
+[2026-04-18 21:36:47] INFO: State recovered | Last Block: 10544 | Employers: 8
+[2026-04-18 21:36:47] INFO: Active registry: 8 employers
+[2026-04-18 21:36:47] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:36:47] INFO: TICK #68 finalized in 0.3s
+[2026-04-18 21:36:47] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:36:47] INFO: -------------------------------------------------------
+[2026-04-18 21:37:18] INFO: TICK #69 initiated
+[2026-04-18 21:37:18] INFO: State recovered | Last Block: 10544 | Employers: 8
+[2026-04-18 21:37:18] INFO: Scanning blocks 10544 → 10545 for new cycles
+[2026-04-18 21:37:18] INFO: Active registry: 8 employers
+[2026-04-18 21:37:18] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:37:18] INFO: TICK #69 finalized in 0.3s
+[2026-04-18 21:37:18] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:37:18] INFO: -------------------------------------------------------
+[2026-04-18 21:37:49] INFO: TICK #70 initiated
+[2026-04-18 21:37:49] INFO: State recovered | Last Block: 10545 | Employers: 8
+[2026-04-18 21:37:49] INFO: Active registry: 8 employers
+[2026-04-18 21:37:49] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:37:49] INFO: TICK #70 finalized in 0.3s
+[2026-04-18 21:37:49] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:37:49] INFO: -------------------------------------------------------
+[2026-04-18 21:38:20] INFO: TICK #71 initiated
+[2026-04-18 21:38:20] INFO: State recovered | Last Block: 10545 | Employers: 8
+[2026-04-18 21:38:20] INFO: Scanning blocks 10545 → 10546 for new cycles
+[2026-04-18 21:38:20] INFO: Active registry: 8 employers
+[2026-04-18 21:38:20] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:38:20] INFO: TICK #71 finalized in 0.3s
+[2026-04-18 21:38:20] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:38:20] INFO: -------------------------------------------------------
+[2026-04-18 21:38:51] INFO: TICK #72 initiated
+[2026-04-18 21:38:51] INFO: State recovered | Last Block: 10546 | Employers: 8
+[2026-04-18 21:38:51] INFO: Active registry: 8 employers
+[2026-04-18 21:38:51] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:38:51] INFO: TICK #72 finalized in 0.2s
+[2026-04-18 21:38:51] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:38:51] INFO: -------------------------------------------------------
+[2026-04-18 21:39:21] INFO: TICK #73 initiated
+[2026-04-18 21:39:21] INFO: State recovered | Last Block: 10546 | Employers: 8
+[2026-04-18 21:39:21] INFO: Scanning blocks 10546 → 10547 for new cycles
+[2026-04-18 21:39:21] INFO: Active registry: 8 employers
+[2026-04-18 21:39:21] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:39:21] INFO: TICK #73 finalized in 0.3s
+[2026-04-18 21:39:21] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:39:21] INFO: -------------------------------------------------------
+[2026-04-18 21:39:52] INFO: TICK #74 initiated
+[2026-04-18 21:39:52] INFO: State recovered | Last Block: 10547 | Employers: 8
+[2026-04-18 21:39:52] INFO: Active registry: 8 employers
+[2026-04-18 21:39:53] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:39:53] INFO: TICK #74 finalized in 0.2s
+[2026-04-18 21:39:53] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:39:53] INFO: -------------------------------------------------------
+[2026-04-18 21:40:24] INFO: TICK #75 initiated
+[2026-04-18 21:40:24] INFO: State recovered | Last Block: 10547 | Employers: 8
+[2026-04-18 21:40:24] INFO: Scanning blocks 10547 → 10548 for new cycles
+[2026-04-18 21:40:24] INFO: Active registry: 8 employers
+[2026-04-18 21:40:24] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:40:24] INFO: TICK #75 finalized in 0.2s
+[2026-04-18 21:40:24] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:40:24] INFO: -------------------------------------------------------
+[2026-04-18 21:40:55] INFO: TICK #76 initiated
+[2026-04-18 21:40:55] INFO: State recovered | Last Block: 10548 | Employers: 8
+[2026-04-18 21:40:55] INFO: Active registry: 8 employers
+[2026-04-18 21:40:55] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:40:55] INFO: TICK #76 finalized in 0.2s
+[2026-04-18 21:40:55] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:40:55] INFO: -------------------------------------------------------
+[2026-04-18 21:41:26] INFO: TICK #77 initiated
+[2026-04-18 21:41:26] INFO: State recovered | Last Block: 10548 | Employers: 8
+[2026-04-18 21:41:26] INFO: Scanning blocks 10548 → 10549 for new cycles
+[2026-04-18 21:41:26] INFO: Active registry: 8 employers
+[2026-04-18 21:41:26] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:41:26] INFO: TICK #77 finalized in 0.2s
+[2026-04-18 21:41:26] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:41:26] INFO: -------------------------------------------------------
+[2026-04-18 21:41:58] INFO: TICK #78 initiated
+[2026-04-18 21:41:58] INFO: State recovered | Last Block: 10549 | Employers: 8
+[2026-04-18 21:41:58] INFO: Active registry: 8 employers
+[2026-04-18 21:41:58] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:41:58] INFO: TICK #78 finalized in 0.2s
+[2026-04-18 21:41:58] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:41:58] INFO: -------------------------------------------------------
+[2026-04-18 21:42:29] INFO: TICK #79 initiated
+[2026-04-18 21:42:29] INFO: State recovered | Last Block: 10549 | Employers: 8
+[2026-04-18 21:42:29] INFO: Scanning blocks 10549 → 10550 for new cycles
+[2026-04-18 21:42:29] INFO: Active registry: 8 employers
+[2026-04-18 21:42:29] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:42:29] INFO: TICK #79 finalized in 0.2s
+[2026-04-18 21:42:29] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:42:29] INFO: -------------------------------------------------------
+[2026-04-18 21:43:00] INFO: TICK #80 initiated
+[2026-04-18 21:43:00] INFO: State recovered | Last Block: 10550 | Employers: 8
+[2026-04-18 21:43:00] INFO: Active registry: 8 employers
+[2026-04-18 21:43:00] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:43:00] INFO: TICK #80 finalized in 0.2s
+[2026-04-18 21:43:00] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:43:00] INFO: -------------------------------------------------------
+[2026-04-18 21:43:32] INFO: TICK #81 initiated
+[2026-04-18 21:43:32] INFO: State recovered | Last Block: 10550 | Employers: 8
+[2026-04-18 21:43:32] INFO: Scanning blocks 10550 → 10551 for new cycles
+[2026-04-18 21:43:32] INFO: Active registry: 8 employers
+[2026-04-18 21:43:32] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:43:32] INFO: TICK #81 finalized in 0.3s
+[2026-04-18 21:43:32] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:43:32] INFO: -------------------------------------------------------
+[2026-04-18 21:44:03] INFO: TICK #82 initiated
+[2026-04-18 21:44:03] INFO: State recovered | Last Block: 10551 | Employers: 8
+[2026-04-18 21:44:03] INFO: Active registry: 8 employers
+[2026-04-18 21:44:03] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:44:03] INFO: TICK #82 finalized in 0.3s
+[2026-04-18 21:44:03] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:44:03] INFO: -------------------------------------------------------
+[2026-04-18 21:44:35] INFO: TICK #83 initiated
+[2026-04-18 21:44:35] INFO: State recovered | Last Block: 10551 | Employers: 8
+[2026-04-18 21:44:35] INFO: Scanning blocks 10551 → 10552 for new cycles
+[2026-04-18 21:44:35] INFO: Active registry: 8 employers
+[2026-04-18 21:44:35] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:44:35] INFO: TICK #83 finalized in 0.2s
+[2026-04-18 21:44:35] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:44:35] INFO: -------------------------------------------------------
+[2026-04-18 21:45:06] INFO: TICK #84 initiated
+[2026-04-18 21:45:06] INFO: State recovered | Last Block: 10552 | Employers: 8
+[2026-04-18 21:45:06] INFO: Active registry: 8 employers
+[2026-04-18 21:45:06] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:45:06] INFO: TICK #84 finalized in 0.3s
+[2026-04-18 21:45:06] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:45:06] INFO: -------------------------------------------------------
+[2026-04-18 21:45:37] INFO: TICK #85 initiated
+[2026-04-18 21:45:37] INFO: State recovered | Last Block: 10552 | Employers: 8
+[2026-04-18 21:45:38] INFO: Scanning blocks 10552 → 10553 for new cycles
+[2026-04-18 21:45:38] INFO: Active registry: 8 employers
+[2026-04-18 21:45:38] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:45:38] INFO: TICK #85 finalized in 0.3s
+[2026-04-18 21:45:38] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:45:38] INFO: -------------------------------------------------------
+[2026-04-18 21:46:08] INFO: TICK #86 initiated
+[2026-04-18 21:46:08] INFO: State recovered | Last Block: 10553 | Employers: 8
+[2026-04-18 21:46:08] INFO: Scanning blocks 10553 → 10554 for new cycles
+[2026-04-18 21:46:08] INFO: Active registry: 8 employers
+[2026-04-18 21:46:08] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:46:08] INFO: TICK #86 finalized in 0.3s
+[2026-04-18 21:46:08] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:46:08] INFO: -------------------------------------------------------
+[2026-04-18 21:46:39] INFO: TICK #87 initiated
+[2026-04-18 21:46:39] INFO: State recovered | Last Block: 10554 | Employers: 8
+[2026-04-18 21:46:39] INFO: Active registry: 8 employers
+[2026-04-18 21:46:39] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:46:39] INFO: TICK #87 finalized in 0.3s
+[2026-04-18 21:46:39] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:46:39] INFO: -------------------------------------------------------
+[2026-04-18 21:47:10] INFO: TICK #88 initiated
+[2026-04-18 21:47:10] INFO: State recovered | Last Block: 10554 | Employers: 8
+[2026-04-18 21:47:10] INFO: Scanning blocks 10554 → 10555 for new cycles
+[2026-04-18 21:47:10] INFO: Active registry: 8 employers
+[2026-04-18 21:47:10] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:47:10] INFO: TICK #88 finalized in 0.3s
+[2026-04-18 21:47:10] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:47:10] INFO: -------------------------------------------------------
+[2026-04-18 21:47:41] INFO: TICK #89 initiated
+[2026-04-18 21:47:41] INFO: State recovered | Last Block: 10555 | Employers: 8
+[2026-04-18 21:47:41] INFO: Active registry: 8 employers
+[2026-04-18 21:47:41] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:47:41] INFO: TICK #89 finalized in 0.3s
+[2026-04-18 21:47:41] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:47:41] INFO: -------------------------------------------------------
+[2026-04-18 21:48:12] INFO: TICK #90 initiated
+[2026-04-18 21:48:12] INFO: State recovered | Last Block: 10555 | Employers: 8
+[2026-04-18 21:48:12] INFO: Scanning blocks 10555 → 10556 for new cycles
+[2026-04-18 21:48:12] INFO: Active registry: 8 employers
+[2026-04-18 21:48:12] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:48:12] INFO: TICK #90 finalized in 0.3s
+[2026-04-18 21:48:12] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:48:12] INFO: -------------------------------------------------------
+[2026-04-18 21:48:43] INFO: TICK #91 initiated
+[2026-04-18 21:48:43] INFO: State recovered | Last Block: 10556 | Employers: 8
+[2026-04-18 21:48:43] INFO: Active registry: 8 employers
+[2026-04-18 21:48:43] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:48:43] INFO: TICK #91 finalized in 0.3s
+[2026-04-18 21:48:43] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:48:43] INFO: -------------------------------------------------------
+[2026-04-18 21:49:13] INFO: TICK #92 initiated
+[2026-04-18 21:49:13] INFO: State recovered | Last Block: 10556 | Employers: 8
+[2026-04-18 21:49:13] INFO: Scanning blocks 10556 → 10557 for new cycles
+[2026-04-18 21:49:13] INFO: Active registry: 8 employers
+[2026-04-18 21:49:13] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:49:13] INFO: TICK #92 finalized in 0.3s
+[2026-04-18 21:49:13] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:49:13] INFO: -------------------------------------------------------
+[2026-04-18 21:49:44] INFO: TICK #93 initiated
+[2026-04-18 21:49:44] INFO: State recovered | Last Block: 10557 | Employers: 8
+[2026-04-18 21:49:44] INFO: Active registry: 8 employers
+[2026-04-18 21:49:44] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:49:44] INFO: TICK #93 finalized in 0.2s
+[2026-04-18 21:49:44] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:49:44] INFO: -------------------------------------------------------
+[2026-04-18 21:50:15] INFO: TICK #94 initiated
+[2026-04-18 21:50:15] INFO: State recovered | Last Block: 10557 | Employers: 8
+[2026-04-18 21:50:15] INFO: Scanning blocks 10557 → 10558 for new cycles
+[2026-04-18 21:50:15] INFO: Active registry: 8 employers
+[2026-04-18 21:50:16] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:50:16] INFO: TICK #94 finalized in 0.3s
+[2026-04-18 21:50:16] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:50:16] INFO: -------------------------------------------------------
+[2026-04-18 21:50:46] INFO: TICK #95 initiated
+[2026-04-18 21:50:46] INFO: State recovered | Last Block: 10558 | Employers: 8
+[2026-04-18 21:50:46] INFO: Active registry: 8 employers
+[2026-04-18 21:50:47] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:50:47] INFO: TICK #95 finalized in 0.2s
+[2026-04-18 21:50:47] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:50:47] INFO: -------------------------------------------------------
+[2026-04-18 21:51:16] INFO: TICK #96 initiated
+[2026-04-18 21:51:16] INFO: State recovered | Last Block: 10558 | Employers: 8
+[2026-04-18 21:51:16] INFO: Scanning blocks 10558 → 10559 for new cycles
+[2026-04-18 21:51:16] INFO: Active registry: 8 employers
+[2026-04-18 21:51:17] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:51:17] INFO: TICK #96 finalized in 0.3s
+[2026-04-18 21:51:17] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:51:17] INFO: -------------------------------------------------------
+[2026-04-18 21:51:48] INFO: TICK #97 initiated
+[2026-04-18 21:51:48] INFO: State recovered | Last Block: 10559 | Employers: 8
+[2026-04-18 21:51:48] INFO: Active registry: 8 employers
+[2026-04-18 21:51:48] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:51:48] INFO: TICK #97 finalized in 0.2s
+[2026-04-18 21:51:48] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:51:48] INFO: -------------------------------------------------------
+[2026-04-18 21:52:19] INFO: TICK #98 initiated
+[2026-04-18 21:52:19] INFO: State recovered | Last Block: 10559 | Employers: 8
+[2026-04-18 21:52:19] INFO: Scanning blocks 10559 → 10560 for new cycles
+[2026-04-18 21:52:19] INFO: Active registry: 8 employers
+[2026-04-18 21:52:20] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:52:20] INFO: TICK #98 finalized in 0.3s
+[2026-04-18 21:52:20] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:52:20] INFO: -------------------------------------------------------
+[2026-04-18 21:52:51] INFO: TICK #99 initiated
+[2026-04-18 21:52:51] INFO: State recovered | Last Block: 10560 | Employers: 8
+[2026-04-18 21:52:51] INFO: Active registry: 8 employers
+[2026-04-18 21:52:51] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:52:51] INFO: TICK #99 finalized in 0.2s
+[2026-04-18 21:52:51] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:52:51] INFO: -------------------------------------------------------
+[2026-04-18 21:53:22] INFO: TICK #100 initiated
+[2026-04-18 21:53:22] INFO: State recovered | Last Block: 10560 | Employers: 8
+[2026-04-18 21:53:22] INFO: Scanning blocks 10560 → 10561 for new cycles
+[2026-04-18 21:53:22] INFO: Active registry: 8 employers
+[2026-04-18 21:53:22] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:53:22] INFO: TICK #100 finalized in 0.2s
+[2026-04-18 21:53:22] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:53:22] INFO: -------------------------------------------------------
+[2026-04-18 21:53:53] INFO: TICK #101 initiated
+[2026-04-18 21:53:53] INFO: State recovered | Last Block: 10561 | Employers: 8
+[2026-04-18 21:53:53] INFO: Active registry: 8 employers
+[2026-04-18 21:53:53] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:53:53] INFO: TICK #101 finalized in 0.2s
+[2026-04-18 21:53:53] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:53:53] INFO: -------------------------------------------------------
+[2026-04-18 21:54:24] INFO: TICK #102 initiated
+[2026-04-18 21:54:24] INFO: State recovered | Last Block: 10561 | Employers: 8
+[2026-04-18 21:54:24] INFO: Scanning blocks 10561 → 10562 for new cycles
+[2026-04-18 21:54:24] INFO: Active registry: 8 employers
+[2026-04-18 21:54:25] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:54:25] INFO: TICK #102 finalized in 0.2s
+[2026-04-18 21:54:25] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:54:25] INFO: -------------------------------------------------------
+[2026-04-18 21:54:54] INFO: TICK #103 initiated
+[2026-04-18 21:54:54] INFO: State recovered | Last Block: 10562 | Employers: 8
+[2026-04-18 21:54:54] INFO: Active registry: 8 employers
+[2026-04-18 21:54:55] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:54:55] INFO: TICK #103 finalized in 0.2s
+[2026-04-18 21:54:55] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:54:55] INFO: -------------------------------------------------------
+[2026-04-18 21:55:26] INFO: TICK #104 initiated
+[2026-04-18 21:55:26] INFO: State recovered | Last Block: 10562 | Employers: 8
+[2026-04-18 21:55:26] INFO: Scanning blocks 10562 → 10563 for new cycles
+[2026-04-18 21:55:26] INFO: Active registry: 8 employers
+[2026-04-18 21:55:26] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:55:26] INFO: TICK #104 finalized in 0.3s
+[2026-04-18 21:55:26] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:55:26] INFO: -------------------------------------------------------
+[2026-04-18 21:55:57] INFO: TICK #105 initiated
+[2026-04-18 21:55:57] INFO: State recovered | Last Block: 10563 | Employers: 8
+[2026-04-18 21:55:57] INFO: Active registry: 8 employers
+[2026-04-18 21:55:57] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:55:57] INFO: TICK #105 finalized in 0.2s
+[2026-04-18 21:55:57] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:55:57] INFO: -------------------------------------------------------
+[2026-04-18 21:56:27] INFO: TICK #106 initiated
+[2026-04-18 21:56:27] INFO: State recovered | Last Block: 10563 | Employers: 8
+[2026-04-18 21:56:27] INFO: Scanning blocks 10563 → 10564 for new cycles
+[2026-04-18 21:56:27] INFO: Active registry: 8 employers
+[2026-04-18 21:56:27] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:56:27] INFO: TICK #106 finalized in 0.2s
+[2026-04-18 21:56:27] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:56:27] INFO: -------------------------------------------------------
+[2026-04-18 21:56:58] INFO: TICK #107 initiated
+[2026-04-18 21:56:58] INFO: State recovered | Last Block: 10564 | Employers: 8
+[2026-04-18 21:56:58] INFO: Active registry: 8 employers
+[2026-04-18 21:56:58] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:56:58] INFO: TICK #107 finalized in 0.2s
+[2026-04-18 21:56:58] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:56:58] INFO: -------------------------------------------------------
+[2026-04-18 21:57:29] INFO: TICK #108 initiated
+[2026-04-18 21:57:29] INFO: State recovered | Last Block: 10564 | Employers: 8
+[2026-04-18 21:57:29] INFO: Scanning blocks 10564 → 10565 for new cycles
+[2026-04-18 21:57:29] INFO: Active registry: 8 employers
+[2026-04-18 21:57:29] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:57:29] INFO: TICK #108 finalized in 0.3s
+[2026-04-18 21:57:29] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:57:29] INFO: -------------------------------------------------------
+[2026-04-18 21:58:00] INFO: TICK #109 initiated
+[2026-04-18 21:58:00] INFO: State recovered | Last Block: 10565 | Employers: 8
+[2026-04-18 21:58:00] INFO: Scanning blocks 10565 → 10567 for new cycles
+[2026-04-18 21:58:00] INFO: Active registry: 8 employers
+[2026-04-18 21:58:00] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:58:00] INFO: TICK #109 finalized in 0.2s
+[2026-04-18 21:58:00] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:58:00] INFO: -------------------------------------------------------
+[2026-04-18 21:58:31] INFO: TICK #110 initiated
+[2026-04-18 21:58:31] INFO: State recovered | Last Block: 10567 | Employers: 8
+[2026-04-18 21:58:31] INFO: Active registry: 8 employers
+[2026-04-18 21:58:32] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:58:32] INFO: TICK #110 finalized in 0.2s
+[2026-04-18 21:58:32] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:58:32] INFO: -------------------------------------------------------
+[2026-04-18 21:59:03] INFO: TICK #111 initiated
+[2026-04-18 21:59:03] INFO: State recovered | Last Block: 10567 | Employers: 8
+[2026-04-18 21:59:03] INFO: Scanning blocks 10567 → 10569 for new cycles
+[2026-04-18 21:59:03] INFO: Active registry: 8 employers
+[2026-04-18 21:59:03] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:59:03] INFO: TICK #111 finalized in 0.3s
+[2026-04-18 21:59:03] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:59:03] INFO: -------------------------------------------------------
+[2026-04-18 21:59:34] INFO: TICK #112 initiated
+[2026-04-18 21:59:34] INFO: State recovered | Last Block: 10569 | Employers: 8
+[2026-04-18 21:59:34] INFO: Active registry: 8 employers
+[2026-04-18 21:59:34] INFO: Processing queue: 0 active cycles
+[2026-04-18 21:59:34] INFO: TICK #112 finalized in 0.3s
+[2026-04-18 21:59:34] INFO: Status: 0 success | 0 failed
+[2026-04-18 21:59:34] INFO: -------------------------------------------------------
+[2026-04-18 22:00:05] INFO: TICK #113 initiated
+[2026-04-18 22:00:05] INFO: State recovered | Last Block: 10569 | Employers: 8
+[2026-04-18 22:00:05] INFO: Scanning blocks 10569 → 10570 for new cycles
+[2026-04-18 22:00:05] INFO: Active registry: 8 employers
+[2026-04-18 22:00:05] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:00:05] INFO: TICK #113 finalized in 0.2s
+[2026-04-18 22:00:05] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:00:05] INFO: -------------------------------------------------------
+[2026-04-18 22:00:35] INFO: TICK #114 initiated
+[2026-04-18 22:00:35] INFO: State recovered | Last Block: 10570 | Employers: 8
+[2026-04-18 22:00:35] INFO: Scanning blocks 10570 → 10574 for new cycles
+[2026-04-18 22:00:35] INFO: Active registry: 8 employers
+[2026-04-18 22:00:35] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:00:35] INFO: TICK #114 finalized in 0.3s
+[2026-04-18 22:00:35] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:00:35] INFO: -------------------------------------------------------
+[2026-04-18 22:01:06] INFO: TICK #115 initiated
+[2026-04-18 22:01:06] INFO: State recovered | Last Block: 10574 | Employers: 8
+[2026-04-18 22:01:06] INFO: Active registry: 8 employers
+[2026-04-18 22:01:07] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:01:07] INFO: TICK #115 finalized in 0.2s
+[2026-04-18 22:01:07] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:01:07] INFO: -------------------------------------------------------
+[2026-04-18 22:01:38] INFO: TICK #116 initiated
+[2026-04-18 22:01:38] INFO: State recovered | Last Block: 10574 | Employers: 8
+[2026-04-18 22:01:38] INFO: Scanning blocks 10574 → 10575 for new cycles
+[2026-04-18 22:01:38] INFO: Active registry: 8 employers
+[2026-04-18 22:01:38] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:01:38] INFO: TICK #116 finalized in 0.2s
+[2026-04-18 22:01:38] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:01:38] INFO: -------------------------------------------------------
+[2026-04-18 22:02:08] INFO: TICK #117 initiated
+[2026-04-18 22:02:08] INFO: State recovered | Last Block: 10575 | Employers: 8
+[2026-04-18 22:02:08] INFO: Active registry: 8 employers
+[2026-04-18 22:02:08] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:02:08] INFO: TICK #117 finalized in 0.3s
+[2026-04-18 22:02:08] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:02:08] INFO: -------------------------------------------------------
+[2026-04-18 22:02:39] INFO: TICK #118 initiated
+[2026-04-18 22:02:39] INFO: State recovered | Last Block: 10575 | Employers: 8
+[2026-04-18 22:02:39] INFO: Scanning blocks 10575 → 10576 for new cycles
+[2026-04-18 22:02:39] INFO: Active registry: 8 employers
+[2026-04-18 22:02:40] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:02:40] INFO: TICK #118 finalized in 0.4s
+[2026-04-18 22:02:40] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:02:40] INFO: -------------------------------------------------------
+[2026-04-18 22:03:11] INFO: TICK #119 initiated
+[2026-04-18 22:03:11] INFO: State recovered | Last Block: 10576 | Employers: 8
+[2026-04-18 22:03:11] INFO: Scanning blocks 10576 → 10578 for new cycles
+[2026-04-18 22:03:11] INFO: Active registry: 8 employers
+[2026-04-18 22:03:11] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:03:11] INFO: TICK #119 finalized in 0.2s
+[2026-04-18 22:03:11] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:03:11] INFO: -------------------------------------------------------
+[2026-04-18 22:03:42] INFO: TICK #120 initiated
+[2026-04-18 22:03:42] INFO: State recovered | Last Block: 10578 | Employers: 8
+[2026-04-18 22:03:42] INFO: Active registry: 8 employers
+[2026-04-18 22:03:42] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:03:42] INFO: TICK #120 finalized in 0.2s
+[2026-04-18 22:03:42] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:03:42] INFO: -------------------------------------------------------
+[2026-04-18 22:04:14] INFO: TICK #121 initiated
+[2026-04-18 22:04:14] INFO: State recovered | Last Block: 10578 | Employers: 8
+[2026-04-18 22:04:14] INFO: Scanning blocks 10578 → 10579 for new cycles
+[2026-04-18 22:04:14] INFO: Active registry: 8 employers
+[2026-04-18 22:04:14] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:04:14] INFO: TICK #121 finalized in 0.2s
+[2026-04-18 22:04:14] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:04:14] INFO: -------------------------------------------------------
+[2026-04-18 22:04:45] INFO: TICK #122 initiated
+[2026-04-18 22:04:45] INFO: State recovered | Last Block: 10579 | Employers: 8
+[2026-04-18 22:04:45] INFO: Active registry: 8 employers
+[2026-04-18 22:04:46] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:04:46] INFO: TICK #122 finalized in 0.2s
+[2026-04-18 22:04:46] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:04:46] INFO: -------------------------------------------------------
+[2026-04-18 22:05:17] INFO: TICK #123 initiated
+[2026-04-18 22:05:17] INFO: State recovered | Last Block: 10579 | Employers: 8
+[2026-04-18 22:05:17] INFO: Scanning blocks 10579 → 10580 for new cycles
+[2026-04-18 22:05:17] INFO: Active registry: 8 employers
+[2026-04-18 22:05:17] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:05:17] INFO: TICK #123 finalized in 0.3s
+[2026-04-18 22:05:17] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:05:17] INFO: -------------------------------------------------------
+[2026-04-18 22:05:48] INFO: TICK #124 initiated
+[2026-04-18 22:05:48] INFO: State recovered | Last Block: 10580 | Employers: 8
+[2026-04-18 22:05:48] INFO: Active registry: 8 employers
+[2026-04-18 22:05:49] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:05:49] INFO: TICK #124 finalized in 0.3s
+[2026-04-18 22:05:49] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:05:49] INFO: -------------------------------------------------------
+[2026-04-18 22:06:20] INFO: TICK #125 initiated
+[2026-04-18 22:06:20] INFO: State recovered | Last Block: 10580 | Employers: 8
+[2026-04-18 22:06:20] INFO: Scanning blocks 10580 → 10581 for new cycles
+[2026-04-18 22:06:20] INFO: Active registry: 8 employers
+[2026-04-18 22:06:20] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:06:20] INFO: TICK #125 finalized in 0.3s
+[2026-04-18 22:06:20] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:06:20] INFO: -------------------------------------------------------
+[2026-04-18 22:06:51] INFO: TICK #126 initiated
+[2026-04-18 22:06:51] INFO: State recovered | Last Block: 10581 | Employers: 8
+[2026-04-18 22:06:51] INFO: Active registry: 8 employers
+[2026-04-18 22:06:51] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:06:51] INFO: TICK #126 finalized in 0.3s
+[2026-04-18 22:06:51] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:06:51] INFO: -------------------------------------------------------
+[2026-04-18 22:07:23] INFO: TICK #127 initiated
+[2026-04-18 22:07:23] INFO: State recovered | Last Block: 10581 | Employers: 8
+[2026-04-18 22:07:23] INFO: Scanning blocks 10581 → 10582 for new cycles
+[2026-04-18 22:07:23] INFO: Active registry: 8 employers
+[2026-04-18 22:07:23] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:07:23] INFO: TICK #127 finalized in 0.2s
+[2026-04-18 22:07:23] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:07:23] INFO: -------------------------------------------------------
+[2026-04-18 22:07:54] INFO: TICK #128 initiated
+[2026-04-18 22:07:54] INFO: State recovered | Last Block: 10582 | Employers: 8
+[2026-04-18 22:07:54] INFO: Scanning blocks 10582 → 10583 for new cycles
+[2026-04-18 22:07:54] INFO: Active registry: 8 employers
+[2026-04-18 22:07:54] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:07:54] INFO: TICK #128 finalized in 0.2s
+[2026-04-18 22:07:54] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:07:54] INFO: -------------------------------------------------------
+[2026-04-18 22:08:25] INFO: TICK #129 initiated
+[2026-04-18 22:08:25] INFO: State recovered | Last Block: 10583 | Employers: 8
+[2026-04-18 22:08:25] INFO: Active registry: 8 employers
+[2026-04-18 22:08:26] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:08:26] INFO: TICK #129 finalized in 0.2s
+[2026-04-18 22:08:26] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:08:26] INFO: -------------------------------------------------------
+[2026-04-18 22:08:57] INFO: TICK #130 initiated
+[2026-04-18 22:08:57] INFO: State recovered | Last Block: 10583 | Employers: 8
+[2026-04-18 22:08:57] INFO: Scanning blocks 10583 → 10584 for new cycles
+[2026-04-18 22:08:57] INFO: Active registry: 8 employers
+[2026-04-18 22:08:57] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:08:57] INFO: TICK #130 finalized in 0.3s
+[2026-04-18 22:08:57] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:08:57] INFO: -------------------------------------------------------
+[2026-04-18 22:09:27] INFO: TICK #131 initiated
+[2026-04-18 22:09:27] INFO: State recovered | Last Block: 10584 | Employers: 8
+[2026-04-18 22:09:27] INFO: Active registry: 8 employers
+[2026-04-18 22:09:27] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:09:27] INFO: TICK #131 finalized in 0.2s
+[2026-04-18 22:09:27] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:09:27] INFO: -------------------------------------------------------
+[2026-04-18 22:09:58] INFO: TICK #132 initiated
+[2026-04-18 22:09:58] INFO: State recovered | Last Block: 10584 | Employers: 8
+[2026-04-18 22:09:58] INFO: Scanning blocks 10584 → 10585 for new cycles
+[2026-04-18 22:09:58] INFO: Active registry: 8 employers
+[2026-04-18 22:09:59] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:09:59] INFO: TICK #132 finalized in 0.2s
+[2026-04-18 22:09:59] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:09:59] INFO: -------------------------------------------------------
+[2026-04-18 22:10:30] INFO: TICK #133 initiated
+[2026-04-18 22:10:30] INFO: State recovered | Last Block: 10585 | Employers: 8
+[2026-04-18 22:10:30] INFO: Active registry: 8 employers
+[2026-04-18 22:10:30] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:10:30] INFO: TICK #133 finalized in 0.2s
+[2026-04-18 22:10:30] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:10:30] INFO: -------------------------------------------------------
+[2026-04-18 22:11:01] INFO: TICK #134 initiated
+[2026-04-18 22:11:01] INFO: State recovered | Last Block: 10585 | Employers: 8
+[2026-04-18 22:11:01] INFO: Scanning blocks 10585 → 10586 for new cycles
+[2026-04-18 22:11:01] INFO: Active registry: 8 employers
+[2026-04-18 22:11:01] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:11:01] INFO: TICK #134 finalized in 0.2s
+[2026-04-18 22:11:01] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:11:01] INFO: -------------------------------------------------------
+[2026-04-18 22:11:32] INFO: TICK #135 initiated
+[2026-04-18 22:11:32] INFO: State recovered | Last Block: 10586 | Employers: 8
+[2026-04-18 22:11:32] INFO: Active registry: 8 employers
+[2026-04-18 22:11:32] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:11:32] INFO: TICK #135 finalized in 0.2s
+[2026-04-18 22:11:32] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:11:32] INFO: -------------------------------------------------------
+[2026-04-18 22:12:03] INFO: TICK #136 initiated
+[2026-04-18 22:12:03] INFO: State recovered | Last Block: 10586 | Employers: 8
+[2026-04-18 22:12:03] INFO: Scanning blocks 10586 → 10587 for new cycles
+[2026-04-18 22:12:03] INFO: Active registry: 8 employers
+[2026-04-18 22:12:03] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:12:03] INFO: TICK #136 finalized in 0.2s
+[2026-04-18 22:12:03] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:12:03] INFO: -------------------------------------------------------
+[2026-04-18 22:12:34] INFO: TICK #137 initiated
+[2026-04-18 22:12:34] INFO: State recovered | Last Block: 10587 | Employers: 8
+[2026-04-18 22:12:34] INFO: Active registry: 8 employers
+[2026-04-18 22:12:34] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:12:34] INFO: TICK #137 finalized in 0.3s
+[2026-04-18 22:12:34] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:12:34] INFO: -------------------------------------------------------
+[2026-04-18 22:13:04] INFO: TICK #138 initiated
+[2026-04-18 22:13:04] INFO: State recovered | Last Block: 10587 | Employers: 8
+[2026-04-18 22:13:04] INFO: Scanning blocks 10587 → 10588 for new cycles
+[2026-04-18 22:13:04] INFO: Active registry: 8 employers
+[2026-04-18 22:13:04] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:13:04] INFO: TICK #138 finalized in 0.3s
+[2026-04-18 22:13:04] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:13:04] INFO: -------------------------------------------------------
+[2026-04-18 22:13:35] INFO: TICK #139 initiated
+[2026-04-18 22:13:35] INFO: State recovered | Last Block: 10588 | Employers: 8
+[2026-04-18 22:13:35] INFO: Active registry: 8 employers
+[2026-04-18 22:13:35] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:13:35] INFO: TICK #139 finalized in 0.2s
+[2026-04-18 22:13:35] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:13:35] INFO: -------------------------------------------------------
+[2026-04-18 22:14:06] INFO: TICK #140 initiated
+[2026-04-18 22:14:06] INFO: State recovered | Last Block: 10588 | Employers: 8
+[2026-04-18 22:14:06] INFO: Scanning blocks 10588 → 10594 for new cycles
+[2026-04-18 22:14:06] INFO: New employer discovered: 0xd0333948C3198dde12D5950250Cebb9f678Ea8fa
+[2026-04-18 22:14:06] INFO: Found 1 CycleStarted events — 1 new employers
+[2026-04-18 22:14:06] INFO: Discovered 1 new employer(s)
+[2026-04-18 22:14:08] WARN: Webhook notification failed: Error: Discord webhook returned 429
+[2026-04-18 22:14:08] INFO: Active registry: 9 employers
+[2026-04-18 22:14:08] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:14:08] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:14:09] INFO: TX broadcast: 0xd504d9b492d0897477ae0f27fc653ede09d398753e788fbda7a62e435f7c1d7f
+[2026-04-18 22:14:13] INFO: ✅ Rebalanced | gas: 324735 | tx: 0xd504d9b492d0897477ae0f27fc653ede09d398753e788fbda7a62e435f7c1d7f
+[2026-04-18 22:14:14] INFO: TICK #140 finalized in 7.7s
+[2026-04-18 22:14:14] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:14:14] INFO: Strategies Rebalanced: 1
+[2026-04-18 22:14:14] INFO: -------------------------------------------------------
+[2026-04-18 22:14:37] INFO: TICK #141 initiated
+[2026-04-18 22:14:37] INFO: State recovered | Last Block: 10594 | Employers: 9
+[2026-04-18 22:14:37] INFO: Scanning blocks 10594 → 10596 for new cycles
+[2026-04-18 22:14:37] INFO: Active registry: 9 employers
+[2026-04-18 22:14:37] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:14:37] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:14:38] INFO: TX broadcast: 0xae98e08ef4c5695ee6f7932d500c0124658e6129bbb4f674f60eee5a1f717416
+[2026-04-18 22:14:42] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xae98e08ef4c5695ee6f7932d500c0124658e6129bbb4f674f60eee5a1f717416
+[2026-04-18 22:14:43] INFO: TICK #141 finalized in 5.6s
+[2026-04-18 22:14:43] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:14:43] INFO: -------------------------------------------------------
+[2026-04-18 22:14:48] INFO: Frontend Command Center connected! (ID: vU_tPvkLOYf07TVjAAAK)
+[2026-04-18 22:15:08] INFO: TICK #142 initiated
+[2026-04-18 22:15:08] INFO: State recovered | Last Block: 10596 | Employers: 9
+[2026-04-18 22:15:08] INFO: Scanning blocks 10596 → 10598 for new cycles
+[2026-04-18 22:15:08] INFO: Active registry: 9 employers
+[2026-04-18 22:15:08] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:15:08] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:15:09] INFO: TX broadcast: 0xf23819961e66701439fa644809395933f16f427fb6340bb6f616b9cdf5e72de9
+[2026-04-18 22:15:13] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xf23819961e66701439fa644809395933f16f427fb6340bb6f616b9cdf5e72de9
+[2026-04-18 22:15:14] INFO: TICK #142 finalized in 5.5s
+[2026-04-18 22:15:14] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:15:14] INFO: -------------------------------------------------------
+[2026-04-18 22:15:39] INFO: TICK #143 initiated
+[2026-04-18 22:15:39] INFO: State recovered | Last Block: 10598 | Employers: 9
+[2026-04-18 22:15:39] INFO: Scanning blocks 10598 → 10600 for new cycles
+[2026-04-18 22:15:39] INFO: Active registry: 9 employers
+[2026-04-18 22:15:40] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:15:40] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:15:40] INFO: TX broadcast: 0x6d63a15c0073c6a2c690b83647a871fbb9a03492b1ab4c646b4876a88401aad7
+[2026-04-18 22:15:44] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0x6d63a15c0073c6a2c690b83647a871fbb9a03492b1ab4c646b4876a88401aad7
+[2026-04-18 22:15:45] INFO: TICK #143 finalized in 5.5s
+[2026-04-18 22:15:45] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:15:45] INFO: -------------------------------------------------------
+[2026-04-18 22:16:11] INFO: TICK #144 initiated
+[2026-04-18 22:16:11] INFO: State recovered | Last Block: 10600 | Employers: 9
+[2026-04-18 22:16:11] INFO: Scanning blocks 10600 → 10602 for new cycles
+[2026-04-18 22:16:11] INFO: Active registry: 9 employers
+[2026-04-18 22:16:11] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:16:11] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:16:11] INFO: TX broadcast: 0xf9eee4ee08edc6b98b49f667e9f0f74a374117721aa3caed17e9375a5d8029c3
+[2026-04-18 22:16:15] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xf9eee4ee08edc6b98b49f667e9f0f74a374117721aa3caed17e9375a5d8029c3
+[2026-04-18 22:16:16] INFO: TICK #144 finalized in 5.6s
+[2026-04-18 22:16:16] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:16:16] INFO: -------------------------------------------------------
+[2026-04-18 22:16:42] INFO: TICK #145 initiated
+[2026-04-18 22:16:42] INFO: State recovered | Last Block: 10602 | Employers: 9
+[2026-04-18 22:16:42] INFO: Scanning blocks 10602 → 10604 for new cycles
+[2026-04-18 22:16:42] INFO: Active registry: 9 employers
+[2026-04-18 22:16:42] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:16:42] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:16:42] INFO: TX broadcast: 0x89be87f5a731705f8aeba098399aa1f063147600b7150d2dcfcd1b38ee52ee61
+[2026-04-18 22:16:46] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0x89be87f5a731705f8aeba098399aa1f063147600b7150d2dcfcd1b38ee52ee61
+[2026-04-18 22:16:47] INFO: TICK #145 finalized in 5.5s
+[2026-04-18 22:16:47] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:16:47] INFO: -------------------------------------------------------
+[2026-04-18 22:17:12] INFO: TICK #146 initiated
+[2026-04-18 22:17:12] INFO: State recovered | Last Block: 10604 | Employers: 9
+[2026-04-18 22:17:12] INFO: Scanning blocks 10604 → 10606 for new cycles
+[2026-04-18 22:17:12] INFO: Active registry: 9 employers
+[2026-04-18 22:17:12] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:17:12] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:17:12] INFO: TX broadcast: 0x2877171258769b6407870822204e14174467e3ebcde8aff13dd68b789ee62fae
+[2026-04-18 22:17:18] INFO: ✅ BufferAdjusted | gas: 334581 | tx: 0x2877171258769b6407870822204e14174467e3ebcde8aff13dd68b789ee62fae
+[2026-04-18 22:17:19] INFO: TICK #146 finalized in 6.8s
+[2026-04-18 22:17:19] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:17:19] INFO: -------------------------------------------------------
+[2026-04-18 22:17:43] INFO: TICK #147 initiated
+[2026-04-18 22:17:43] INFO: State recovered | Last Block: 10606 | Employers: 9
+[2026-04-18 22:17:43] INFO: Scanning blocks 10606 → 10608 for new cycles
+[2026-04-18 22:17:43] INFO: Active registry: 9 employers
+[2026-04-18 22:17:43] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:17:43] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:17:43] INFO: TX broadcast: 0x308771c7b97c832e7f5eca2a9fb6361a3e49ecf9eee25ab2d8cce99eeda195af
+[2026-04-18 22:17:48] INFO: ✅ NoActionNeeded | gas: 246462 | tx: 0x308771c7b97c832e7f5eca2a9fb6361a3e49ecf9eee25ab2d8cce99eeda195af
+[2026-04-18 22:17:49] INFO: TICK #147 finalized in 5.4s
+[2026-04-18 22:17:49] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:17:49] INFO: -------------------------------------------------------
+[2026-04-18 22:18:14] INFO: TICK #148 initiated
+[2026-04-18 22:18:14] INFO: State recovered | Last Block: 10608 | Employers: 9
+[2026-04-18 22:18:14] INFO: Scanning blocks 10608 → 10610 for new cycles
+[2026-04-18 22:18:14] INFO: Active registry: 9 employers
+[2026-04-18 22:18:15] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:18:15] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:18:15] INFO: TX broadcast: 0x94ae3671aa7f51603009110d9c09a578ebd1f7c7dad88d6c6e7d65eea7f9e396
+[2026-04-18 22:18:19] INFO: ✅ NoActionNeeded | gas: 246531 | tx: 0x94ae3671aa7f51603009110d9c09a578ebd1f7c7dad88d6c6e7d65eea7f9e396
+[2026-04-18 22:18:20] INFO: TICK #148 finalized in 5.5s
+[2026-04-18 22:18:20] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:18:20] INFO: -------------------------------------------------------
+[2026-04-18 22:18:46] INFO: TICK #149 initiated
+[2026-04-18 22:18:46] INFO: State recovered | Last Block: 10610 | Employers: 9
+[2026-04-18 22:18:46] INFO: Scanning blocks 10610 → 10612 for new cycles
+[2026-04-18 22:18:46] INFO: Active registry: 9 employers
+[2026-04-18 22:18:46] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:18:46] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:18:46] INFO: TX broadcast: 0x2c2f7b0a888b09e443d01c02c0cecf1de4b7cb7e9fa0fecb57cdc36550c85fd6
+[2026-04-18 22:18:50] INFO: ✅ NoActionNeeded | gas: 246531 | tx: 0x2c2f7b0a888b09e443d01c02c0cecf1de4b7cb7e9fa0fecb57cdc36550c85fd6
+[2026-04-18 22:18:51] INFO: TICK #149 finalized in 5.6s
+[2026-04-18 22:18:51] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:18:51] INFO: -------------------------------------------------------
+[2026-04-18 22:19:17] INFO: TICK #150 initiated
+[2026-04-18 22:19:17] INFO: State recovered | Last Block: 10612 | Employers: 9
+[2026-04-18 22:19:17] INFO: Scanning blocks 10612 → 10614 for new cycles
+[2026-04-18 22:19:17] INFO: Active registry: 9 employers
+[2026-04-18 22:19:17] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:19:17] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:19:17] INFO: TX broadcast: 0x08a4b57157f9cfd4d2a4cc88e0c29ee1b28b2c8fafe0d5bf7a938d99d324ac77
+[2026-04-18 22:19:21] INFO: ✅ BufferAdjusted | gas: 334809 | tx: 0x08a4b57157f9cfd4d2a4cc88e0c29ee1b28b2c8fafe0d5bf7a938d99d324ac77
+[2026-04-18 22:19:22] INFO: TICK #150 finalized in 5.5s
+[2026-04-18 22:19:22] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:19:22] INFO: -------------------------------------------------------
+[2026-04-18 22:19:48] INFO: TICK #151 initiated
+[2026-04-18 22:19:48] INFO: State recovered | Last Block: 10614 | Employers: 9
+[2026-04-18 22:19:48] INFO: Scanning blocks 10614 → 10616 for new cycles
+[2026-04-18 22:19:48] INFO: Active registry: 9 employers
+[2026-04-18 22:19:48] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:19:48] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:19:48] INFO: TX broadcast: 0x5065ee22e07c0941779513a7a99c36867efff14fc67efa0ca64c01dd154188eb
+[2026-04-18 22:19:52] INFO: ✅ NoActionNeeded | gas: 246667 | tx: 0x5065ee22e07c0941779513a7a99c36867efff14fc67efa0ca64c01dd154188eb
+[2026-04-18 22:19:53] INFO: TICK #151 finalized in 5.6s
+[2026-04-18 22:19:53] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:19:53] INFO: -------------------------------------------------------
+[2026-04-18 22:20:19] INFO: TICK #152 initiated
+[2026-04-18 22:20:19] INFO: State recovered | Last Block: 10616 | Employers: 9
+[2026-04-18 22:20:19] INFO: Scanning blocks 10616 → 10618 for new cycles
+[2026-04-18 22:20:19] INFO: Active registry: 9 employers
+[2026-04-18 22:20:19] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:20:19] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:20:20] INFO: TX broadcast: 0x22671c57fe68b0b0209f63c60963356c28ae0dc9c40b5207084dd03b35f7fa3a
+[2026-04-18 22:20:24] INFO: ✅ NoActionNeeded | gas: 246667 | tx: 0x22671c57fe68b0b0209f63c60963356c28ae0dc9c40b5207084dd03b35f7fa3a
+[2026-04-18 22:20:25] INFO: TICK #152 finalized in 5.5s
+[2026-04-18 22:20:25] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:20:25] INFO: -------------------------------------------------------
+[2026-04-18 22:20:50] INFO: TICK #153 initiated
+[2026-04-18 22:20:50] INFO: State recovered | Last Block: 10618 | Employers: 9
+[2026-04-18 22:20:50] INFO: Scanning blocks 10618 → 10620 for new cycles
+[2026-04-18 22:20:50] INFO: Active registry: 9 employers
+[2026-04-18 22:20:51] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:20:51] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:20:51] INFO: TX broadcast: 0xd85cb16a0f8974f286f94cab8850257688a18fbe3f8762b5a1a782014428c640
+[2026-04-18 22:20:55] INFO: ✅ NoActionNeeded | gas: 246667 | tx: 0xd85cb16a0f8974f286f94cab8850257688a18fbe3f8762b5a1a782014428c640
+[2026-04-18 22:20:56] INFO: TICK #153 finalized in 5.6s
+[2026-04-18 22:20:56] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:20:56] INFO: -------------------------------------------------------
+[2026-04-18 22:21:20] INFO: TICK #154 initiated
+[2026-04-18 22:21:20] INFO: State recovered | Last Block: 10620 | Employers: 9
+[2026-04-18 22:21:20] INFO: Scanning blocks 10620 → 10624 for new cycles
+[2026-04-18 22:21:20] INFO: Active registry: 9 employers
+[2026-04-18 22:21:21] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:21:21] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:21:21] INFO: TX broadcast: 0x3778250af1ae3137d421dc482881689549fefedaa4af8397f14caa543e0ddde4
+[2026-04-18 22:21:26] INFO: ✅ BufferAdjusted | gas: 334905 | tx: 0x3778250af1ae3137d421dc482881689549fefedaa4af8397f14caa543e0ddde4
+[2026-04-18 22:21:27] INFO: TICK #154 finalized in 6.9s
+[2026-04-18 22:21:27] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:21:27] INFO: -------------------------------------------------------
+[2026-04-18 22:21:52] INFO: TICK #155 initiated
+[2026-04-18 22:21:52] INFO: State recovered | Last Block: 10624 | Employers: 9
+[2026-04-18 22:21:52] INFO: Scanning blocks 10624 → 10626 for new cycles
+[2026-04-18 22:21:52] INFO: Active registry: 9 employers
+[2026-04-18 22:21:52] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:21:52] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:21:52] INFO: TX broadcast: 0x6d678b3205fb9d779972e8b9e1cbe3b42c81c6a9256a8f2fbab553466421340d
+[2026-04-18 22:21:58] INFO: ✅ BufferAdjusted | gas: 295535 | tx: 0x6d678b3205fb9d779972e8b9e1cbe3b42c81c6a9256a8f2fbab553466421340d
+[2026-04-18 22:21:59] INFO: TICK #155 finalized in 6.9s
+[2026-04-18 22:21:59] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:21:59] INFO: -------------------------------------------------------
+[2026-04-18 22:22:23] INFO: TICK #156 initiated
+[2026-04-18 22:22:23] INFO: State recovered | Last Block: 10626 | Employers: 9
+[2026-04-18 22:22:23] INFO: Scanning blocks 10626 → 10628 for new cycles
+[2026-04-18 22:22:23] INFO: Active registry: 9 employers
+[2026-04-18 22:22:23] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:22:23] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:22:23] INFO: TX broadcast: 0x4d8ed29b081fcebe1c42c3f599c4d494ab67c2534d0e1af25497edcae616d4a9
+[2026-04-18 22:22:27] INFO: ✅ MovedToReserve | gas: 168563 | tx: 0x4d8ed29b081fcebe1c42c3f599c4d494ab67c2534d0e1af25497edcae616d4a9
+[2026-04-18 22:22:28] INFO: TICK #156 finalized in 5.4s
+[2026-04-18 22:22:28] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:22:28] INFO: -------------------------------------------------------
+[2026-04-18 22:22:54] INFO: TICK #157 initiated
+[2026-04-18 22:22:54] INFO: State recovered | Last Block: 10628 | Employers: 9
+[2026-04-18 22:22:54] INFO: Scanning blocks 10628 → 10630 for new cycles
+[2026-04-18 22:22:54] INFO: Active registry: 9 employers
+[2026-04-18 22:22:55] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:22:55] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:22:55] INFO: TX broadcast: 0x44b94176ae5d77f6c4aa0cde8d9cc9cdf870ffe5a4ab7d111ad7490f89aa5207
+[2026-04-18 22:22:59] INFO: ✅ MovedToReserve | gas: 168563 | tx: 0x44b94176ae5d77f6c4aa0cde8d9cc9cdf870ffe5a4ab7d111ad7490f89aa5207
+[2026-04-18 22:23:00] INFO: TICK #157 finalized in 5.5s
+[2026-04-18 22:23:00] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:23:00] INFO: -------------------------------------------------------
+[2026-04-18 22:23:26] INFO: TICK #158 initiated
+[2026-04-18 22:23:26] INFO: State recovered | Last Block: 10630 | Employers: 9
+[2026-04-18 22:23:26] INFO: Scanning blocks 10630 → 10632 for new cycles
+[2026-04-18 22:23:26] INFO: Active registry: 9 employers
+[2026-04-18 22:23:26] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:23:26] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:23:26] INFO: TX broadcast: 0x85f05a8ff81479c8452f668ee6da21ce807d9afb30784c5063d8e74bc0752775
+[2026-04-18 22:23:30] INFO: ✅ MovedToReserve | gas: 168716 | tx: 0x85f05a8ff81479c8452f668ee6da21ce807d9afb30784c5063d8e74bc0752775
+[2026-04-18 22:23:31] INFO: TICK #158 finalized in 5.6s
+[2026-04-18 22:23:31] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:23:31] INFO: -------------------------------------------------------
+[2026-04-18 22:23:57] INFO: TICK #159 initiated
+[2026-04-18 22:23:57] INFO: State recovered | Last Block: 10632 | Employers: 9
+[2026-04-18 22:23:57] INFO: Scanning blocks 10632 → 10634 for new cycles
+[2026-04-18 22:23:57] INFO: Active registry: 9 employers
+[2026-04-18 22:23:58] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:23:58] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:23:58] INFO: TX broadcast: 0xf02f13a94e0eb535477272803d838043a954e99e0382d941dad66ce04cf68e2c
+[2026-04-18 22:24:02] INFO: ✅ MovedToReserve | gas: 168716 | tx: 0xf02f13a94e0eb535477272803d838043a954e99e0382d941dad66ce04cf68e2c
+[2026-04-18 22:24:03] INFO: TICK #159 finalized in 5.5s
+[2026-04-18 22:24:03] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:24:03] INFO: -------------------------------------------------------
+[2026-04-18 22:24:29] INFO: TICK #160 initiated
+[2026-04-18 22:24:29] INFO: State recovered | Last Block: 10634 | Employers: 9
+[2026-04-18 22:24:29] INFO: Scanning blocks 10634 → 10636 for new cycles
+[2026-04-18 22:24:29] INFO: Active registry: 9 employers
+[2026-04-18 22:24:29] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:24:29] INFO: Rebalancing - employer: 0xd0333948... | cycleId: 1
+[2026-04-18 22:24:29] INFO: TX broadcast: 0xa806a882a3a42ab0513951778d30382f303ca754f7c57e04db69afdab4054900
+[2026-04-18 22:24:33] INFO: ✅ PaydayTriggered | gas: 594635 | tx: 0xa806a882a3a42ab0513951778d30382f303ca754f7c57e04db69afdab4054900
+[2026-04-18 22:24:38] WARN: Webhook notification failed: Error: Discord webhook returned 429
+[2026-04-18 22:24:39] INFO: TICK #160 finalized in 10.7s
+[2026-04-18 22:24:39] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:24:39] INFO: Paydays Settled: 1
+[2026-04-18 22:24:39] INFO: -------------------------------------------------------
+[2026-04-18 22:25:00] INFO: TICK #161 initiated
+[2026-04-18 22:25:00] INFO: State recovered | Last Block: 10636 | Employers: 9
+[2026-04-18 22:25:00] INFO: Scanning blocks 10636 → 10638 for new cycles
+[2026-04-18 22:25:00] INFO: Active registry: 9 employers
+[2026-04-18 22:25:00] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:25:00] INFO: TICK #161 finalized in 0.2s
+[2026-04-18 22:25:00] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:25:00] INFO: -------------------------------------------------------
+[2026-04-18 22:25:31] INFO: TICK #162 initiated
+[2026-04-18 22:25:31] INFO: State recovered | Last Block: 10638 | Employers: 9
+[2026-04-18 22:25:31] INFO: Scanning blocks 10638 → 10639 for new cycles
+[2026-04-18 22:25:31] INFO: Active registry: 9 employers
+[2026-04-18 22:25:31] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:25:31] INFO: TICK #162 finalized in 0.3s
+[2026-04-18 22:25:31] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:25:31] INFO: -------------------------------------------------------
+[2026-04-18 22:26:02] INFO: TICK #163 initiated
+[2026-04-18 22:26:02] INFO: State recovered | Last Block: 10639 | Employers: 9
+[2026-04-18 22:26:02] INFO: Active registry: 9 employers
+[2026-04-18 22:26:03] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:26:03] INFO: TICK #163 finalized in 0.3s
+[2026-04-18 22:26:03] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:26:03] INFO: -------------------------------------------------------
+[2026-04-18 22:26:34] INFO: TICK #164 initiated
+[2026-04-18 22:26:34] INFO: State recovered | Last Block: 10639 | Employers: 9
+[2026-04-18 22:26:34] INFO: Scanning blocks 10639 → 10640 for new cycles
+[2026-04-18 22:26:34] INFO: Active registry: 9 employers
+[2026-04-18 22:26:34] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:26:34] INFO: TICK #164 finalized in 0.2s
+[2026-04-18 22:26:34] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:26:34] INFO: -------------------------------------------------------
+[2026-04-18 22:27:05] INFO: TICK #165 initiated
+[2026-04-18 22:27:05] INFO: State recovered | Last Block: 10640 | Employers: 9
+[2026-04-18 22:27:05] INFO: Active registry: 9 employers
+[2026-04-18 22:27:05] INFO: Processing queue: 0 active cycles
+[2026-04-18 22:27:05] INFO: TICK #165 finalized in 0.2s
+[2026-04-18 22:27:05] INFO: Status: 0 success | 0 failed
+[2026-04-18 22:27:05] INFO: -------------------------------------------------------
+[2026-04-18 22:27:36] INFO: TICK #166 initiated
+[2026-04-18 22:27:36] INFO: State recovered | Last Block: 10640 | Employers: 9
+[2026-04-18 22:27:36] INFO: Scanning blocks 10640 → 10642 for new cycles
+[2026-04-18 22:27:36] INFO: Found 1 CycleStarted events — 0 new employers
+[2026-04-18 22:27:36] INFO: Active registry: 9 employers
+[2026-04-18 22:27:37] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:27:37] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:27:37] INFO: TX broadcast: 0x5890e8ce54687c5a9eb16d4b179b9c6cd63417aa3a412d5166b2fb0877ad59b6
+[2026-04-18 22:27:41] INFO: ✅ Rebalanced | gas: 324735 | tx: 0x5890e8ce54687c5a9eb16d4b179b9c6cd63417aa3a412d5166b2fb0877ad59b6
+[2026-04-18 22:27:42] INFO: TICK #166 finalized in 5.5s
+[2026-04-18 22:27:42] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:27:42] INFO: Strategies Rebalanced: 1
+[2026-04-18 22:27:42] INFO: -------------------------------------------------------
+[2026-04-18 22:28:08] INFO: TICK #167 initiated
+[2026-04-18 22:28:08] INFO: State recovered | Last Block: 10642 | Employers: 9
+[2026-04-18 22:28:08] INFO: Scanning blocks 10642 → 10644 for new cycles
+[2026-04-18 22:28:08] INFO: Active registry: 9 employers
+[2026-04-18 22:28:08] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:28:08] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:28:08] INFO: TX broadcast: 0xe2c64e90c97e289b2bb90d7b67f7fdc9ae2742b05fffb341dafed8957ea91b59
+[2026-04-18 22:28:12] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xe2c64e90c97e289b2bb90d7b67f7fdc9ae2742b05fffb341dafed8957ea91b59
+[2026-04-18 22:28:13] INFO: TICK #167 finalized in 5.6s
+[2026-04-18 22:28:13] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:28:13] INFO: -------------------------------------------------------
+[2026-04-18 22:28:38] INFO: TICK #168 initiated
+[2026-04-18 22:28:38] INFO: State recovered | Last Block: 10644 | Employers: 9
+[2026-04-18 22:28:38] INFO: Scanning blocks 10644 → 10646 for new cycles
+[2026-04-18 22:28:38] INFO: Active registry: 9 employers
+[2026-04-18 22:28:38] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:28:38] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:28:38] INFO: TX broadcast: 0xa7fbb696a222bb325222bbbc260ede549ba01d61dc92bab8d1b2b235fda0c694
+[2026-04-18 22:28:40] INFO: Frontend Command Center connected! (ID: P3d6v9fHoyw8FlKTAAAN)
+[2026-04-18 22:28:44] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xa7fbb696a222bb325222bbbc260ede549ba01d61dc92bab8d1b2b235fda0c694
+[2026-04-18 22:28:45] INFO: TICK #168 finalized in 6.8s
+[2026-04-18 22:28:45] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:28:45] INFO: -------------------------------------------------------
+[2026-04-18 22:29:09] INFO: TICK #169 initiated
+[2026-04-18 22:29:09] INFO: State recovered | Last Block: 10646 | Employers: 9
+[2026-04-18 22:29:09] INFO: Scanning blocks 10646 → 10648 for new cycles
+[2026-04-18 22:29:09] INFO: Active registry: 9 employers
+[2026-04-18 22:29:09] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:29:09] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:29:10] INFO: TX broadcast: 0x2a0cd04d3e0a1c4ae8c9069a08a91be8875d8ff5438192cbc6896002c76827cc
+[2026-04-18 22:29:14] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0x2a0cd04d3e0a1c4ae8c9069a08a91be8875d8ff5438192cbc6896002c76827cc
+[2026-04-18 22:29:15] INFO: TICK #169 finalized in 5.5s
+[2026-04-18 22:29:15] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:29:15] INFO: -------------------------------------------------------
+[2026-04-18 22:29:41] INFO: TICK #170 initiated
+[2026-04-18 22:29:41] INFO: State recovered | Last Block: 10648 | Employers: 9
+[2026-04-18 22:29:41] INFO: Scanning blocks 10648 → 10650 for new cycles
+[2026-04-18 22:29:41] INFO: Active registry: 9 employers
+[2026-04-18 22:29:41] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:29:41] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:29:41] INFO: TX broadcast: 0xcdda966137ced3a9455c9af920ef28d89b60f2179a47a2a1707f01a20be577ea
+[2026-04-18 22:29:45] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0xcdda966137ced3a9455c9af920ef28d89b60f2179a47a2a1707f01a20be577ea
+[2026-04-18 22:29:46] INFO: TICK #170 finalized in 5.6s
+[2026-04-18 22:29:46] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:29:46] INFO: -------------------------------------------------------
+[2026-04-18 22:30:12] INFO: TICK #171 initiated
+[2026-04-18 22:30:12] INFO: State recovered | Last Block: 10650 | Employers: 9
+[2026-04-18 22:30:12] INFO: Scanning blocks 10650 → 10652 for new cycles
+[2026-04-18 22:30:12] INFO: Active registry: 9 employers
+[2026-04-18 22:30:12] INFO: Processing queue: 1 active cycles
+[2026-04-18 22:30:12] INFO: Rebalancing - employer: 0xec2B1547... | cycleId: 2
+[2026-04-18 22:30:13] INFO: TX broadcast: 0x644d88258772fb250e1f6e8ab3bcde589519036f252a2ec6e6fa514ca727194b
+[2026-04-18 22:30:17] INFO: ✅ NoActionNeeded | gas: 246326 | tx: 0x644d88258772fb250e1f6e8ab3bcde589519036f252a2ec6e6fa514ca727194b
+[2026-04-18 22:30:18] INFO: TICK #171 finalized in 5.5s
+[2026-04-18 22:30:18] INFO: Status: 1 success | 0 failed
+[2026-04-18 22:30:18] INFO: -------------------------------------------------------
