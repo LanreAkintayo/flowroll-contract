@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Load environment variables from root .env
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 source "$ROOT_DIR/.env"
 
 echo "================================================"

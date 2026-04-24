@@ -1,18 +1,13 @@
-# Flowroll — Smart Contracts
+# flowroll-contract
 
-> **Omnichain, yield-bearing payroll and treasury protocol built natively on Initia.**
+> Smart contracts and off-chain routing agent for the Flowroll protocol.
 
-Flowroll lets employers deposit payroll once. For the entire cycle duration — from setup to payday — an automated yield agent deploys those idle funds into DeFi yield pools on Initia. On payday, the protocol automatically distributes exact salaries to every employee — on any chain they prefer — while returning the generated yield directly to the employer as free revenue. The protocol takes a small fee for doing the work.
-
-Built for **INITIATE: Initia Hackathon Season 1**.
+This repo is a submodule of the [Flowroll monorepo](https://github.com/LanreAkintayo/flowroll). For a full overview of the protocol and instructions to run the entire stack, see the root README there.
 
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [How It Works](#how-it-works)
-- [Architecture](#architecture)
 - [Contract Reference](#contract-reference)
   - [YieldRouter](#yieldrouter)
   - [PayrollManager](#payrollmanager)
@@ -27,166 +22,10 @@ Built for **INITIATE: Initia Hackathon Season 1**.
 - [Getting Started](#getting-started)
   - [Smart Contracts](#smart-contracts)
   - [Agent](#agent)
-  - [Frontend](#frontend)
-  - [Appchain](#appchain)
 - [Environment Variables](#environment-variables)
+  - [Agent Environment Variables](#agent-environment-variable)
 - [Project Structure](#project-structure)
 - [Security Considerations](#security-considerations)
-- [Acknowledgements](#acknowledgements)
-
----
-
-## Overview
-
-Traditional crypto payroll forces a binary choice — either your money sits idle in a multisig earning nothing, or you take on complexity and risk to try to put it to work. Flowroll eliminates that tradeoff entirely.
-
-The protocol is built around one core insight: **payroll capital is predictably idle until payday**. Between the moment an employer sets up payroll and payday, those funds can be generating yield. Flowroll automates that process end to end — deposit once, earn yield passively, pay employees on time, and keep the profit.
-
-**For employers:**
-- Set up payroll once — add employees with their salaries and set a payday
-- Earn yield on idle capital throughout the entire cycle
-- Keep generated yield as free revenue on top of normal operations
-- The protocol takes a small percentage for doing the work
-
-**For employees:**
-- Receive exact salary on payday, on their preferred chain via bridge
-- Optional Auto-Save — keep a percentage inside Flowroll to keep earning yield after payday
-- Request salary in advance via FlowrollCredit — the requested amount is deducted from their payday payout without affecting the employer's yield
-
----
-
-## How It Works
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        EMPLOYER SIDE                                │
-│                                                                     │
-│  1. Employer registers and creates a payroll group                  │
-│  2. Adds employees (by .init username or wallet address)            │
-│     with salaries and sets a payday                                 │
-│  3. Calls setupPayroll() → funds flow to YieldRouter                │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                        YIELD FARMING                                │
-│                                                                     │
-│  4. Agent runs every N minutes (specified by Flowroll)              │
-│  5. Scores all registered pools (APY × Liquidity × Risk × IL)       │
-│  6. Deploys idle capital to highest-scoring pool via adapter        │
-│  7. Rebalances if a significantly better pool appears               │
-│  8. Buffer ladder ensures liquidity is always available for payday  │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                      FLOWROLLCREDIT                                 │
-│                                                                     │
-│  9.  Employee calls requestSalary(amount) to request advance        │
-│  10. Employee calls repayDebt() to repay before payday              │
-│      (unpaid balance is deducted from payday payout)                │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                           PAYDAY                                    │
-│                                                                     │
-│  11. Agent detects timeLeft == 0                                    │
-│  12. YieldRouter withdraws all from pools                           │
-│  13. Sends funds to PayrollDispatcher                               │
-│  14. Dispatcher takes protocol fee from yield                       │
-│  15. Returns remaining yield to employer                            │
-│  16. Credits each employee's salary to PayVault                     │
-│                                                                     │
-├─────────────────────────────────────────────────────────────────────┤
-│                        EMPLOYEE SIDE                                │
-│                                                                     │
-│  17. Employee calls PayVault.claim() to claim full balance, or      │
-│      PayVault.claimAndSave(amount, savePct, duration) to save a     │
-│      portion and earn yield on it                                   │
-│  18. Auto-Save portion → starts new YieldRouter cycle               │
-│  19. Remainder → employee wallet                                    │
-│  20. Employee bridges to preferred chain via Initia Bridge          │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Architecture
-
-The protocol is composed of four core contracts, two auxiliary contracts, and a suite of local development mocks. Each contract has a single, clearly scoped responsibility.
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│                      PayrollManager                          │
-│          Employer-facing entry point. Manages groups,        │
-│          employees, salaries, and cycle lifecycle.           │
-└──────────────────────┬───────────────────────────────────────┘
-                       │ startCycle() / cancelCycle()
-                       ▼
-┌──────────────────────────────────────────────────────────────┐
-│                       YieldRouter                            │
-│       Core yield agent. Manages buffer ladder, pool          │
-│       scoring, rebalancing, and payday settlement.           │
-└──────────┬──────────────────────────────┬────────────────────┘
-           │ deposit() / withdraw()        │ disburse()
-           ▼                              ▼
-┌─────────────────────┐      ┌───────────────────────────────┐
-│   IPoolAdapter      │      │      PayrollDispatcher        │
-│   (per pool)        │      │  Splits funds, takes fee,     │
-│                     │      │  credits employees.           │
-│  MockPoolAdapter    │      └──────────────┬────────────────┘
-│  (local dev)        │                     │ credit()
-└────────┬────────────┘                     ▼
-         │                     ┌────────────────────────────┐
-         ▼                     │          PayVault          │
-┌─────────────────────┐        │  Employee savings layer.   │
-│      MockPool       │        │  claim() or claimAndSave() │
-│   (ERC4626 vault)   │        │  into new YieldRouter      │
-│   Local dev only    │        │  cycles on employee's      │
-└─────────────────────┘        │  behalf.                   │
-                               └────────────────────────────┘
-
-┌──────────────────────┐   ┌──────────────────────────────────┐
-│   FlowrollCredit     │   │        FlowrollZapper            │
-│  Salary advance and  │   │  Entry point for multi-step      │
-│  debt repayment.     │   │  token routing and wrapping.     │
-└──────────────────────┘   └──────────────────────────────────┘
-```
-
-### Adapter Pattern
-
-`YieldRouter` never interacts with pools directly. Every pool has a deployed adapter contract implementing `IPoolAdapter`. This means:
-
-- Adding a new pool = write an adapter + call `addPool()`. Zero changes to `YieldRouter`.
-- Switching environments (local → testnet → mainnet) = register a different adapter address. Contract logic unchanged.
-- Local development uses `MockPoolAdapter` wrapping `MockPool` (ERC4626).
-- Testnet/mainnet will use real `InitiaDEX` adapters.
-
-### Dynamic Buffer System
-
-The buffer ladder is percentage-based, fully owner-configurable, and snapshotted onto each cycle at start time. This means:
-
-- Any cycle duration — hours, days, or months — behaves proportionally.
-- Mid-cycle owner config changes never affect running cycles.
-
-Default buffer ladder (6 tiers):
-
-| % of Cycle Remaining | Buffer % of Principal |
-|---|---|
-| ≥ 70% | 5% |
-| ≥ 50% | 10% |
-| ≥ 30% | 15% |
-| ≥ 25% | 40% |
-| ≥ 10% | 80% |
-| < 10% (catch-all) | 105% (capped at principal) |
-
-### Scoring Formula
-
-```
-Score = APY × LiquidityFactor × RiskMultiplier × ILRiskFactor
-```
-
-| Factor | Description |
-|---|---|
-| `APY` | Pool APY in basis points from adapter |
-| `LiquidityFactor` | `min(1, poolTvl / idleAmount)` — penalizes shallow pools |
-| `RiskMultiplier` | HIGH / MED / LOW based on % of cycle remaining |
-| `ILRiskFactor` | 1.0 for stable pairs, 0.7 for volatile pairs |
 
 ---
 
@@ -309,9 +148,9 @@ Called by YieldRouter on payday. Splits the total payout: takes protocol fee fro
 #### Payout Calculation
 
 ```solidity
-uint256 yieldEarned   = amount > totalDeposited ? amount - totalDeposited : 0;
-uint256 fee           = (yieldEarned * feeBps) / SCALE;   // → feeRecipient
-uint256 employerReturn = yieldEarned - fee;                // → employer wallet
+uint256 yieldEarned    = amount > totalDeposited ? amount - totalDeposited : 0;
+uint256 fee            = (yieldEarned * feeBps) / SCALE;   // → feeRecipient
+uint256 employerReturn = yieldEarned - fee;                 // → employer wallet
 uint256 employeeTotal  = amount > totalDeposited ? totalDeposited : amount;
 
 // For each employee:
@@ -374,7 +213,7 @@ Salary advance module. Employees can request a portion of their upcoming salary 
 
 **`src/FlowrollZapper.sol`**
 
-Entry point for multi-step token routing and wrapping operations. Allows users to enter the protocol from non-USDC tokens in a single transaction.
+Entry point for multi-step token routing and wrapping operations. Allows users to enter the protocol from non-USDC tokens in a single transaction. This is for the purpose of testing the protocol.
 
 ---
 
@@ -382,7 +221,7 @@ Entry point for multi-step token routing and wrapping operations. Allows users t
 
 **`src/mocks/MockPool.sol`**
 
-ERC4626-based yield vault for local development and testnet. Simulates a real InitiaDEX pool.
+ERC4626-based yield vault for local development and testnet to an InitiaDEX pool.
 
 Yield simulation works by injecting USDC directly into the vault contract via `simulateYield()`. This inflates `totalAssets()` while `totalSupply()` stays constant — so every share appreciates. When an adapter redeems shares, it gets back more USDC than it deposited. The delta is the yield. No claim functions needed.
 
@@ -431,13 +270,10 @@ If the owner changes buffer or risk config mid-cycle, running cycles should not 
 
 Rather than embedding IBC transfer calls into `PayrollDispatcher`, cross-chain bridging is handled via the Initia bridge widget on the frontend. This avoids dependency on testnet-specific IBC channel IDs, eliminates the need to resolve USDC denom strings on-chain, and produces better UX — employees control when and where they bridge.
 
-### Why does PayVault implement IPayrollDispatcher?
-
-Auto-save cycles in PayVault are YieldRouter cycles started on the employee's behalf. When they mature, YieldRouter calls `disburse()` on whoever is registered as the dispatcher for that cycle. For auto-save cycles, that dispatcher is PayVault itself. PayVault knows which employee owns which cycle from its own mapping, so it credits the right balance directly.
 
 ### Why is the agent off-chain?
 
-`agentRebalance()` just needs to be called periodically. The contract responds correctly whenever it is called — it doesn't care when. The timing and scheduling logic lives in an off-chain agent that reads active cycles, checks buffer and pool scores, and calls `agentRebalance()` only when needed. This keeps the contracts clean and gas-efficient.
+`agentRebalance()` just needs to be called periodically. The contract responds correctly whenever it is called, it doesn't care when. The timing and scheduling logic lives in an off-chain agent that reads active cycles, checks buffer and pool scores, and calls `agentRebalance()` only when needed. This keeps the contracts clean and gas-efficient.
 
 ### Why does FlowrollCredit not affect employer yield?
 
@@ -446,6 +282,8 @@ Salary advances are funded from a separate credit pool, not from the employer's 
 ---
 
 ## Getting Started
+
+> If you are running the full Flowroll stack, follow the root monorepo README instead. The instructions below are for working on the contracts or agent in isolation.
 
 ### Smart Contracts
 
@@ -458,8 +296,8 @@ Salary advances are funded from a separate credit pool, not from the employer's 
 #### Installation
 
 ```bash
-git clone https://github.com/your-org/flowroll-contracts
-cd flowroll-contracts
+git clone https://github.com/LanreAkintayo/flowroll-contract
+cd flowroll-contract
 forge install
 ```
 
@@ -486,7 +324,7 @@ forge test --match-contract PayrollManagerTest -vv
 Run a specific test function:
 
 ```bash
-forge test --match-test test_startCycle_pullsUSDCFromCaller -vv
+forge test --match-test test_createGroup_storesCorrectly
 ```
 
 Run with gas reporting:
@@ -511,7 +349,7 @@ Deployment is a five-step process: start your appchain, deploy the contracts, fi
 weave rollup start -d
 ```
 
-This spins up a local Initia appchain. Wait until it is fully running before proceeding.
+Wait until the appchain is fully running before proceeding.
 
 **2. Deploy contracts**
 
@@ -530,15 +368,13 @@ The script will print all deployed contract addresses. Copy them into your `.env
 cp .env.example .env
 ```
 
-Fill in the deployed addresses printed in the previous step, along with your deployer key and RPC URL. See [Environment Variables](#environment-variables) for the full reference.
+Fill in the deployed addresses printed in step 2. See [Environment Variables](#environment-variables) for the full reference.
 
 **4. Wire the contracts**
 
-Once all addresses are set in `.env`, run:
-
 ```bash
-chmod +x scripts/wire.sh
-./scripts/wire.sh
+chmod +x scripts/sh/wire.sh
+./scripts/sh/wire.sh
 ```
 
 This sets all cross-contract references — YieldRouter, PayrollManager, PayrollDispatcher, PayVault, and FlowrollCredit — and registers the stable and volatile pool adapters.
@@ -546,15 +382,15 @@ This sets all cross-contract references — YieldRouter, PayrollManager, Payroll
 **5. Seed the pools**
 
 ```bash
-chmod +x scripts/seed.sh
-./scripts/seed.sh
+chmod +x scripts/sh/seed.sh
+./scripts/sh/seed.sh
 ```
 
 Mints MockUSDC, deposits initial TVL into both pools, and funds the Zapper with native token and USDC.
 
 ---
 
-**Optional — Simulate yield (testnet/dev only)**
+**Optional — Simulate yield (dev only)**
 
 To inflate pool share prices and test the yield flow end to end, run these two scripts in order:
 
@@ -563,26 +399,23 @@ chmod +x scripts/sh/simulate-yield.sh
 ./scripts/sh/simulate-yield.sh
 ```
 
-This mints MockUSDC and injects it directly into both pools via `simulateYield()`, inflating the share price to simulate earned yield.
-
 ```bash
 chmod +x scripts/sh/change-pool-apys.sh
 ./scripts/sh/change-pool-apys.sh
 ```
 
-This sets the reported APY on both pools — stable at 30% (3000 bps) and volatile at 5% (500 bps) — so the agent's scoring formula has realistic values to work with.
-
 > Only use these in local or testnet environments.
+
 ---
 
 ### Agent
 
-The off-chain rebalance agent is a TypeScript service that monitors active cycles and calls `agentRebalance()` on YieldRouter at the appropriate intervals.
+The off-chain rebalance agent is a TypeScript service that monitors active cycles and calls `agentRebalance()` on YieldRouter at the configured interval.
 
 #### Prerequisites
 
 - Node.js >= 18
-- `npm` or `yarn`
+- npm
 
 #### Setup
 
@@ -590,8 +423,9 @@ The off-chain rebalance agent is a TypeScript service that monitors active cycle
 cd scripts/agent
 npm install
 cp .env.example .env
-# Fill in your .env values (see Environment Variables)
 ```
+
+Fill in the values in `.env`. See [Agent Environment Variables](#agent-environment-variable) for the full reference.
 
 #### Run
 
@@ -603,21 +437,11 @@ The agent reads its configuration from `config.ts`, maintains state in `agent-st
 
 ---
 
-### Frontend
-
-> Setup instructions coming soon.
-
----
-
-### Appchain
-
-> Setup instructions coming soon.
-
----
-
 ## Environment Variables
 
-Copy `.env.example` to `.env` and fill in the values:
+### Contracts
+
+Copy `.env.example` to `.env` at the repo root and fill in the values:
 
 ```bash
 cp .env.example .env
@@ -645,13 +469,37 @@ cp .env.example .env
 | `FLOWROLL_ZAPPER_ADDRESS` | Deployed FlowrollZapper address |
 | `DEPLOYMENT_BLOCK` | Block number of the deployment — used by the agent |
 
-> Deployed addresses are printed by `forge script script/Deploy.s.sol` — fill them in after running step 2.
+> Deployed addresses are printed by `forge script script/Deploy.s.sol` — fill them in after step 2.
+
+### Agent Environment Variable
+
+Copy `.env.example` to `.env` inside `scripts/agent/` and fill in the values:
+
+```bash
+cp scripts/agent/.env.example scripts/agent/.env
+```
+
+| Variable | Description |
+|---|---|
+| `INITIA_EVM_RPC` | RPC endpoint the agent connects to |
+| `YIELD_ROUTER_ADDRESS` | Deployed YieldRouter address |
+| `AGENT_INTERVAL_MS` | How often the agent runs in milliseconds (default: `30000`) |
+| `LOG_LEVEL` | Logging verbosity — `info`, `debug`, or `error` |
+| `PRIVATE_KEY` | Private key of the agent operator wallet — never commit this |
+| `AGENT_OPERATOR` | Wallet address of the agent operator |
+| `FEE_RECIPIENT` | Wallet address that receives protocol fees |
+| `HEALTH_PORT` | Port for the agent health check endpoint (default: `3001`) |
+| `WEBHOOK_URL` | Discord or Telegram webhook URL for notifications (optional) |
+| `WEBHOOK_TYPE` | Webhook platform — `discord` or `telegram` (optional) |
+| `MAX_RETRIES` | Max retry attempts on failed transactions (default: `2`) |
+| `RETRY_DELAY_MS` | Delay between retries in milliseconds (default: `2000`) |
 
 ---
+
 ## Project Structure
 
 ```
-flowroll-contracts/
+flowroll-contract/
 ├── src/
 │   ├── adapters/
 │   │   ├── BasePoolAdapter.sol
@@ -703,24 +551,28 @@ flowroll-contracts/
 │           ├── YieldRouterRebalance.t.sol
 │           └── YieldRouterScoring.t.sol
 ├── scripts/
+│   ├── sh/
+│   │   ├── wire.sh
+│   │   ├── seed.sh
+│   │   ├── simulate-yield.sh
+│   │   └── change-pool-apys.sh
 │   └── agent/
 │       ├── abis/
 │       │   └── YieldRouter.json
-│       ├── .env
-│       ├── agent-state.json
-│       ├── agent.log
+│       ├── .env.example
 │       ├── config.ts
 │       ├── discover.ts
 │       ├── health.ts
 │       ├── index.ts
 │       ├── logger.ts
 │       ├── package.json
-│       ├── package-lock.json
 │       ├── rebalance.ts
 │       ├── state.ts
 │       ├── tsconfig.json
 │       ├── types.ts
 │       └── webhook.ts
+├── script/
+│   └── Deploy.s.sol
 ├── lib/
 │   ├── forge-std/
 │   └── openzeppelin-contracts/
@@ -748,12 +600,3 @@ flowroll-contracts/
 **Buffer cap:** `bufferAmount` is always capped at `totalDeposited`. The 105% catch-all tier can never return more than the principal.
 
 > ⚠️ These contracts have not been audited. Do not use in production with real funds.
-
----
-
-## Acknowledgements
-
-- [OpenZeppelin Contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) — ERC4626, ERC20, Ownable, Pausable, ReentrancyGuard, SafeERC20
-- [Foundry](https://github.com/foundry-rs/foundry) — Smart contract development framework
-- [Initia](https://initia.xyz) — The Interwoven ecosystem this protocol is built for
-- [InterwovenKit](https://docs.initia.xyz/interwovenkit/introduction) — Frontend integration toolkit

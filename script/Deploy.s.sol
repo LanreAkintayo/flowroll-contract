@@ -60,8 +60,10 @@ contract Deploy is Script {
         vm.startBroadcast(deployerKey);
 
         // --- ASSETS ---
-        MockUSDC usdc = MockUSDC(vm.envAddress("MOCK_USDC_ADDRESS"));
-        MockERC20 bridgedInit = MockERC20(vm.envAddress("BRIDGED_INIT_ADDRESS"));
+        // MockUSDC usdc = MockUSDC(vm.envAddress("MOCK_USDC_ADDRESS"));
+        // MockERC20 bridgedInit = MockERC20(vm.envAddress("BRIDGED_INIT_ADDRESS"));
+        MockUSDC usdc = new MockUSDC(INITIAL_SUPPLY);
+        MockERC20 bridgedInit = new MockERC20("INIT", "INIT", 18);
 
         FlowrollZapper zapper = new FlowrollZapper(
             address(bridgedInit),
