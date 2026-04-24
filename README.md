@@ -414,7 +414,7 @@ The off-chain rebalance agent is a TypeScript service that monitors active cycle
 
 #### Prerequisites
 
-- Node.js >= 18
+- Node.js 20+
 - npm
 
 #### Setup
