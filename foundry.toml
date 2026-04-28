@@ -18,6 +18,7 @@ fuzz = { runs = 1000 }
 [rpc_endpoints]
 localhost  = "http://127.0.0.1:8545"
 flowroll   = "http://127.0.0.1:8545"
+initiation = "https://jsonrpc-evm-1.anvil.asia-southeast.initia.xyz"
 testnet    = "https://jsonrpc-evm-1.anvil.asia-southeast.initia.xyz"
 
 [fmt]

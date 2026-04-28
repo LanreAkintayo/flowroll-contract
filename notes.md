@@ -1,3 +1,22 @@
+// "lastScannedBlock": 12746, for appchain
+{
+  "lastScannedBlock": 17294722,
+  "knownEmployers": [
+    "0x96a9b1F84b40ADd32bCd1FE1D8C04A995b2bDC6d",
+    "0xc3235B99Bdf0F12e793BcA9B83A8BAD88E06C8B3",
+    "0x6AeCa04B7208d65B35aAa53061Bd3d6b348fe72f",
+    "0x74cFd9B6fF483441eD156980828846d880C988c3",
+    "0xbe989468B3E8C3ACEE46AEf04ADD906222e25A92",
+    "0x7525B4B10451B021e58EAdB20Aa7Ca92368BA2DF",
+    "0xec2B1547294a4dd62C0aE651aEb01493f8e4cD74",
+    "0xADEe03eF7C97c0541D8c90F6c263C3a015339F1b",
+    "0xd0333948C3198dde12D5950250Cebb9f678Ea8fa",
+    "0x23Af6F5cd25278Db501e05054820a0D278a3F8ce",
+    "0x4c1E3C8178c19BA9c9fDb6c79391A3b4DFAD9F86"
+  ]
+}
+
+
 // Another flow;
 Deploy the contract first;
 forge script script/Deploy.s.sol   --rpc-url $RPC   --broadcast   --private-key $TESTNET_PRIVATE_KEY 

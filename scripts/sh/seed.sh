@@ -58,12 +58,12 @@ echo ""
 # ── Fund Zapper ───────────────────────────────────────
 echo "Funding Zapper with native token..."
 cast send $FLOWROLL_ZAPPER_ADDRESS \
-  --value $(cast to-wei 1000) \
+  --value $(cast to-wei 4) \
   --rpc-url $RPC --private-key $PK
 
 echo "Minting USDC into Zapper..."
 cast send $MOCK_USDC_ADDRESS \
-  "mint(address,uint256)" $FLOWROLL_ZAPPER_ADDRESS $(cast to-wei 5000000000000) \
+  "mint(address,uint256)" $FLOWROLL_ZAPPER_ADDRESS $(cast to-wei 5_000_000) \
   --rpc-url $RPC --private-key $PK
 
 echo "Zapper funded ✓"
