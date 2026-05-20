@@ -36,7 +36,7 @@ export async function discoverNewEmployers(
       // console.log("Parsed: ", parsed);
       const employer = parsed.args[0] as string;
 
-      const isNew = addEmployer(state, employer);
+      const isNew = await addEmployer(state, employer);
 
       if (isNew) {
         newCount++;

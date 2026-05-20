@@ -14,6 +14,7 @@ export const config = {
   intervalMs: parseInt(process.env.AGENT_INTERVAL_MS || "30000"),
   logLevel: process.env.LOG_LEVEL || "info",
   deploymentBlock: parseInt(process.env.DEPLOYMENT_BLOCK || "0"),
+  externalDatabaseUrl: process.env.DATABASE_URL || "",
 
   // Health endpoint
   healthPort: parseInt(process.env.HEALTH_PORT || "3000"),

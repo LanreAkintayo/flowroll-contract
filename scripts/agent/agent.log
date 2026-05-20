@@ -67238,3 +67238,819 @@
 [2026-04-28 12:04:00] INFO: Active registry: 15 employers
 [2026-04-28 12:04:06] INFO: Processing queue: 2 active cycles
 [2026-04-28 12:04:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:04:09] INFO: TX broadcast: 0x78d1b7c08ea4ce41a6f30c2c82f73b189581b122590b9076887b90647571e525
+[2026-04-28 12:04:10] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x78d1b7c08ea4ce41a6f30c2c82f73b189581b122590b9076887b90647571e525
+[2026-04-28 12:04:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:04:15] INFO: TX broadcast: 0x50fc1d6d17f9d12a2d5a0ef3135b907e561581137cf9dfc13e739a3358b3d0b9
+[2026-04-28 12:04:16] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x50fc1d6d17f9d12a2d5a0ef3135b907e561581137cf9dfc13e739a3358b3d0b9
+[2026-04-28 12:04:17] INFO: TICK #76 finalized in 20.3s
+[2026-04-28 12:04:17] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:04:17] INFO: -------------------------------------------------------
+[2026-04-28 12:04:26] INFO: TICK #77 initiated
+[2026-04-28 12:04:26] INFO: State recovered | Last Block: 17569441 | Employers: 15
+[2026-04-28 12:04:32] INFO: Scanning blocks 17569441 → 17569486 for new cycles
+[2026-04-28 12:04:34] INFO: Active registry: 15 employers
+[2026-04-28 12:04:39] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:04:40] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:04:43] INFO: TX broadcast: 0xe07e93fa5e2d6a7b9eae8373705226e761d3b0aadfce5d6cf7ad36ebdfb579ad
+[2026-04-28 12:04:43] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xe07e93fa5e2d6a7b9eae8373705226e761d3b0aadfce5d6cf7ad36ebdfb579ad
+[2026-04-28 12:04:44] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:04:47] INFO: TX broadcast: 0x48a71a83d99e28947d4a555df32e7b62abb3ebdf071598c9b0ddf6cb006ab6a1
+[2026-04-28 12:04:48] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x48a71a83d99e28947d4a555df32e7b62abb3ebdf071598c9b0ddf6cb006ab6a1
+[2026-04-28 12:04:49] INFO: TICK #77 finalized in 22.1s
+[2026-04-28 12:04:49] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:04:49] INFO: -------------------------------------------------------
+[2026-04-28 12:04:57] INFO: TICK #78 initiated
+[2026-04-28 12:04:57] INFO: State recovered | Last Block: 17569486 | Employers: 15
+[2026-04-28 12:04:58] INFO: Scanning blocks 17569486 → 17569521 for new cycles
+[2026-04-28 12:04:58] INFO: Active registry: 15 employers
+[2026-04-28 12:05:03] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:05:04] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:05:07] INFO: TX broadcast: 0xd0b931fc0713b6ea5699466dc3581060043babcb7effe3f3b1f3b75e2e391a36
+[2026-04-28 12:05:07] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xd0b931fc0713b6ea5699466dc3581060043babcb7effe3f3b1f3b75e2e391a36
+[2026-04-28 12:05:08] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:05:12] INFO: TX broadcast: 0x161002b92889764c401133d3732dcd52cfa2a5294fc480ca09165433a90a3d60
+[2026-04-28 12:05:12] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x161002b92889764c401133d3732dcd52cfa2a5294fc480ca09165433a90a3d60
+[2026-04-28 12:05:13] INFO: TICK #78 finalized in 16.7s
+[2026-04-28 12:05:13] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:05:13] INFO: -------------------------------------------------------
+[2026-04-28 12:05:27] INFO: TICK #79 initiated
+[2026-04-28 12:05:27] INFO: State recovered | Last Block: 17569521 | Employers: 15
+[2026-04-28 12:05:27] INFO: Scanning blocks 17569521 → 17569560 for new cycles
+[2026-04-28 12:05:28] INFO: Active registry: 15 employers
+[2026-04-28 12:05:32] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:05:33] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:05:35] INFO: TX broadcast: 0xcbc4ee64360694f31e739530342dc49539d187118e4f5aa914a8d910f82153b9
+[2026-04-28 12:05:36] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xcbc4ee64360694f31e739530342dc49539d187118e4f5aa914a8d910f82153b9
+[2026-04-28 12:05:37] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:05:40] INFO: TX broadcast: 0xc8a8d3d0265e9c335130b027712bc1053d169a81bdf993af9f1033f580439980
+[2026-04-28 12:05:41] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xc8a8d3d0265e9c335130b027712bc1053d169a81bdf993af9f1033f580439980
+[2026-04-28 12:05:42] INFO: TICK #79 finalized in 15.3s
+[2026-04-28 12:05:42] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:05:42] INFO: -------------------------------------------------------
+[2026-04-28 12:05:57] INFO: TICK #80 initiated
+[2026-04-28 12:05:57] INFO: State recovered | Last Block: 17569560 | Employers: 15
+[2026-04-28 12:05:57] INFO: Scanning blocks 17569560 → 17569601 for new cycles
+[2026-04-28 12:05:57] INFO: Active registry: 15 employers
+[2026-04-28 12:06:02] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:06:02] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:06:07] INFO: TX broadcast: 0x34d3ad37897e21b180dcbbb903b05151037c7f51c202da5cdf357729be7a1ead
+[2026-04-28 12:06:08] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x34d3ad37897e21b180dcbbb903b05151037c7f51c202da5cdf357729be7a1ead
+[2026-04-28 12:06:09] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:06:12] INFO: TX broadcast: 0x5368f878d3ad5fff88daa52019a4f5d35d97e72a457dbae250cd533fd14f8d4f
+[2026-04-28 12:06:12] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5368f878d3ad5fff88daa52019a4f5d35d97e72a457dbae250cd533fd14f8d4f
+[2026-04-28 12:06:13] INFO: TICK #80 finalized in 16.8s
+[2026-04-28 12:06:13] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:06:13] INFO: -------------------------------------------------------
+[2026-04-28 12:06:27] INFO: TICK #81 initiated
+[2026-04-28 12:06:27] INFO: State recovered | Last Block: 17569601 | Employers: 15
+[2026-04-28 12:06:27] INFO: Scanning blocks 17569601 → 17569640 for new cycles
+[2026-04-28 12:06:28] INFO: Active registry: 15 employers
+[2026-04-28 12:06:36] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:06:36] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:06:39] INFO: TX broadcast: 0xb46eeaeefb5af2b10e5bfc2a5034229b9549041d62a751afe356a5f5ce36b083
+[2026-04-28 12:06:40] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xb46eeaeefb5af2b10e5bfc2a5034229b9549041d62a751afe356a5f5ce36b083
+[2026-04-28 12:06:41] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:06:45] INFO: TX broadcast: 0x8cdffd772f138a9443b04c645a976e17213f6a1ab8b9dc33ba8c88ef5fffc992
+[2026-04-28 12:06:45] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x8cdffd772f138a9443b04c645a976e17213f6a1ab8b9dc33ba8c88ef5fffc992
+[2026-04-28 12:06:46] INFO: TICK #81 finalized in 19.7s
+[2026-04-28 12:06:46] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:06:46] INFO: -------------------------------------------------------
+[2026-04-28 12:06:57] INFO: TICK #82 initiated
+[2026-04-28 12:06:57] INFO: State recovered | Last Block: 17569640 | Employers: 15
+[2026-04-28 12:06:58] INFO: Scanning blocks 17569640 → 17569683 for new cycles
+[2026-04-28 12:06:59] INFO: Active registry: 15 employers
+[2026-04-28 12:07:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:07:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:07:10] INFO: TX broadcast: 0xb3bfac67d018636c4aa2ed0a7978d705f4970f888597fc2d6cb558908c8e059c
+[2026-04-28 12:07:10] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xb3bfac67d018636c4aa2ed0a7978d705f4970f888597fc2d6cb558908c8e059c
+[2026-04-28 12:07:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:07:16] INFO: TX broadcast: 0x5a16521b8706fd2587c8dd840a8893d21c3af23354e49b22e296f3cfd9ece4b9
+[2026-04-28 12:07:17] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5a16521b8706fd2587c8dd840a8893d21c3af23354e49b22e296f3cfd9ece4b9
+[2026-04-28 12:07:18] INFO: TICK #82 finalized in 21.3s
+[2026-04-28 12:07:18] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:07:18] INFO: -------------------------------------------------------
+[2026-04-28 12:07:27] INFO: TICK #83 initiated
+[2026-04-28 12:07:27] INFO: State recovered | Last Block: 17569683 | Employers: 15
+[2026-04-28 12:07:27] INFO: Scanning blocks 17569683 → 17569721 for new cycles
+[2026-04-28 12:07:28] INFO: Active registry: 15 employers
+[2026-04-28 12:07:34] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:07:35] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:07:38] INFO: TX broadcast: 0x72056f5d12c8f3d23b552aa53a3a7c756a1e0e51fc2742f49fff4f212092f96b
+[2026-04-28 12:07:38] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x72056f5d12c8f3d23b552aa53a3a7c756a1e0e51fc2742f49fff4f212092f96b
+[2026-04-28 12:07:40] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:07:43] INFO: TX broadcast: 0xc8842835d6f3ccae724b3cd349d1d0cd025461f8ab3bbf76dedd35e7d32594fb
+[2026-04-28 12:07:44] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xc8842835d6f3ccae724b3cd349d1d0cd025461f8ab3bbf76dedd35e7d32594fb
+[2026-04-28 12:07:45] INFO: TICK #83 finalized in 18.0s
+[2026-04-28 12:07:45] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:07:45] INFO: -------------------------------------------------------
+[2026-04-28 12:07:57] INFO: TICK #84 initiated
+[2026-04-28 12:07:57] INFO: State recovered | Last Block: 17569721 | Employers: 15
+[2026-04-28 12:07:58] INFO: Scanning blocks 17569721 → 17569762 for new cycles
+[2026-04-28 12:07:58] INFO: Active registry: 15 employers
+[2026-04-28 12:08:06] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:08:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:08:09] INFO: TX broadcast: 0x413f96397d6892657577e0656c2bd63b9115535acb492e90fafd6f6fad84f090
+[2026-04-28 12:08:09] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x413f96397d6892657577e0656c2bd63b9115535acb492e90fafd6f6fad84f090
+[2026-04-28 12:08:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:08:16] INFO: TX broadcast: 0x96efd2f6f996cac8b1998cb2bed5fa929fd9fdbb977e70a1d88697dc97617d62
+[2026-04-28 12:08:16] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x96efd2f6f996cac8b1998cb2bed5fa929fd9fdbb977e70a1d88697dc97617d62
+[2026-04-28 12:08:17] INFO: TICK #84 finalized in 20.7s
+[2026-04-28 12:08:17] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:08:17] INFO: -------------------------------------------------------
+[2026-04-28 12:08:27] INFO: TICK #85 initiated
+[2026-04-28 12:08:27] INFO: State recovered | Last Block: 17569762 | Employers: 15
+[2026-04-28 12:08:27] INFO: Scanning blocks 17569762 → 17569801 for new cycles
+[2026-04-28 12:08:28] INFO: Active registry: 15 employers
+[2026-04-28 12:08:34] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:08:34] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:08:37] INFO: TX broadcast: 0x9d69b700ee1c07a006463369e0e075d99c0192474d8b3b285616af4cc00b301e
+[2026-04-28 12:08:38] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x9d69b700ee1c07a006463369e0e075d99c0192474d8b3b285616af4cc00b301e
+[2026-04-28 12:08:39] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:08:43] INFO: TX broadcast: 0x5e642baa208d34a8d818edb88688d05a86634c6a52e199b373bc1641762f64ec
+[2026-04-28 12:08:43] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5e642baa208d34a8d818edb88688d05a86634c6a52e199b373bc1641762f64ec
+[2026-04-28 12:08:44] INFO: TICK #85 finalized in 17.7s
+[2026-04-28 12:08:44] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:08:44] INFO: -------------------------------------------------------
+[2026-04-28 12:08:57] INFO: TICK #86 initiated
+[2026-04-28 12:08:57] INFO: State recovered | Last Block: 17569801 | Employers: 15
+[2026-04-28 12:09:00] INFO: Scanning blocks 17569801 → 17569847 for new cycles
+[2026-04-28 12:09:01] INFO: Active registry: 15 employers
+[2026-04-28 12:09:08] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:09:09] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:09:13] INFO: TX broadcast: 0xb63345e1ffeb21115e4026a05062405636fbd45c6b1885ff9db3283516935055
+[2026-04-28 12:09:14] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xb63345e1ffeb21115e4026a05062405636fbd45c6b1885ff9db3283516935055
+[2026-04-28 12:09:17] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:09:20] INFO: TX broadcast: 0xa9c05f8ceb45e89e37f3e1bf293a942bbac39ca567d7a2d63e3e50703139ec08
+[2026-04-28 12:09:21] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xa9c05f8ceb45e89e37f3e1bf293a942bbac39ca567d7a2d63e3e50703139ec08
+[2026-04-28 12:09:22] INFO: TICK #86 finalized in 25.1s
+[2026-04-28 12:09:22] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:09:22] INFO: -------------------------------------------------------
+[2026-04-28 12:09:27] INFO: TICK #87 initiated
+[2026-04-28 12:09:27] INFO: State recovered | Last Block: 17569847 | Employers: 15
+[2026-04-28 12:09:28] INFO: Scanning blocks 17569847 → 17569882 for new cycles
+[2026-04-28 12:09:29] INFO: Active registry: 15 employers
+[2026-04-28 12:09:35] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:09:35] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:09:39] INFO: TX broadcast: 0x356e449dbc8cc6fae25387678ec852a2881c7da74978620a8049f46853b7b31f
+[2026-04-28 12:09:39] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x356e449dbc8cc6fae25387678ec852a2881c7da74978620a8049f46853b7b31f
+[2026-04-28 12:09:41] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:09:44] INFO: TX broadcast: 0xd4e62aed733297d442e7e5d1690896e107cf27be4c0213cf2c11ecc97db0dcfe
+[2026-04-28 12:09:44] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xd4e62aed733297d442e7e5d1690896e107cf27be4c0213cf2c11ecc97db0dcfe
+[2026-04-28 12:09:45] INFO: TICK #87 finalized in 18.9s
+[2026-04-28 12:09:45] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:09:45] INFO: -------------------------------------------------------
+[2026-04-28 12:09:57] INFO: TICK #88 initiated
+[2026-04-28 12:09:57] INFO: State recovered | Last Block: 17569882 | Employers: 15
+[2026-04-28 12:09:57] INFO: Scanning blocks 17569882 → 17569924 for new cycles
+[2026-04-28 12:09:58] INFO: Active registry: 15 employers
+[2026-04-28 12:10:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:10:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:10:08] INFO: TX broadcast: 0x7ced0414d03fc9e48ddf5af6fb97be3120dc82f1012e8b70be4de5d60e5ff7d9
+[2026-04-28 12:10:08] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x7ced0414d03fc9e48ddf5af6fb97be3120dc82f1012e8b70be4de5d60e5ff7d9
+[2026-04-28 12:10:10] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:10:13] INFO: TX broadcast: 0xb8ab62b6cc2867067348014dc9c0e84dbefa855d44dbecc7fe3b4090e8fe6aa1
+[2026-04-28 12:10:14] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xb8ab62b6cc2867067348014dc9c0e84dbefa855d44dbecc7fe3b4090e8fe6aa1
+[2026-04-28 12:10:15] INFO: TICK #88 finalized in 18.8s
+[2026-04-28 12:10:15] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:10:15] INFO: -------------------------------------------------------
+[2026-04-28 12:10:27] INFO: TICK #89 initiated
+[2026-04-28 12:10:27] INFO: State recovered | Last Block: 17569924 | Employers: 15
+[2026-04-28 12:10:28] INFO: Scanning blocks 17569924 → 17569963 for new cycles
+[2026-04-28 12:10:29] INFO: Active registry: 15 employers
+[2026-04-28 12:10:37] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:10:37] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:10:41] INFO: TX broadcast: 0x9502ad740286032acad7c9096b92f9cc053d8225924d9c357b312e0657a6ba31
+[2026-04-28 12:10:42] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x9502ad740286032acad7c9096b92f9cc053d8225924d9c357b312e0657a6ba31
+[2026-04-28 12:10:43] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:10:47] INFO: TX broadcast: 0x840dd3c14ea8c13790379710b95630b205385dca5d730d002d9f382bce5ee93d
+[2026-04-28 12:10:47] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x840dd3c14ea8c13790379710b95630b205385dca5d730d002d9f382bce5ee93d
+[2026-04-28 12:10:48] INFO: TICK #89 finalized in 21.7s
+[2026-04-28 12:10:48] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:10:48] INFO: -------------------------------------------------------
+[2026-04-28 12:10:57] INFO: TICK #90 initiated
+[2026-04-28 12:10:57] INFO: State recovered | Last Block: 17569963 | Employers: 15
+[2026-04-28 12:10:58] INFO: Scanning blocks 17569963 → 17570004 for new cycles
+[2026-04-28 12:10:58] INFO: Active registry: 15 employers
+[2026-04-28 12:11:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:11:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:11:09] INFO: TX broadcast: 0xbd4a042aa6bb99b65df432eb82ae7b03b38b6367384199045d5c092a003f01f9
+[2026-04-28 12:11:09] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xbd4a042aa6bb99b65df432eb82ae7b03b38b6367384199045d5c092a003f01f9
+[2026-04-28 12:11:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:11:14] INFO: TX broadcast: 0xf484c73e8d453ba14483d132513fe1fa56249755b6ae8c642d50bbb6bd2fb78b
+[2026-04-28 12:11:15] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xf484c73e8d453ba14483d132513fe1fa56249755b6ae8c642d50bbb6bd2fb78b
+[2026-04-28 12:11:16] INFO: TICK #90 finalized in 19.3s
+[2026-04-28 12:11:16] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:11:16] INFO: -------------------------------------------------------
+[2026-04-28 12:11:27] INFO: TICK #91 initiated
+[2026-04-28 12:11:27] INFO: State recovered | Last Block: 17570004 | Employers: 15
+[2026-04-28 12:11:31] INFO: Scanning blocks 17570004 → 17570050 for new cycles
+[2026-04-28 12:11:31] INFO: Active registry: 15 employers
+[2026-04-28 12:11:38] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:11:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:11:42] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 350, got 349: incorrect account sequence" }, payload={ "id": 6104, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882015d830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a0117859ac9e9ad153197a194b94c974698091b16e152afcf8b505281c88e8b655a07cab035c03c429bc1cd6e253f87faab2eae0aee502b14abfc04b0d9469d41f12" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:11:42] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:11:44] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:11:47] INFO: TX broadcast: 0xabc2efd7ca885dfc957ac099afc4e43bb7b755c36afac87e8df5b2f53805bdf4
+[2026-04-28 12:11:48] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xabc2efd7ca885dfc957ac099afc4e43bb7b755c36afac87e8df5b2f53805bdf4
+[2026-04-28 12:11:49] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:11:52] INFO: TX broadcast: 0x3cda67564160ca156a7373cbfe4a525b1118df3818ed58d7dd65db2e0bfbca86
+[2026-04-28 12:11:53] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x3cda67564160ca156a7373cbfe4a525b1118df3818ed58d7dd65db2e0bfbca86
+[2026-04-28 12:11:54] INFO: TICK #91 finalized in 27.8s
+[2026-04-28 12:11:54] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:11:54] INFO: -------------------------------------------------------
+[2026-04-28 12:11:57] INFO: TICK #92 initiated
+[2026-04-28 12:11:57] INFO: State recovered | Last Block: 17570050 | Employers: 15
+[2026-04-28 12:11:57] INFO: Scanning blocks 17570050 → 17570086 for new cycles
+[2026-04-28 12:11:57] INFO: Active registry: 15 employers
+[2026-04-28 12:12:04] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:12:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:12:08] INFO: TX broadcast: 0x0fde24e7bd36bdabc9284d1b8127e24b4947e72a0dae9978377d3912ceb4da60
+[2026-04-28 12:12:09] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x0fde24e7bd36bdabc9284d1b8127e24b4947e72a0dae9978377d3912ceb4da60
+[2026-04-28 12:12:10] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:12:14] INFO: TX broadcast: 0xabaad22af5192b48bebc6d8f9b43b8078481648ec3741c68844d0affabfbe04d
+[2026-04-28 12:12:14] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xabaad22af5192b48bebc6d8f9b43b8078481648ec3741c68844d0affabfbe04d
+[2026-04-28 12:12:15] INFO: TICK #92 finalized in 18.5s
+[2026-04-28 12:12:15] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:12:15] INFO: -------------------------------------------------------
+[2026-04-28 12:12:27] INFO: TICK #93 initiated
+[2026-04-28 12:12:27] INFO: State recovered | Last Block: 17570086 | Employers: 15
+[2026-04-28 12:12:31] INFO: Scanning blocks 17570086 → 17570137 for new cycles
+[2026-04-28 12:12:32] INFO: Active registry: 15 employers
+[2026-04-28 12:12:38] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:12:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:12:41] INFO: TX broadcast: 0xa30b368b5989c7c7f9ef17d993a5f65397472e5614ebf25dd903f95abdb41d5f
+[2026-04-28 12:12:41] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xa30b368b5989c7c7f9ef17d993a5f65397472e5614ebf25dd903f95abdb41d5f
+[2026-04-28 12:12:43] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:12:46] INFO: TX broadcast: 0xb042f5a1016da006b38a5482fddc381114ced662edbf91f384702303b34a0b89
+[2026-04-28 12:12:46] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xb042f5a1016da006b38a5482fddc381114ced662edbf91f384702303b34a0b89
+[2026-04-28 12:12:47] INFO: TICK #93 finalized in 20.6s
+[2026-04-28 12:12:47] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:12:47] INFO: -------------------------------------------------------
+[2026-04-28 12:12:57] INFO: TICK #94 initiated
+[2026-04-28 12:12:57] INFO: State recovered | Last Block: 17570137 | Employers: 15
+[2026-04-28 12:12:59] INFO: Scanning blocks 17570137 → 17570179 for new cycles
+[2026-04-28 12:12:59] INFO: Active registry: 15 employers
+[2026-04-28 12:13:05] ERROR: Failed to get active cycles for 0xd0333948C3198dde12D5950250Cebb9f678Ea8fa: TypeError: invalid BigNumberish value (argument="value", value=null, code=INVALID_ARGUMENT, version=6.16.0)
+[2026-04-28 12:13:09] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:13:09] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:13:14] INFO: TX broadcast: 0x8ceedc7498dc40ecfe79f6fcdb76bfef04c948b7570b414f36f5c88ac6853408
+[2026-04-28 12:13:14] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x8ceedc7498dc40ecfe79f6fcdb76bfef04c948b7570b414f36f5c88ac6853408
+[2026-04-28 12:13:16] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:13:20] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 364, got 363: incorrect account sequence" }, payload={ "id": 6351, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882016b830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a0d5f4551b26cf9c98fe52afc2706bdb2280e46ae6e614297571b6ae9c509ab7a4a067c5f0e3f4fd3bcee5d72b05c01d3f614fc7f81106a274cd2444cc3932d6b25f" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:13:20] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:13:22] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:13:26] INFO: TX broadcast: 0xa7befcb79a75e0b3f7f9a8ee90a429853858c3af1ec72845fec64a6997cadb80
+[2026-04-28 12:13:26] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xa7befcb79a75e0b3f7f9a8ee90a429853858c3af1ec72845fec64a6997cadb80
+[2026-04-28 12:13:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:13:27] INFO: TICK #94 finalized in 30.3s
+[2026-04-28 12:13:27] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:13:27] INFO: -------------------------------------------------------
+[2026-04-28 12:13:57] INFO: TICK #95 initiated
+[2026-04-28 12:13:57] INFO: State recovered | Last Block: 17570179 | Employers: 15
+[2026-04-28 12:13:57] INFO: Frontend Command Center connected! (ID: cfTFfvw0F5Qgf0DpAAAL)
+[2026-04-28 12:13:57] ERROR: Tick #95 aborted: 
+[2026-04-28 12:13:58] WARN: Webhook notification failed: TypeError: fetch failed
+[2026-04-28 12:13:58] INFO: TICK #95 finalized in 1.7s
+[2026-04-28 12:13:58] INFO: Status: 0 success | 0 failed
+[2026-04-28 12:13:58] INFO: -------------------------------------------------------
+[2026-04-28 12:14:27] INFO: TICK #96 initiated
+[2026-04-28 12:14:27] INFO: State recovered | Last Block: 17570179 | Employers: 15
+[2026-04-28 12:14:29] INFO: Scanning blocks 17570179 → 17570309 for new cycles
+[2026-04-28 12:14:29] INFO: Active registry: 15 employers
+[2026-04-28 12:14:35] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:14:36] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:14:39] INFO: TX broadcast: 0xeafe4faa8f75950ff015f7404b4c2a40d959535e57a576b6ad24b5dac8765ceb
+[2026-04-28 12:14:40] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xeafe4faa8f75950ff015f7404b4c2a40d959535e57a576b6ad24b5dac8765ceb
+[2026-04-28 12:14:41] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:14:44] INFO: TX broadcast: 0x4d0f2d557dcd850961dc84939cbf0819f5039744bb06f0ed330e8ab2255ddb01
+[2026-04-28 12:14:44] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x4d0f2d557dcd850961dc84939cbf0819f5039744bb06f0ed330e8ab2255ddb01
+[2026-04-28 12:14:45] INFO: TICK #96 finalized in 18.5s
+[2026-04-28 12:14:45] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:14:45] INFO: -------------------------------------------------------
+[2026-04-28 12:14:57] INFO: TICK #97 initiated
+[2026-04-28 12:14:57] INFO: State recovered | Last Block: 17570309 | Employers: 15
+[2026-04-28 12:14:58] INFO: Scanning blocks 17570309 → 17570352 for new cycles
+[2026-04-28 12:14:58] INFO: Active registry: 15 employers
+[2026-04-28 12:15:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:15:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:15:09] INFO: TX broadcast: 0xa45e6a8047d0eda5309670fd7e541ad2908b5274a1eb746f450a110f46c251af
+[2026-04-28 12:15:10] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xa45e6a8047d0eda5309670fd7e541ad2908b5274a1eb746f450a110f46c251af
+[2026-04-28 12:15:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:15:14] INFO: TX broadcast: 0x5e9636e44704136b3a55f865a76e8da2922767a506dd66564c694a0af0364d14
+[2026-04-28 12:15:15] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5e9636e44704136b3a55f865a76e8da2922767a506dd66564c694a0af0364d14
+[2026-04-28 12:15:16] INFO: TICK #97 finalized in 19.1s
+[2026-04-28 12:15:16] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:15:16] INFO: -------------------------------------------------------
+[2026-04-28 12:15:27] INFO: TICK #98 initiated
+[2026-04-28 12:15:27] INFO: State recovered | Last Block: 17570352 | Employers: 15
+[2026-04-28 12:15:29] INFO: Scanning blocks 17570352 → 17570399 for new cycles
+[2026-04-28 12:15:30] INFO: Active registry: 15 employers
+[2026-04-28 12:15:38] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:15:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:15:43] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 6561, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882017c830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a081e5ccf082661acbad470372630b62e14700c38dd3fe1802df61031347398f89a03634a6e85fe80b970ed911ae9785a0c2f84de27b792be0deccb25634cdc5ca41" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:15:43] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:15:45] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:15:50] INFO: TX broadcast: 0xc4ced389a98e1fcacfe609c760e7c8616fb0e1992866314d787254e89fd640f1
+[2026-04-28 12:15:50] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xc4ced389a98e1fcacfe609c760e7c8616fb0e1992866314d787254e89fd640f1
+[2026-04-28 12:15:52] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:15:56] INFO: TX broadcast: 0xceb0ba4e43b54cbbeb536517bbdf256a4ec1f8d74245d93907dc27362c7a0165
+[2026-04-28 12:15:57] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:15:57] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xceb0ba4e43b54cbbeb536517bbdf256a4ec1f8d74245d93907dc27362c7a0165
+[2026-04-28 12:15:58] INFO: TICK #98 finalized in 31.3s
+[2026-04-28 12:15:58] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:15:58] INFO: -------------------------------------------------------
+[2026-04-28 12:16:27] INFO: TICK #99 initiated
+[2026-04-28 12:16:27] INFO: State recovered | Last Block: 17570399 | Employers: 15
+[2026-04-28 12:16:28] INFO: Scanning blocks 17570399 → 17570480 for new cycles
+[2026-04-28 12:16:29] INFO: Active registry: 15 employers
+[2026-04-28 12:16:36] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:16:36] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:16:42] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 6647, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820182830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a07006f62e0a9ad7107065556f9bf1cf792528243931d300f6ad626d91d75d3de9a023a605eae7b334ec02900d2bbdd3a79cf62cd0451f95c848d4f12a8e41b0019d" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:16:42] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:16:44] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:16:48] INFO: TX broadcast: 0x1f452e0e60b7fb2ff69522026b763ffae53c5f362178868555b1f599b9608ee4
+[2026-04-28 12:16:49] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x1f452e0e60b7fb2ff69522026b763ffae53c5f362178868555b1f599b9608ee4
+[2026-04-28 12:16:50] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:16:54] INFO: TX broadcast: 0x5b714b258f489c2e07a64ea5928981a7818b7716e7161826951bcc989ccc2c16
+[2026-04-28 12:16:55] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5b714b258f489c2e07a64ea5928981a7818b7716e7161826951bcc989ccc2c16
+[2026-04-28 12:16:56] INFO: TICK #99 finalized in 29.2s
+[2026-04-28 12:16:56] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:16:56] INFO: -------------------------------------------------------
+[2026-04-28 12:16:57] INFO: TICK #100 initiated
+[2026-04-28 12:16:57] INFO: State recovered | Last Block: 17570480 | Employers: 15
+[2026-04-28 12:16:57] INFO: Scanning blocks 17570480 → 17570523 for new cycles
+[2026-04-28 12:16:58] INFO: Active registry: 15 employers
+[2026-04-28 12:17:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:17:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:17:10] INFO: TX broadcast: 0x83389329ff657c53234aaebf82fe878e6d70d44991f9c28899d7b6f877db9bb9
+[2026-04-28 12:17:11] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x83389329ff657c53234aaebf82fe878e6d70d44991f9c28899d7b6f877db9bb9
+[2026-04-28 12:17:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:17:17] INFO: TX broadcast: 0xfd8d3352f9659ea2bea6ebe7a47a043fccac8d73e79d4588ec554cb594910caa
+[2026-04-28 12:17:17] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xfd8d3352f9659ea2bea6ebe7a47a043fccac8d73e79d4588ec554cb594910caa
+[2026-04-28 12:17:18] INFO: TICK #100 finalized in 21.8s
+[2026-04-28 12:17:18] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:17:18] INFO: -------------------------------------------------------
+[2026-04-28 12:17:27] INFO: TICK #101 initiated
+[2026-04-28 12:17:27] INFO: State recovered | Last Block: 17570523 | Employers: 15
+[2026-04-28 12:17:28] INFO: Scanning blocks 17570523 → 17570568 for new cycles
+[2026-04-28 12:17:28] INFO: Active registry: 15 employers
+[2026-04-28 12:17:36] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:17:37] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:17:41] INFO: TX broadcast: 0x03fb0bb22c7ba13cce31ee63905e3ec17ed326e77ba95d95005d7038af1013c2
+[2026-04-28 12:17:41] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x03fb0bb22c7ba13cce31ee63905e3ec17ed326e77ba95d95005d7038af1013c2
+[2026-04-28 12:17:43] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:17:49] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 6823, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882018c830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a0f7fc4fbaa58d815f2d41455ce928737e38c55dbbc46d9b11156f34e61a9a723ca00cb9beb84c6203994c9584c94cb5672c548804ddae5d36a33c7d8798778d18fa" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:17:49] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:17:51] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:17:54] INFO: TX broadcast: 0x628ee938f36ea48ba27ab7a6b12f71f2a80f8b0456d6d1e232ccd72ab34e5b9b
+[2026-04-28 12:17:55] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x628ee938f36ea48ba27ab7a6b12f71f2a80f8b0456d6d1e232ccd72ab34e5b9b
+[2026-04-28 12:17:56] INFO: TICK #101 finalized in 29.3s
+[2026-04-28 12:17:56] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:17:56] INFO: -------------------------------------------------------
+[2026-04-28 12:17:57] INFO: TICK #102 initiated
+[2026-04-28 12:17:57] INFO: State recovered | Last Block: 17570568 | Employers: 15
+[2026-04-28 12:17:57] INFO: Scanning blocks 17570568 → 17570612 for new cycles
+[2026-04-28 12:17:57] INFO: Active registry: 15 employers
+[2026-04-28 12:18:07] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:18:07] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:18:11] INFO: TX broadcast: 0xd9d9b64daa3eb0e94f6e02927073ff395de6da6468d1b5ef46112a608ae8f25e
+[2026-04-28 12:18:12] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xd9d9b64daa3eb0e94f6e02927073ff395de6da6468d1b5ef46112a608ae8f25e
+[2026-04-28 12:18:13] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:18:17] INFO: TX broadcast: 0xc46ea225e845cfcf1881337a18feb9e329a5b8ab66b2a515a784c0acdf7cb3a1
+[2026-04-28 12:18:17] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xc46ea225e845cfcf1881337a18feb9e329a5b8ab66b2a515a784c0acdf7cb3a1
+[2026-04-28 12:18:18] INFO: TICK #102 finalized in 21.5s
+[2026-04-28 12:18:18] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:18:18] INFO: -------------------------------------------------------
+[2026-04-28 12:18:27] INFO: TICK #103 initiated
+[2026-04-28 12:18:27] INFO: State recovered | Last Block: 17570612 | Employers: 15
+[2026-04-28 12:18:29] INFO: Scanning blocks 17570612 → 17570660 for new cycles
+[2026-04-28 12:18:31] INFO: Active registry: 15 employers
+[2026-04-28 12:18:38] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:18:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:18:43] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 6961, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820192830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a0fd68d7e844d2d3a1edd75564b6f9c2fa14950641a86456e62ed1d14a984c04c0a058621a95b98aef971b1181cd2f39b7f1d8c4ba812f8532b72c42169735700b2a" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:18:43] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:18:45] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:18:49] INFO: TX broadcast: 0x4b4af63bcf85666b803a8a6e483fb9ee2a83b7b6fd3f377bac796a8074de2849
+[2026-04-28 12:18:49] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x4b4af63bcf85666b803a8a6e483fb9ee2a83b7b6fd3f377bac796a8074de2849
+[2026-04-28 12:18:51] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:18:55] INFO: TX broadcast: 0xe92321875e2031e2933bb2df322da9baae102439be286871d876fdcdef1bd43a
+[2026-04-28 12:18:55] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xe92321875e2031e2933bb2df322da9baae102439be286871d876fdcdef1bd43a
+[2026-04-28 12:18:56] INFO: TICK #103 finalized in 29.7s
+[2026-04-28 12:18:56] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:18:56] INFO: -------------------------------------------------------
+[2026-04-28 12:18:57] INFO: TICK #104 initiated
+[2026-04-28 12:18:57] INFO: State recovered | Last Block: 17570660 | Employers: 15
+[2026-04-28 12:18:57] INFO: Scanning blocks 17570660 → 17570703 for new cycles
+[2026-04-28 12:18:58] INFO: Active registry: 15 employers
+[2026-04-28 12:19:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:19:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:19:08] INFO: TX broadcast: 0x596c267685e35c9609120097a6a27677c84bd175f5691b7951bec7f128ae6dd6
+[2026-04-28 12:19:09] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x596c267685e35c9609120097a6a27677c84bd175f5691b7951bec7f128ae6dd6
+[2026-04-28 12:19:10] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:19:15] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 7066, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820198830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a03dc43d05d977cab8abb9cc0a8077819cf23f833ef1e980730c0509f5bc0a6b60a06b97e2765db11e33760acf127446b374e49ddd95ea6f9c6db70a0039e7555d6e" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:19:15] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:19:17] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:19:20] INFO: TX broadcast: 0x09ef263d1401585dbb0495f7c4db882afeda54715cd50f4001a4a72136b0e58d
+[2026-04-28 12:19:20] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x09ef263d1401585dbb0495f7c4db882afeda54715cd50f4001a4a72136b0e58d
+[2026-04-28 12:19:21] INFO: TICK #104 finalized in 24.4s
+[2026-04-28 12:19:21] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:19:21] INFO: -------------------------------------------------------
+[2026-04-28 12:19:27] INFO: TICK #105 initiated
+[2026-04-28 12:19:27] INFO: State recovered | Last Block: 17570703 | Employers: 15
+[2026-04-28 12:19:29] INFO: Scanning blocks 17570703 → 17570747 for new cycles
+[2026-04-28 12:19:29] INFO: Active registry: 15 employers
+[2026-04-28 12:19:40] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:19:40] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:19:43] INFO: TX broadcast: 0xa1704e320776a0dde9b65a2f9c6200f7522de6c8a129dd614021153beda764ef
+[2026-04-28 12:19:44] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xa1704e320776a0dde9b65a2f9c6200f7522de6c8a129dd614021153beda764ef
+[2026-04-28 12:19:45] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:19:51] INFO: TX broadcast: 0x941c656ec205e9ec0fe3ee71e37087ec23fd83e9ac62777fc955f99114034032
+[2026-04-28 12:19:52] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x941c656ec205e9ec0fe3ee71e37087ec23fd83e9ac62777fc955f99114034032
+[2026-04-28 12:19:53] INFO: TICK #105 finalized in 26.7s
+[2026-04-28 12:19:53] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:19:53] INFO: -------------------------------------------------------
+[2026-04-28 12:19:57] INFO: TICK #106 initiated
+[2026-04-28 12:19:57] INFO: State recovered | Last Block: 17570747 | Employers: 15
+[2026-04-28 12:19:57] INFO: Scanning blocks 17570747 → 17570789 for new cycles
+[2026-04-28 12:19:57] INFO: Active registry: 15 employers
+[2026-04-28 12:20:05] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:20:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:20:11] INFO: TX broadcast: 0xc16afda010c05672bcb16bba43722ee005bf495ed734f7a08c9453ba938ab600
+[2026-04-28 12:20:11] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xc16afda010c05672bcb16bba43722ee005bf495ed734f7a08c9453ba938ab600
+[2026-04-28 12:20:13] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:20:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 416, got 415: incorrect account sequence" }, payload={ "id": 7223, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882019f830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c080a0290f1fad4396fdf86f6ae4e9480b75ba6193d1307ef998f19c4eba72fe81c3fea030aae806e848f42d1e19232f4bd29a52bc36614a13ca091b1850f70920714777" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:20:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:20:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:20:22] INFO: TX broadcast: 0x1586102d718e0df0eb77a613cb3253f00ff104a224a7cf5e1276827d08ad5918
+[2026-04-28 12:20:23] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x1586102d718e0df0eb77a613cb3253f00ff104a224a7cf5e1276827d08ad5918
+[2026-04-28 12:20:24] INFO: TICK #106 finalized in 27.0s
+[2026-04-28 12:20:24] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:20:24] INFO: -------------------------------------------------------
+[2026-04-28 12:20:27] INFO: TICK #107 initiated
+[2026-04-28 12:20:27] INFO: State recovered | Last Block: 17570789 | Employers: 15
+[2026-04-28 12:20:27] INFO: Scanning blocks 17570789 → 17570836 for new cycles
+[2026-04-28 12:20:27] INFO: Active registry: 15 employers
+[2026-04-28 12:20:35] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:20:37] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:20:40] INFO: TX broadcast: 0x6dffafeffabb6f03236358b8f483077b294a9b3d3773bee051a8b8513a9632b0
+[2026-04-28 12:20:41] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x6dffafeffabb6f03236358b8f483077b294a9b3d3773bee051a8b8513a9632b0
+[2026-04-28 12:20:42] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:20:46] INFO: TX broadcast: 0x4e8059418d323db928a46fc964fa7a030d770f77aa8614b5b53244305041001c
+[2026-04-28 12:20:47] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x4e8059418d323db928a46fc964fa7a030d770f77aa8614b5b53244305041001c
+[2026-04-28 12:20:48] INFO: TICK #107 finalized in 21.1s
+[2026-04-28 12:20:48] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:20:48] INFO: -------------------------------------------------------
+[2026-04-28 12:20:57] INFO: TICK #108 initiated
+[2026-04-28 12:20:57] INFO: State recovered | Last Block: 17570836 | Employers: 15
+[2026-04-28 12:20:58] INFO: Scanning blocks 17570836 → 17570881 for new cycles
+[2026-04-28 12:20:58] INFO: Active registry: 15 employers
+[2026-04-28 12:21:06] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:21:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:21:10] INFO: TX broadcast: 0x4ba392e91e19c1c892b194df137a1e41171e586a73333742fb84aed5fee5889b
+[2026-04-28 12:21:10] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x4ba392e91e19c1c892b194df137a1e41171e586a73333742fb84aed5fee5889b
+[2026-04-28 12:21:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:21:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 7380, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201a8830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a02bf74cf4703cec9969a83b02400e60cc49715b7e30a40a8ad0700995b30c84c3a004ed8c3061b12b0d05e1828ec50172b5b71dac4699a15c5934ed7a7738269de4" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:21:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:21:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:21:22] INFO: TX broadcast: 0x5978e5bea9605481f7b6801c8cbf8b2e4400ba8e8e79483dbc8dec4c0541aa72
+[2026-04-28 12:21:22] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x5978e5bea9605481f7b6801c8cbf8b2e4400ba8e8e79483dbc8dec4c0541aa72
+[2026-04-28 12:21:23] INFO: TICK #108 finalized in 26.5s
+[2026-04-28 12:21:23] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:21:23] INFO: -------------------------------------------------------
+[2026-04-28 12:21:27] INFO: TICK #109 initiated
+[2026-04-28 12:21:27] INFO: State recovered | Last Block: 17570881 | Employers: 15
+[2026-04-28 12:21:27] INFO: Scanning blocks 17570881 → 17570926 for new cycles
+[2026-04-28 12:21:27] INFO: Active registry: 15 employers
+[2026-04-28 12:21:34] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:21:34] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:21:38] INFO: TX broadcast: 0x94fa791b1869fb428c7ca4fbc3c6094ce9cf5a3935893e116de99e21614bde88
+[2026-04-28 12:21:39] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x94fa791b1869fb428c7ca4fbc3c6094ce9cf5a3935893e116de99e21614bde88
+[2026-04-28 12:21:40] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:21:44] INFO: TX broadcast: 0x3ad4d4c415ba904da856cae86b32b93d1a07dd013a156f1b8a145bff75b7032d
+[2026-04-28 12:21:45] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x3ad4d4c415ba904da856cae86b32b93d1a07dd013a156f1b8a145bff75b7032d
+[2026-04-28 12:21:46] INFO: TICK #109 finalized in 19.0s
+[2026-04-28 12:21:46] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:21:46] INFO: -------------------------------------------------------
+[2026-04-28 12:21:57] INFO: TICK #110 initiated
+[2026-04-28 12:21:57] INFO: State recovered | Last Block: 17570926 | Employers: 15
+[2026-04-28 12:21:59] INFO: Scanning blocks 17570926 → 17570971 for new cycles
+[2026-04-28 12:21:59] INFO: Active registry: 15 employers
+[2026-04-28 12:22:06] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:22:07] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:22:12] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 7518, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201ae830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a05d56611b732bd1d7cd8f52ebf777253a45d8dc6cb8a657333207b2fe94d5691ea034a2fe0af307508885c195ef959039cda41f273d8fd7d44a3b4deb993603f8af" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:22:12] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:22:14] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:22:18] INFO: TX broadcast: 0xd26b2f23647aa222f5950b9d09b05975fd7511c965408648b519f6405e0a3aef
+[2026-04-28 12:22:18] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xd26b2f23647aa222f5950b9d09b05975fd7511c965408648b519f6405e0a3aef
+[2026-04-28 12:22:20] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:22:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:22:29] INFO: TX broadcast: 0x11b2a2270c727cf5200a32c870db2941157c972ff3a83764636a192d0cb2acb4
+[2026-04-28 12:22:29] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x11b2a2270c727cf5200a32c870db2941157c972ff3a83764636a192d0cb2acb4
+[2026-04-28 12:22:30] INFO: TICK #110 finalized in 33.4s
+[2026-04-28 12:22:30] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:22:30] INFO: -------------------------------------------------------
+[2026-04-28 12:22:57] INFO: TICK #111 initiated
+[2026-04-28 12:22:57] INFO: State recovered | Last Block: 17570971 | Employers: 15
+[2026-04-28 12:22:59] INFO: Scanning blocks 17570971 → 17571058 for new cycles
+[2026-04-28 12:22:59] INFO: Active registry: 15 employers
+[2026-04-28 12:23:06] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:23:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:23:09] INFO: TX broadcast: 0x873daf2a8834097fec892d1387e3b13d59f6a713613137202a6078aae96e9472
+[2026-04-28 12:23:10] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x873daf2a8834097fec892d1387e3b13d59f6a713613137202a6078aae96e9472
+[2026-04-28 12:23:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:23:15] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 7623, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201b6830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a08d5e1aacf82cb8cd86d6d831324f311681982da2c5816f2f414500632c139678a03b46cd6c950890b071237d53990a379b3847c9e7e1f1e1d20965de194f6e8958" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:23:15] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:23:17] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:23:20] INFO: TX broadcast: 0xf2b6042e36dd9d39f43214045f3f2993f36d449a6d041ac0228bb7c02718a619
+[2026-04-28 12:23:20] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xf2b6042e36dd9d39f43214045f3f2993f36d449a6d041ac0228bb7c02718a619
+[2026-04-28 12:23:21] INFO: TICK #111 finalized in 24.7s
+[2026-04-28 12:23:21] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:23:21] INFO: -------------------------------------------------------
+[2026-04-28 12:23:27] INFO: TICK #112 initiated
+[2026-04-28 12:23:27] INFO: State recovered | Last Block: 17571058 | Employers: 15
+[2026-04-28 12:23:27] INFO: Scanning blocks 17571058 → 17571100 for new cycles
+[2026-04-28 12:23:28] INFO: Active registry: 15 employers
+[2026-04-28 12:23:35] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:23:35] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:23:40] INFO: TX broadcast: 0xe62b9fd10dd044a59cccbcfed82a832e800bd7f8b9e8dcf804ed4d2fe0467b59
+[2026-04-28 12:23:41] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xe62b9fd10dd044a59cccbcfed82a832e800bd7f8b9e8dcf804ed4d2fe0467b59
+[2026-04-28 12:23:42] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:23:47] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 7709, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201ba830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a025586326bed8fe2555940ce973a11aad04ee9423d5252412c352082f13697127a072b291951f6b779bff162e575dd65a53ae7395b2040aaf7694165dc43368a8ce" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:23:47] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:23:49] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:23:54] INFO: TX broadcast: 0xa6f08281358b8177c27518282bdd6b4975faff592bc166ea9420fa5f44ff542c
+[2026-04-28 12:23:54] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xa6f08281358b8177c27518282bdd6b4975faff592bc166ea9420fa5f44ff542c
+[2026-04-28 12:23:55] INFO: TICK #112 finalized in 28.6s
+[2026-04-28 12:23:55] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:23:55] INFO: -------------------------------------------------------
+[2026-04-28 12:23:57] INFO: TICK #113 initiated
+[2026-04-28 12:23:57] INFO: State recovered | Last Block: 17571100 | Employers: 15
+[2026-04-28 12:23:57] INFO: Scanning blocks 17571100 → 17571145 for new cycles
+[2026-04-28 12:23:58] INFO: Active registry: 15 employers
+[2026-04-28 12:24:11] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:24:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:24:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 446, got 445: incorrect account sequence" }, payload={ "id": 7776, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201bd830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a08ed90aba61bbac2ca827dc74da93d129e4b2dae99fafb86a4164420091044626a019c78985b283255e88ddc3785a9d8f8f9704f17089fad3ca09759fc61b266df2" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:24:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:24:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:24:23] INFO: TX broadcast: 0x366cf36eec49ba6547f3dd6c2008219bd497aa5fdf2eb9ccba2d0ab1f5edd6d9
+[2026-04-28 12:24:24] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x366cf36eec49ba6547f3dd6c2008219bd497aa5fdf2eb9ccba2d0ab1f5edd6d9
+[2026-04-28 12:24:25] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:24:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:24:29] INFO: TX broadcast: 0xe22aa33627d234a0ce85a7efeeecb9320a1d2a70ef84a26cf2b189d0bbe57115
+[2026-04-28 12:24:30] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xe22aa33627d234a0ce85a7efeeecb9320a1d2a70ef84a26cf2b189d0bbe57115
+[2026-04-28 12:24:31] INFO: TICK #113 finalized in 34.3s
+[2026-04-28 12:24:31] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:24:31] INFO: -------------------------------------------------------
+[2026-04-28 12:24:57] INFO: TICK #114 initiated
+[2026-04-28 12:24:57] INFO: State recovered | Last Block: 17571145 | Employers: 15
+[2026-04-28 12:25:01] INFO: Scanning blocks 17571145 → 17571234 for new cycles
+[2026-04-28 12:25:01] INFO: Active registry: 15 employers
+[2026-04-28 12:25:11] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:25:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:25:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 452, got 451: incorrect account sequence" }, payload={ "id": 7862, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201c3830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c001a0b3d6c672a2667d0999aaa2bd284f7960b77375a80e547f9399fc7ff5644aaaa1a00b9edbee14bf61fce671f9d2a20952c780127a15b6da01618aae812a6b3dfe0d" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:25:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:25:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:25:22] INFO: TX broadcast: 0x347fd841a0998659a9571ef7a10299dbfac0a08908c45b65b40c38267b252a8f
+[2026-04-28 12:25:22] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x347fd841a0998659a9571ef7a10299dbfac0a08908c45b65b40c38267b252a8f
+[2026-04-28 12:25:24] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:25:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:25:27] INFO: TX broadcast: 0xfaef040684fec40ebbde1ed78cf8f5fe8c31dc5ed5307fa7c1caa964dde5cd04
+[2026-04-28 12:25:27] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xfaef040684fec40ebbde1ed78cf8f5fe8c31dc5ed5307fa7c1caa964dde5cd04
+[2026-04-28 12:25:28] INFO: TICK #114 finalized in 31.4s
+[2026-04-28 12:25:28] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:25:28] INFO: -------------------------------------------------------
+[2026-04-28 12:25:57] INFO: TICK #115 initiated
+[2026-04-28 12:25:57] INFO: State recovered | Last Block: 17571234 | Employers: 15
+[2026-04-28 12:26:01] INFO: Scanning blocks 17571234 → 17571318 for new cycles
+[2026-04-28 12:26:01] INFO: Active registry: 15 employers
+[2026-04-28 12:26:09] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:26:10] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:26:15] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 458, got 457: incorrect account sequence" }, payload={ "id": 7948, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201c9830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c001a01eba3dcf1a4b7a2f5bfddf7a68f802a52c344bbfb085ece87820a19c49b36906a076fd08fe6a9ff686f9b919c8fe51d01dded63109023dbacc9141dceb1f34f1c5" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:26:15] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:26:17] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:26:23] INFO: TX broadcast: 0x7ecc0a44de82c700b3df07f7b23426d43f829076901d072b2084b95a5d6f3c67
+[2026-04-28 12:26:24] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x7ecc0a44de82c700b3df07f7b23426d43f829076901d072b2084b95a5d6f3c67
+[2026-04-28 12:26:25] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:26:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:26:31] INFO: TX broadcast: 0x825d259e63e3ab1df4df3b46907b6f53c427e3f28132de43a80fdab9b5be3423
+[2026-04-28 12:26:32] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x825d259e63e3ab1df4df3b46907b6f53c427e3f28132de43a80fdab9b5be3423
+[2026-04-28 12:26:33] INFO: TICK #115 finalized in 36.5s
+[2026-04-28 12:26:33] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:26:33] INFO: -------------------------------------------------------
+[2026-04-28 12:26:57] INFO: TICK #116 initiated
+[2026-04-28 12:26:57] INFO: State recovered | Last Block: 17571318 | Employers: 15
+[2026-04-28 12:27:00] INFO: Scanning blocks 17571318 → 17571406 for new cycles
+[2026-04-28 12:27:01] INFO: Active registry: 15 employers
+[2026-04-28 12:27:07] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:27:07] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:27:11] INFO: TX broadcast: 0xeac80ed7a21f4a543b20b997b85f7cc4412f8677b2498afafcb1b8e0d7091b81
+[2026-04-28 12:27:12] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xeac80ed7a21f4a543b20b997b85f7cc4412f8677b2498afafcb1b8e0d7091b81
+[2026-04-28 12:27:13] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:27:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 464, got 463: incorrect account sequence" }, payload={ "id": 8053, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201cf830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a0d3342e3954d9960d899162dd759c9669fd6adc7075b7db377723119ed64407d6a0620ba0849b7c7adabc9944c399982ce34439dda838541ab6b2f02da8d09384f2" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:27:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:27:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:27:22] INFO: TX broadcast: 0xd0c8997cc5e3f58cbb3305c79ee34b565397cac6df47543173615ef1066b1218
+[2026-04-28 12:27:23] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xd0c8997cc5e3f58cbb3305c79ee34b565397cac6df47543173615ef1066b1218
+[2026-04-28 12:27:24] INFO: TICK #116 finalized in 27.0s
+[2026-04-28 12:27:24] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:27:24] INFO: -------------------------------------------------------
+[2026-04-28 12:27:27] INFO: TICK #117 initiated
+[2026-04-28 12:27:27] INFO: State recovered | Last Block: 17571406 | Employers: 15
+[2026-04-28 12:27:27] INFO: Scanning blocks 17571406 → 17571447 for new cycles
+[2026-04-28 12:27:27] INFO: Active registry: 15 employers
+[2026-04-28 12:27:33] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:27:34] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:27:38] INFO: TX broadcast: 0x1d6c5b04f4722213199512424434ed1547675e76838020132f5878bb6db1d32e
+[2026-04-28 12:27:39] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x1d6c5b04f4722213199512424434ed1547675e76838020132f5878bb6db1d32e
+[2026-04-28 12:27:41] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:27:45] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 8139, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201d4830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a0562978186db39f68a45a208e7c3f4481669249fe093594cc8fcb0a88a0e8552da07653b6de3d90ada443404cdb3b50b37e0c94ab23240d2195f2b47bd51e2da09e" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:27:45] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:27:47] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:27:50] INFO: TX broadcast: 0xa45431c3fbf0a070f665e7456e36266111222008575c310bd3d913423803db8b
+[2026-04-28 12:27:51] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xa45431c3fbf0a070f665e7456e36266111222008575c310bd3d913423803db8b
+[2026-04-28 12:27:52] INFO: TICK #117 finalized in 25.2s
+[2026-04-28 12:27:52] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:27:52] INFO: -------------------------------------------------------
+[2026-04-28 12:27:57] INFO: TICK #118 initiated
+[2026-04-28 12:27:57] INFO: State recovered | Last Block: 17571447 | Employers: 15
+[2026-04-28 12:28:01] INFO: Scanning blocks 17571447 → 17571496 for new cycles
+[2026-04-28 12:28:02] INFO: Active registry: 15 employers
+[2026-04-28 12:28:09] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:28:11] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:28:17] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 472, got 471: incorrect account sequence" }, payload={ "id": 8206, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201d7830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a03c98f9acbad51d8c0f3710347175376930f1a57066abb4f9e92af8ae01212e43a0348d33f95e8734d4ff75261448e7bcf14574a5ef34cd0f63b25e188b1cca7667" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:28:17] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:28:19] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:28:23] INFO: TX broadcast: 0xb59c9db69ccdb2307721ae7bfa9c9b7f6723b680a0240ea0a9232eb1dbc028dd
+[2026-04-28 12:28:23] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xb59c9db69ccdb2307721ae7bfa9c9b7f6723b680a0240ea0a9232eb1dbc028dd
+[2026-04-28 12:28:24] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:28:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:28:28] INFO: TX broadcast: 0x0aeb0d8ade60ed39680e2b60a20e2969c98f29cb7ec8705fa2d614c3a01a397f
+[2026-04-28 12:28:28] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x0aeb0d8ade60ed39680e2b60a20e2969c98f29cb7ec8705fa2d614c3a01a397f
+[2026-04-28 12:28:29] INFO: TICK #118 finalized in 32.4s
+[2026-04-28 12:28:29] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:28:29] INFO: -------------------------------------------------------
+[2026-04-28 12:28:57] INFO: TICK #119 initiated
+[2026-04-28 12:28:57] INFO: State recovered | Last Block: 17571496 | Employers: 15
+[2026-04-28 12:29:01] INFO: Scanning blocks 17571496 → 17571579 for new cycles
+[2026-04-28 12:29:01] INFO: Active registry: 15 employers
+[2026-04-28 12:29:11] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:29:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:29:15] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 4: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 478, got 477: incorrect account sequence" }, payload={ "id": 8292, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201dd830249f0830249f0830680c194495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000004c080a0dc0e4142448ea9aedec0576c7b54f737b98f50f3fee64a8cda9fec6735dcd538a028e7d97c22f22888d4bdf491ce82032a4e8525964a99b2ece31046a2b6fccfe0" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:29:15] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:29:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:29:21] INFO: TX broadcast: 0xb758f55f072b277b011bf434498ce92cc419b37746366b5510ffd4fdac31c0c9
+[2026-04-28 12:29:21] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xb758f55f072b277b011bf434498ce92cc419b37746366b5510ffd4fdac31c0c9
+[2026-04-28 12:29:23] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:29:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:33:57] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:34:26] INFO: TX broadcast: 0x00240d467f2fa69e5c7f7c61cee94fd9be9e9f93d4ae1d1e1749b3cbb43fac24
+[2026-04-28 12:34:27] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x00240d467f2fa69e5c7f7c61cee94fd9be9e9f93d4ae1d1e1749b3cbb43fac24
+[2026-04-28 12:34:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:34:28] INFO: TICK #119 finalized in 330.8s
+[2026-04-28 12:34:28] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:34:28] INFO: -------------------------------------------------------
+[2026-04-28 12:34:57] INFO: TICK #120 initiated
+[2026-04-28 12:34:57] INFO: State recovered | Last Block: 17571579 | Employers: 15
+[2026-04-28 12:34:57] INFO: Scanning blocks 17571579 → 17572064 for new cycles
+[2026-04-28 12:34:58] INFO: Active registry: 15 employers
+[2026-04-28 12:35:04] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:35:04] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:35:06] INFO: TX broadcast: 0xc3ca0eae4a5172079b6fbee102ca3779574c3bf5758bab29eb2a8145bb3bcde4
+[2026-04-28 12:35:07] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xc3ca0eae4a5172079b6fbee102ca3779574c3bf5758bab29eb2a8145bb3bcde4
+[2026-04-28 12:35:08] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:35:11] INFO: TX broadcast: 0x327a503deba4a9556f8d40af33764ae4d4b29012a7c38bbf6104254e1322a3c9
+[2026-04-28 12:35:11] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x327a503deba4a9556f8d40af33764ae4d4b29012a7c38bbf6104254e1322a3c9
+[2026-04-28 12:35:12] INFO: TICK #120 finalized in 15.6s
+[2026-04-28 12:35:12] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:35:12] INFO: -------------------------------------------------------
+[2026-04-28 12:35:27] INFO: TICK #121 initiated
+[2026-04-28 12:35:27] INFO: State recovered | Last Block: 17572064 | Employers: 15
+[2026-04-28 12:35:29] INFO: Scanning blocks 17572064 → 17572110 for new cycles
+[2026-04-28 12:35:30] INFO: Active registry: 15 employers
+[2026-04-28 12:35:37] INFO: Processing queue: 2 active cycles
+[2026-04-28 12:35:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:35:41] INFO: TX broadcast: 0x6066a0a3e6a62292fcb4a6050c08c229158b7167fcbd7a7ff3fba15793c2b2c7
+[2026-04-28 12:35:41] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x6066a0a3e6a62292fcb4a6050c08c229158b7167fcbd7a7ff3fba15793c2b2c7
+[2026-04-28 12:35:43] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:35:48] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "" }, payload={ "id": 8468, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd88201fc830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a08de5747c5d35fc7bda81a1af7c21f806f6c0c623640805ee3d64d12e52f36733a0092e8115bcdb4e70dff776a64ccca8b6a1ed62dc9a2505d4a75a5b0363790348" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:35:48] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:35:50] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:35:54] INFO: TX broadcast: 0x2a512fb925a82b0ca6974209d5042942a34afba5a3520729f9eb452b894596b6
+[2026-04-28 12:35:55] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x2a512fb925a82b0ca6974209d5042942a34afba5a3520729f9eb452b894596b6
+[2026-04-28 12:35:56] INFO: TICK #121 finalized in 29.7s
+[2026-04-28 12:35:56] INFO: Status: 2 success | 0 failed
+[2026-04-28 12:35:56] INFO: -------------------------------------------------------
+[2026-04-28 12:35:57] INFO: TICK #122 initiated
+[2026-04-28 12:35:57] INFO: State recovered | Last Block: 17572110 | Employers: 15
+[2026-04-28 12:35:57] INFO: Scanning blocks 17572110 → 17572153 for new cycles
+[2026-04-28 12:35:57] INFO: Active registry: 15 employers
+[2026-04-28 12:36:04] INFO: Processing queue: 3 active cycles
+[2026-04-28 12:36:05] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:36:10] INFO: TX broadcast: 0xaeb109a3843cdd3cdb8c38513625a3d22a923ebe8f1ff924f28627605c10b62b
+[2026-04-28 12:36:11] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xaeb109a3843cdd3cdb8c38513625a3d22a923ebe8f1ff924f28627605c10b62b
+[2026-04-28 12:36:12] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:36:17] INFO: TX broadcast: 0x8ef3dcdf05a2c05f49a775d03558ceb373c56a90957bb3563916fc2cc1b6b4e5
+[2026-04-28 12:36:17] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x8ef3dcdf05a2c05f49a775d03558ceb373c56a90957bb3563916fc2cc1b6b4e5
+[2026-04-28 12:36:19] INFO: Rebalancing - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:36:24] INFO: TX broadcast: 0xdad46ac3c5844fd3dd938b6bf5f5c42d5a3aaef8bd68174f4558c95327c12d30
+[2026-04-28 12:36:24] INFO: ✅ NoActionNeeded | gas: 240497 | tx: 0xdad46ac3c5844fd3dd938b6bf5f5c42d5a3aaef8bd68174f4558c95327c12d30
+[2026-04-28 12:36:25] INFO: TICK #122 finalized in 28.5s
+[2026-04-28 12:36:25] INFO: Status: 3 success | 0 failed
+[2026-04-28 12:36:25] INFO: -------------------------------------------------------
+[2026-04-28 12:36:27] INFO: TICK #123 initiated
+[2026-04-28 12:36:27] INFO: State recovered | Last Block: 17572153 | Employers: 15
+[2026-04-28 12:36:27] INFO: Scanning blocks 17572153 → 17572206 for new cycles
+[2026-04-28 12:36:28] INFO: Found 1 CycleStarted events — 0 new employers
+[2026-04-28 12:36:28] INFO: Active registry: 15 employers
+[2026-04-28 12:36:34] INFO: Processing queue: 3 active cycles
+[2026-04-28 12:36:35] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:36:38] INFO: TX broadcast: 0x3b52af9c95ae8f218022426b37fe624468d4f85d441e9de4b298c4c266ca8594
+[2026-04-28 12:36:39] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x3b52af9c95ae8f218022426b37fe624468d4f85d441e9de4b298c4c266ca8594
+[2026-04-28 12:36:40] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:36:44] INFO: TX broadcast: 0x40ab36d805ad5a5caea6900f13189b10e7694f0eb7c358c30d9e0e1e0bfd2996
+[2026-04-28 12:36:45] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x40ab36d805ad5a5caea6900f13189b10e7694f0eb7c358c30d9e0e1e0bfd2996
+[2026-04-28 12:36:46] INFO: Rebalancing - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:36:50] WARN: Attempt 1 failed for employer: 0x298eF6A5... | cycleId: 2: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 520, got 519: incorrect account sequence" }, payload={ "id": 8663, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820207830249f0830249f083067fdc94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf000000000000000000000000298ef6a5278bb22c2d09190f3761ef9444bf03ee0000000000000000000000000000000000000000000000000000000000000002c080a009ce0222d5b36ca656d93d3d121f5e2841fe3324a9452e4cd7c1a5217206acc5a050d253d4309d7622db9556fc80abd5ca382483087fd7210f6f3f95a35cbcbb98" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:36:50] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:36:52] INFO: Retry 2/2 - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:36:57] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:36:57] INFO: TX broadcast: 0xee005c09b8d63efc1ebef516df850737d492af537ddf3d5cb534cab5b51a0d56
+[2026-04-28 12:36:58] INFO: ✅ NoActionNeeded | gas: 240497 | tx: 0xee005c09b8d63efc1ebef516df850737d492af537ddf3d5cb534cab5b51a0d56
+[2026-04-28 12:36:59] INFO: TICK #123 finalized in 32.3s
+[2026-04-28 12:36:59] INFO: Status: 3 success | 0 failed
+[2026-04-28 12:36:59] INFO: -------------------------------------------------------
+[2026-04-28 12:37:02] INFO: Frontend Command Center connected! (ID: 3jMyeJ7EJEFM0H5OAAAN)
+[2026-04-28 12:37:27] INFO: TICK #124 initiated
+[2026-04-28 12:37:27] INFO: State recovered | Last Block: 17572206 | Employers: 15
+[2026-04-28 12:37:32] ERROR: Tick #124 aborted: request timeout (code=TIMEOUT, version=6.16.0)
+[2026-04-28 12:37:42] WARN: Webhook notification failed: TypeError: fetch failed
+[2026-04-28 12:37:42] INFO: TICK #124 finalized in 15.1s
+[2026-04-28 12:37:42] INFO: Status: 0 success | 0 failed
+[2026-04-28 12:37:42] INFO: -------------------------------------------------------
+[2026-04-28 12:37:57] INFO: TICK #125 initiated
+[2026-04-28 12:37:57] INFO: State recovered | Last Block: 17572206 | Employers: 15
+[2026-04-28 12:37:59] ERROR: Tick #125 aborted: 
+[2026-04-28 12:37:59] WARN: Webhook notification failed: TypeError: fetch failed
+[2026-04-28 12:37:59] INFO: TICK #125 finalized in 2.8s
+[2026-04-28 12:37:59] INFO: Status: 0 success | 0 failed
+[2026-04-28 12:37:59] INFO: -------------------------------------------------------
+[2026-04-28 12:38:09] INFO: Frontend Command Center connected! (ID: 57S26_hvv8LhhXf7AAAP)
+[2026-04-28 12:38:27] INFO: TICK #126 initiated
+[2026-04-28 12:38:27] INFO: State recovered | Last Block: 17572206 | Employers: 15
+[2026-04-28 12:38:27] INFO: Scanning blocks 17572206 → 17572382 for new cycles
+[2026-04-28 12:38:28] INFO: Active registry: 15 employers
+[2026-04-28 12:38:33] INFO: Processing queue: 3 active cycles
+[2026-04-28 12:38:33] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:38:36] INFO: TX broadcast: 0xf2382c7d17c80a8338745a6dcc3b1641bfc4d03135560db6db9f36a6a27de262
+[2026-04-28 12:38:36] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xf2382c7d17c80a8338745a6dcc3b1641bfc4d03135560db6db9f36a6a27de262
+[2026-04-28 12:38:38] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:38:40] INFO: TX broadcast: 0xd6f63539803b5049568664f69d2ad979d3e83fa218d05678ccae60cd4d0b4622
+[2026-04-28 12:38:41] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xd6f63539803b5049568664f69d2ad979d3e83fa218d05678ccae60cd4d0b4622
+[2026-04-28 12:38:42] INFO: Rebalancing - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:38:45] WARN: Attempt 1 failed for employer: 0x298eF6A5... | cycleId: 2: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 535, got 534: incorrect account sequence" }, payload={ "id": 8770, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820216830249f0830249f08308c34994495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf000000000000000000000000298ef6a5278bb22c2d09190f3761ef9444bf03ee0000000000000000000000000000000000000000000000000000000000000002c001a03cbf2838d75165332795c247769abf397eb8f570c84f316b7c4d48da96cc9969a022b27057c452504573957c835293fa47d8356d928852ccba79999112c73a6d09" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:38:45] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:38:47] INFO: Retry 2/2 - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:38:50] INFO: TX broadcast: 0xcb8d974bba8e07d133c42bf2018a129b16f4eff6b1c18694845f6604928cbbbb
+[2026-04-28 12:38:50] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0xcb8d974bba8e07d133c42bf2018a129b16f4eff6b1c18694845f6604928cbbbb
+[2026-04-28 12:38:51] INFO: TICK #126 finalized in 24.7s
+[2026-04-28 12:38:51] INFO: Status: 3 success | 0 failed
+[2026-04-28 12:38:51] INFO: -------------------------------------------------------
+[2026-04-28 12:38:57] INFO: TICK #127 initiated
+[2026-04-28 12:38:57] INFO: State recovered | Last Block: 17572382 | Employers: 15
+[2026-04-28 12:38:57] INFO: Scanning blocks 17572382 → 17572432 for new cycles
+[2026-04-28 12:38:58] INFO: Active registry: 15 employers
+[2026-04-28 12:39:05] INFO: Processing queue: 3 active cycles
+[2026-04-28 12:39:06] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:39:11] INFO: TX broadcast: 0x5138b432cf1569d5ed49770b50082fc080a4493b1ef44c0453a611741ac5b2a9
+[2026-04-28 12:39:11] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0x5138b432cf1569d5ed49770b50082fc080a4493b1ef44c0453a611741ac5b2a9
+[2026-04-28 12:39:13] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:39:16] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 539, got 538: incorrect account sequence" }, payload={ "id": 8856, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882021a830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a07e6be9c41c76f45b8847bab65d79de718c50b8eaaad127d7301b30c5abb0834da0685f74a56ef686baef78ed4af4c817f8b854a202129d28359fe39ff2fcac274e" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:39:16] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:39:18] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:39:22] WARN: Attempt 2 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 541, got 540: incorrect account sequence" }, payload={ "id": 8871, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882021c830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c080a024e4d384fd903c5b50a2af5d55775cc641124f2c3947f38f236f732d542afe5aa07fb83b8a7cdce27592e479d26538c18e70d55fc7760525ee5e34bc55889ff8ca" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:39:22] ERROR: Exhausted all 2 attempts for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 541, got 540: incorrect account sequence" }, payload={ "id": 8871, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd882021c830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c080a024e4d384fd903c5b50a2af5d55775cc641124f2c3947f38f236f732d542afe5aa07fb83b8a7cdce27592e479d26538c18e70d55fc7760525ee5e34bc55889ff8ca" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:39:22] WARN: Webhook notification failed: Error: Discord webhook returned 429
+[2026-04-28 12:39:25] INFO: Rebalancing - employer: 0x298eF6A5... | cycleId: 2
+[2026-04-28 12:39:27] WARN: Previous tick still active; skipping execution.
+[2026-04-28 12:39:29] INFO: TX broadcast: 0x38cce6220089089e703281eae6c7828259cce726ef2b77700a8a019aab505150
+[2026-04-28 12:39:29] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x38cce6220089089e703281eae6c7828259cce726ef2b77700a8a019aab505150
+[2026-04-28 12:39:30] INFO: TICK #127 finalized in 33.9s
+[2026-04-28 12:39:30] INFO: Status: 2 success | 1 failed
+[2026-04-28 12:39:30] INFO: -------------------------------------------------------
+[2026-04-28 12:39:57] INFO: TICK #128 initiated
+[2026-04-28 12:39:57] INFO: State recovered | Last Block: 17572432 | Employers: 15
+[2026-04-28 12:39:58] INFO: Scanning blocks 17572432 → 17572515 for new cycles
+[2026-04-28 12:39:58] INFO: Active registry: 15 employers
+[2026-04-28 12:40:04] INFO: Processing queue: 3 active cycles
+[2026-04-28 12:40:04] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 4
+[2026-04-28 12:40:07] INFO: TX broadcast: 0xa17d57339577c372c17e8b93e0599deafac08de08213f2fdd70dd1714c67e5f2
+[2026-04-28 12:40:08] INFO: ✅ NoActionNeeded | gas: 240633 | tx: 0xa17d57339577c372c17e8b93e0599deafac08de08213f2fdd70dd1714c67e5f2
+[2026-04-28 12:40:09] INFO: Rebalancing - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:40:12] WARN: Attempt 1 failed for employer: 0x96a9b1F8... | cycleId: 5: could not coalesce error (error={ "code": -32000, "message": "account sequence mismatch, expected 547, got 546: incorrect account sequence" }, payload={ "id": 8959, "jsonrpc": "2.0", "method": "eth_sendRawTransaction", "params": [ "0x02f8b787078bf8b733fcd8820222830249f0830249f08306821a94495b9b4c797c1239ee474385620b7f0b80dc70fc80b8445e71adaf00000000000000000000000096a9b1f84b40add32bcd1fe1d8c04a995b2bdc6d0000000000000000000000000000000000000000000000000000000000000005c001a08ed9e0cb7efad2ff68302b1ee78ac5a0d45cde73c2b83c6ecc498d54433e6a8da0494bdc9a045bcabc12bde52e8e4f6a918016a296dcb156e56d298d1e8a400fba" ] }, code=UNKNOWN_ERROR, version=6.16.0)
+[2026-04-28 12:40:12] WARN: Attempt 1 failed; retrying in 2000ms
+[2026-04-28 12:40:14] INFO: Retry 2/2 - employer: 0x96a9b1F8... | cycleId: 5
+[2026-04-28 12:40:16] INFO: SIGINT received: shutting down gracefully.
+[2026-04-28 12:40:17] INFO: TX broadcast: 0x00ee0233f933f80985c4b93790277590da2ad5c97ec575039d7f1b60c37ce8fa
+[2026-04-28 12:40:18] INFO: ✅ NoActionNeeded | gas: 240838 | tx: 0x00ee0233f933f80985c4b93790277590da2ad5c97ec575039d7f1b60c37ce8fa
+[2026-04-28 12:40:18] WARN: Webhook notification failed: Error: Discord webhook returned 429

@@ -41,7 +41,7 @@ async function tick(): Promise<void> {
     const startTime = Date.now();
     logger.info(`TICK #${tickCount} initiated`);
 
-    const state = loadState();
+    const state = await loadState();
     metrics.state = state;
 
     let totalCycles = 0;
