@@ -163,8 +163,8 @@ async function main(): Promise<void> {
         const network = await provider.getNetwork();
         const balance = await provider.getBalance(signer.address);
 
-        logger.info(`Connected to Chain ID: ${network.chainId}`);
-        logger.info(`Operator Balance: ${ethers.formatEther(balance)} INIT`);
+        // logger.info(`Connected to Chain ID: ${network.chainId}`);
+        // logger.info(`Operator Balance: ${ethers.formatEther(balance)} INIT`);
 
         if (balance === 0n) {
             logger.warn("Agent balance is zero; outbound transactions will fail.");
