@@ -37,7 +37,8 @@ const customSocketTransport = new Transport({
                 message.includes("Payday Settled") ||
                 message.includes("Strategies Rebalanced") ||
                 message.includes("finalized in") ||
-                message.includes("Status:");
+                message.includes("Status:") ||
+                message.includes("---------------------------------------------------");
 
             if (isPublicMilestone && !isSensitive) {
                 ioInstance.emit("agent-log", {
