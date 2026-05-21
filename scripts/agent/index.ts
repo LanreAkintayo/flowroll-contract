@@ -9,9 +9,6 @@ import { startHealthServer, metrics } from "./health";
 import { ActiveCycle } from "./types";
 import YieldRouterABI from "./abis/YieldRouter.json";
 
-/**
- * Provider and Signer Initialization
- */
 const provider = new ethers.JsonRpcProvider(config.rpcUrl);
 const signer = new ethers.Wallet(config.privateKey, provider);
 const router = new ethers.Contract(
@@ -23,10 +20,15 @@ const router = new ethers.Contract(
 let tickCount = 0;
 let isRunning = false;
 
-/**
- * Main execution loop for the Flowroll Agent.
- * Orchestrates employer discovery, cycle scanning, and strategy execution.
- */
+function getCleanHost(urlStr: string): string {
+    try {
+        const urlObj = new URL(urlStr);
+        return urlObj.hostname;
+    } catch {
+        return "custom-rpc";
+    }
+}
+
 async function tick(): Promise<void> {
     if (isRunning) {
         logger.warn("Previous tick still active; skipping execution.");
@@ -42,7 +44,6 @@ async function tick(): Promise<void> {
     logger.info(`TICK #${tickCount} initiated`);
 
     const state = await loadState();
-    metrics.state = state;
 
     let totalCycles = 0;
     let successCount = 0;
@@ -51,7 +52,6 @@ async function tick(): Promise<void> {
     let rebalanceCount = 0;
 
     try {
-        // Employer discovery and notification
         const newEmployers = await discoverNewEmployers(router, provider, state);
         if (newEmployers > 0) {
             logger.info(`Discovered ${newEmployers} new employer(s)`);
@@ -60,7 +60,6 @@ async function tick(): Promise<void> {
 
         logger.info(`Active registry: ${state.knownEmployers.length} employers`);
 
-        // Queue generation for active cycles
         const workQueue: ActiveCycle[] = [];
         for (const employer of state.knownEmployers) {
             const activeCycleIds = await getActiveCycles(router, employer);
@@ -72,7 +71,6 @@ async function tick(): Promise<void> {
         totalCycles = workQueue.length;
         logger.info(`Processing queue: ${totalCycles} active cycles`);
 
-        // Strategy execution and rebalancing
         for (const { employer, cycleId } of workQueue) {
             const result = await rebalanceCycle(router, employer, cycleId);
 
@@ -102,11 +100,10 @@ async function tick(): Promise<void> {
                 );
             }
 
-            // Stagger transactions to mitigate nonce collisions and rate limits
             await sleep(1000);
         }
 
-        saveState(state);
+        await saveState(state);
 
     } catch (error) {
         const msg = error instanceof Error ? error.message : String(error);
@@ -117,16 +114,11 @@ async function tick(): Promise<void> {
         metrics.isRunning = false;
     }
 
-    // Performance and cycle metrics update
     const duration = Date.now() - startTime;
     updateMetrics(duration, totalCycles, successCount, failureCount, paydayCount, rebalanceCount);
-
     logTickSummary(duration, successCount, failureCount, paydayCount, rebalanceCount);
 }
 
-/**
- * Standardized logging for tick completion.
- */
 function logTickSummary(
     duration: number, 
     success: number, 
@@ -142,9 +134,6 @@ function logTickSummary(
     logger.info("-------------------------------------------------------");
 }
 
-/**
- * Persists operational metrics to the global metrics state.
- */
 function updateMetrics(
     duration: number, 
     total: number, 
@@ -166,12 +155,9 @@ function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/**
- * Application entry point. Performs connectivity checks and initializes timers.
- */
 async function main(): Promise<void> {
     logger.info("Starting Flowroll Agent");
-    logger.info(`Context: RPC=${config.rpcUrl} | Operator=${signer.address}`);
+    logger.info(`Context: RPC=${getCleanHost(config.rpcUrl)} | Operator=${signer.address}`);
 
     try {
         const network = await provider.getNetwork();
@@ -192,18 +178,14 @@ async function main(): Promise<void> {
 
     await notify(
         `🚀 **Flowroll Agent Started**\n` +
-        `RPC: ${config.rpcUrl}\n` +
+        `RPC Node Host: \`${getCleanHost(config.rpcUrl)}\`\n` +
         `Router: \`${config.yieldRouterAddress}\``
     );
 
-    // Initial execution and scheduled recurrence
     await tick();
     setInterval(tick, config.intervalMs);
 }
 
-/**
- * Process Signal Handlers
- */
 const shutdown = async (signal: string) => {
     logger.info(`${signal} received: shutting down gracefully.`);
     await notify(`🛑 Flowroll Agent: Shutting down (${signal})`);
