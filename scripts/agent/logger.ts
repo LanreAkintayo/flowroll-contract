@@ -34,7 +34,7 @@ const customSocketTransport = new Transport({
                 message.includes("TICK #") ||
                 message.includes("Discovered") ||
                 message.includes("Active registry") ||
-                message.includes("Payday Settled") ||
+                message.includes("Payday") ||
                 message.includes("Strategies Rebalanced") ||
                 message.includes("finalized in") ||
                 message.includes("Status:") ||
