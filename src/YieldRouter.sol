@@ -167,9 +167,9 @@ contract YieldRouter is Ownable, Pausable, ReentrancyGuard {
 
         uint256[] memory defaultBps = new uint256[](6);
         defaultBps[0] = 500;
-        defaultBps[1] = 1_000;
-        defaultBps[2] = 1_500;
-        defaultBps[3] = 4_000;
+        defaultBps[1] = 1_500;
+        defaultBps[2] = 3_500;
+        defaultBps[3] = 6_000;
         defaultBps[4] = 10_000;
         defaultBps[5] = 10_500;
 

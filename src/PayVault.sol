@@ -99,7 +99,6 @@ contract PayVault is Ownable, Pausable, ReentrancyGuard {
         _;
     }
 
-    // --- CONSTRUCTOR ---
 
     /**
      * @param _usdc USDC token address on EVM.
